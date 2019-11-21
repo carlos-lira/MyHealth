@@ -1,0 +1,45 @@
+{
+  "private": true,
+  "name": "myhealth",
+  "version": "1.0.0",
+  "description": "MyHealth application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/pds_uoc_craft/myhealth.git"
+  },
+  "author": "UOC Craft Team",
+  "contributors": [
+    "Adrian Lopez Gonzalez",
+    "Carlos Eduardo Lira Naya",
+    "Roberto Carlos López Raya",
+    "Antonio José Peleteiro Crespo",
+    "Francisco Javier Pérez González"
+  ],
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://gitlab.com/pds_uoc_craft/myhealth/issues"
+  },
+  "homepage": "https://gitlab.com/pds_uoc_craft/myhealth#readme",
+  "scripts": {
+    "changelog": "conventional-changelog -p . -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "commit": "commit"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/prompt-cli": "^8.2.0",
+    "conventional-changelog-cli": "^2.0.28",
+    "husky": "^3.1.0"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run changelog",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}
