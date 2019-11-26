@@ -2,7 +2,25 @@
 
 > TODO
 
-## Conventional Commits
+- [Getting Started](#getting-started)
+- [Conventional Commits](#conventional-commits)
+
+## Getting Started
+
+Nodejs installation
+
+> Is important to install nodejs locally because will control that you write a correct commit messages and allow you to autogenerate the changelog file.
+> See [more](#conventional-commits)
+
+Download nodejs if is not already installed. https://nodejs.org/en/download/
+
+Once node is installed install the node modules (from the root folder directory of myhealth):
+
+```
+npm install
+```
+
+### Conventional Commits
 
 https://www.conventionalcommits.org/en/v1.0.0/
 
