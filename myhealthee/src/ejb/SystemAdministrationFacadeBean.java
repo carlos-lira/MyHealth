@@ -17,7 +17,7 @@ import jpa.PrimaryhealthcarecenterJPA;
 public class SystemAdministrationFacadeBean implements SystemAdministrationFacadeRemote {
 	
 	//Persistence Unit Context
-	@PersistenceContext(unitName="MyHealth") 
+	@PersistenceContext(unitName="myhealthee") 
 	private EntityManager entman;
 
 	//fperezgon: Entiendo que id es en realidad email, no lo cambio para mantener interfaz 
@@ -69,7 +69,8 @@ public class SystemAdministrationFacadeBean implements SystemAdministrationFacad
 
 	@Override
 	public void deleteCAP(String name) {
-		PrimaryhealthcarecenterJPA CAP = entman.find(PrimaryhealthcarecenterJPA.class, name);
+		//PrimaryhealthcarecenterJPA CAP = entman.find(PrimaryhealthcarecenterJPA.class, name);
+		PrimaryhealthcarecenterJPA CAP = getCAP(name);
 		entman.remove(CAP);
 
 
@@ -84,7 +85,8 @@ public class SystemAdministrationFacadeBean implements SystemAdministrationFacad
 
 	@Override
 	public void updateCAP(String name, String location) {
-		PrimaryhealthcarecenterJPA CAP = entman.find(PrimaryhealthcarecenterJPA.class, name);
+		//PrimaryhealthcarecenterJPA CAP = entman.find(PrimaryhealthcarecenterJPA.class, name);
+		PrimaryhealthcarecenterJPA CAP = getCAP(name);
 		CAP.setName(name);
 		CAP.setLocation(location);
 		
@@ -110,7 +112,7 @@ public class SystemAdministrationFacadeBean implements SystemAdministrationFacad
 	@Override
 	public Collection<?> listAllFamilyDoctorsByCAP(PrimaryhealthcarecenterJPA cap) {
 		@SuppressWarnings("unchecked")
-		Collection<FamilydoctorJPA> allFamilydoctor = entman.createQuery("from FamilydoctorJPA where name like ? order by 1")
+		Collection<FamilydoctorJPA> allFamilydoctor = entman.createQuery("from FamilydoctorJPA where name like ?1 order by 1")
 			.setParameter(1, cap.getName())
 			.getResultList();
 		return allFamilydoctor;
@@ -122,7 +124,7 @@ public class SystemAdministrationFacadeBean implements SystemAdministrationFacad
 		try
 		{
 			@SuppressWarnings("unchecked")
-			Collection<MedicalspecialtyJPA> medicalspecialities = entman.createQuery("FROM MedicalspecialtyJPA b WHERE b.id = ?").setParameter(1, name).getResultList();
+			Collection<MedicalspecialtyJPA> medicalspecialities = entman.createQuery("FROM MedicalspecialtyJPA b WHERE b.name = ?1").setParameter(1, name).getResultList();
 			if (!medicalspecialities.isEmpty() || medicalspecialities.size()==1)
 			{
 				Iterator<MedicalspecialtyJPA> iter =medicalspecialities.iterator();
@@ -137,9 +139,8 @@ public class SystemAdministrationFacadeBean implements SystemAdministrationFacad
 
 	@Override
 	public void deleteMedicalSpecialty(String name) {
-		MedicalspecialtyJPA medicalSpecialty = entman.find(MedicalspecialtyJPA.class, name);
+		MedicalspecialtyJPA medicalSpecialty = getMedicalSpecialty(name);
 		entman.remove(medicalSpecialty);
-
 	}
 
 	@Override
@@ -151,7 +152,8 @@ public class SystemAdministrationFacadeBean implements SystemAdministrationFacad
 
 	@Override
 	public void updateMedicalSpecialty(String name, String description) {
-		MedicalspecialtyJPA medicalSpecialty = entman.find(MedicalspecialtyJPA.class, name);
+		//MedicalspecialtyJPA medicalSpecialty = entman.find(MedicalspecialtyJPA.class, name);
+		MedicalspecialtyJPA medicalSpecialty = getMedicalSpecialty(name);
 		medicalSpecialty.setName(name);
 		medicalSpecialty.setDescription(description);
 
@@ -181,7 +183,7 @@ public class SystemAdministrationFacadeBean implements SystemAdministrationFacad
 		try
 		{
 			@SuppressWarnings("unchecked")
-			Collection<PrimaryhealthcarecenterJPA> CAPs = entman.createQuery("FROM PrimaryhealthcarecenterJPA b WHERE b.id = ?").setParameter(1, name).getResultList();
+			Collection<PrimaryhealthcarecenterJPA> CAPs = entman.createQuery("FROM PrimaryhealthcarecenterJPA b WHERE b.name = ?1").setParameter(1, name).getResultList();
 			if (!CAPs.isEmpty() || CAPs.size()==1)
 			{
 				Iterator<PrimaryhealthcarecenterJPA> iter =CAPs.iterator();
