@@ -1,170 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-  template="/resources/templates/base.xhtml"
->
-  <ui:define name="body">
-    <div class="container">
-      <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="card-body p-0">
-          <div class="row">
-            <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-            <div class="col-lg-7">
-              <div class="p-5">
-                <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                  <h:messages
-                    style="text-align: left;"
-                    errorStyle="color:red;"
-                    infoStyle="color:blue;"
-                  />
-                </div>
-                <ul class="nav nav-tabs">
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active"
-                      data-toggle="tab"
-                      href="#registerPatient"
-                      >Patient</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#registerDoctor"
-                      >Doctor</a
-                    >
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#registerAdministrator"
-                      >Administrator</a
-                    >
-                  </li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane container active" id="registerPatient">
-                    <h:form class="user pt-3">
-                      <div class="form-group row">
-                        <div class="col-sm-4 mb-3 mb-sm-0">
-                          <h:inputText
-                            value="#{user.newPatient.nif}"
-                            class="form-control form-control-user"
-                            required="true"
-                            a:placeholder="Nif"
-                            requiredMessage="The nif field is required."
-                          />
-                        </div>
-                        <div class="col-sm-4 mb-3 mb-sm-0">
-                          <h:inputText
-                            value="#{user.newPatient.name}"
-                            class="form-control form-control-user"
-                            required="true"
-                            a:placeholder="Name"
-                            requiredMessage="The name field is required."
-                          />
-                        </div>
-                        <div class="col-sm-4">
-                          <h:inputText
-                            value="#{user.newPatient.surnames}"
-                            class="form-control form-control-user"
-                            required="true"
-                            a:placeholder="Surnames"
-                            requiredMessage="The surnames field is required."
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                          <h:inputText
-                            value="#{user.newPatient.username}"
-                            class="form-control form-control-user"
-                            required="true"
-                            a:placeholder="Username"
-                            requiredMessage="The username field is required."
-                          />
-                        </div>
-                        <div class="col-sm-6">
-                          <h:inputText
-                            value="#{user.newPatient.email}"
-                            class="form-control form-control-user"
-                            required="true"
-                            a:placeholder="Email"
-                            requiredMessage="The email field is required."
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                          <h:inputText
-                            value="#{user.newPatient.password}"
-                            class="form-control form-control-user"
-                            required="true"
-                            a:placeholder="Password"
-                            requiredMessage="The password field is required."
-                          />
-                        </div>
-                        <div class="col-sm-6">
-                          <h:inputText
-                            value="#{user.newPatient.password}"
-                            class="form-control form-control-user"
-                            required="true"
-                            a:placeholder="Repeat Password"
-                            requiredMessage="You need to repeat the password"
-                          />
-                        </div>
-                      </div>
-                      <h:commandButton
-                        value="Register Account"
-                        class="btn btn-primary btn-user btn-block"
-                        action="#{user.registerPatient}"
-                      />
-                    </h:form>
-                  </div>
-                  <div class="tab-pane container fade" id="registerDoctor">
-                    Register doctor
-                  </div>
-                  <div
-                    class="tab-pane container fade"
-                    id="registerAdministrator"
-                  >
-                    Register Administrator
-                  </div>
-                </div>
-                <hr />
-                <div class="text-center">
-                  <h:link
-                    value="Forgot Password?"
-                    class="small"
-                    outcome="forgotPasswordView"
-                  />
-                </div>
-                <div class="text-center">
-                  <h:link
-                    value="Already have an account? Login!"
-                    class="small"
-                    outcome="loginView"
-                  />
-                </div>
-              </div>
-              <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                  <div class="copyright text-center my-auto">
-                    <span>Copyright © UOC - Team CRAFT 2019</span>
-                  </div>
-                </div>
-              </footer>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      (function() { document.body.classList.add("bg-gradient-primary"); })();
-    </script>
-  </ui:define>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/templates/base.xhtml">
+	<ui:define name="body">
+		<div class="container">
+			<div class="card o-hidden border-0 shadow-lg my-5">
+				<div class="card-body p-0">
+					<div class="row">
+						<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+						<div class="col-lg-7">
+							<div class="p-5">
+								<div class="text-center">
+									<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+									<h:messages style="text-align: left;" errorStyle="color:red;"
+										infoStyle="color:blue;" warnStyle="color: orange;" />
+								</div>
+								<ul class="nav nav-tabs">
+									<li class="nav-item" style="font-size: 0.8rem;"><a
+										class="nav-link active" data-toggle="tab"
+										href="#registerPatient">Patient</a></li>
+									<li class="nav-item" style="font-size: 0.8rem;"><a class="nav-link" data-toggle="tab"
+										href="#registerFamilyDoctor">Doctor</a></li>
+									<li class="nav-item" style="font-size: 0.8rem;"><a class="nav-link" data-toggle="tab"
+										href="#registerAdministrator">Administrator</a></li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane container active" id="registerPatient">
+										<ui:include src="/templates/register/patient.xhtml" />
+									</div>
+									<div class="tab-pane container fade" id="registerFamilyDoctor">
+										<ui:include src="/templates/register/doctor.xhtml" />
+									</div>
+									<div class="tab-pane container fade" id="registerAdministrator">
+										<ui:include src="/templates/register/administrator.xhtml" />
+									</div>
+								</div>
+								<hr />
+								<div class="text-center">
+									<h:link value="Forgot Password?" class="small"
+										outcome="forgotPasswordView" />
+								</div>
+								<div class="text-center">
+									<h:link value="Already have an account? Login!" class="small"
+										outcome="loginView" />
+								</div>
+							</div>
+							<footer class="sticky-footer bg-white">
+								<div class="container my-auto">
+									<div class="copyright text-center my-auto">
+										<span>Copyright © UOC - Team CRAFT 2019</span>
+									</div>
+								</div>
+							</footer>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			(function() {
+				document.body.classList.add("bg-gradient-primary");
+			})();
+		</script>
+	</ui:define>
 </ui:composition>

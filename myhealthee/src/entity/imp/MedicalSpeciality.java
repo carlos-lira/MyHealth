@@ -15,7 +15,7 @@ import utils.QueryNames;
  * @author adlo
  */
 @Entity
-@Table(name = "MEDICAL_SPECIALITY", schema = "public")
+@Table(name = "MEDICAL_SPECIALITY")
 @NamedQueries({
 	@NamedQuery(name = QueryNames.GET_ALL_MEDICAL_SPECIALITIES, query = "SELECT ms FROM MedicalSpeciality ms"),
 	@NamedQuery(name = QueryNames.GET_MEDICAL_SPECIALITY_BY_NAME, query = "SELECT ms FROM MedicalSpeciality ms WHERE ms.name = :name") 

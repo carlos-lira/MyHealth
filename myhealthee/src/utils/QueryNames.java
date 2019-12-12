@@ -7,10 +7,9 @@ package utils;
  */
 public abstract interface QueryNames {
 
-	// Administrator query names
-	public static final String GET_ALL_ADMINISTRATORS = "getAllAdministrators";
-	public static final String GET_ADMINISTRATOR = "getAdministrator";
-	
+	// User query names
+	public static final String GET_ALL_USERS = "getAllUsers";
+	public static final String GET_USER = "getUser";
 	
 	// PrimaryHealthCareCenter query names
 	public static final String GET_ALL_PRIMARY_HELTHCARE_CENTERS = "getAllPrimaryHealthCareCenters";

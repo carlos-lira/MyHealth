@@ -17,6 +17,7 @@ import entity.imp.PrimaryHealthCareCenter;
 @Remote
 public interface SystemAdministrationFacadeRemote {
 
+	// Sign in and Sign up operations
 	/**
 	 * Login to the system.
 	 * 
@@ -30,19 +31,44 @@ public interface SystemAdministrationFacadeRemote {
 	 * Logout from the system,
 	 */
 	public void logout();
-
-	// Add users
+	
+	// User CRUD Operations
 	/**
-	 * Add an administrator user to the system.
+	 * Get user by id
 	 * 
-	 * @param email    the email of the user.
-	 * @param password the password of the user.
+	 * @param id the id of the user, username or email.
+	 * @return the user if found, null otherwise.
 	 */
-	public void registerAdministrator(String email, String password);
+	public User getUser(String id);
+	
+	/**
+	 * Add a user to the system.
+	 * 
+	 * @param user the User to be added.
+	 * @return true if the user is add correctly, false otherwise.
+	 */
+	public boolean addUser(User user);
+	
+	/**
+	 * Remove user from the system.
+	 * 
+	 * @param user the User to be removed.
+	 * @return true if the user is removed correctly, false otherwise.
+	 */
+	public boolean removeUser(User user);
+	
+	/**
+	 * Remove user by id.
+	 * 
+	 * @param id the id of the user, username, email.
+	 * @return true if the user is removed correctly, false otherwise.
+	 */
+	public boolean removeUser(String id);
 
 	// CAP CRUD operations
 	/**
-	 * @return a list with all the primary healthcare centers.
+	 * @return a list with all the primary healthcare centers, or an empty list
+	 * if the database doesn't have any row.
 	 */
 	public Collection<PrimaryHealthCareCenter> listAllCAPs();
 
@@ -87,7 +113,8 @@ public interface SystemAdministrationFacadeRemote {
 
 	// Medical Specialty CRUD operations
 	/**
-	 * @return a list with all the medical specialty.
+	 * @return a list with all the medical specialty, or an empty list
+	 * if the database doesn't have any row.
 	 */
 	public Collection<MedicalSpeciality> listAllMedicalSpecialities();
 

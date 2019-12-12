@@ -1,15 +1,31 @@
 package entity;
 
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import utils.QueryNames;
 
 /**
- * Abstract user entity.
+ * Users entity.
  * 
  * @author adlo
  */
-@MappedSuperclass
-public abstract class User extends BaseEntity {
+@Entity
+@Table(name = "USERS")
+@NamedQueries({ 
+	@NamedQuery(name = QueryNames.GET_ALL_USERS, query = "SELECT u FROM User u"),
+	@NamedQuery(name = QueryNames.GET_USER, query = "SELECT u FROM User u WHERE u.email = :email OR u.username = :username") 
+})
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User extends BaseEntity {
+
+	private static final long serialVersionUID = -766782089323139033L;
 
 	@Column(name = "USERNAME", length = 200, nullable = true, unique = true)
 	private String username;
@@ -19,6 +35,9 @@ public abstract class User extends BaseEntity {
 
 	@Column(name = "PASSWORD", length = 255, nullable = false)
 	private String password;
+
+	@Transient
+	private String repeatPassword;
 
 	// Getters & Setters
 	public String getUsername() {
@@ -43,5 +62,13 @@ public abstract class User extends BaseEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRepeatPassword() {
+		return repeatPassword;
+	}
+
+	public void setRepeatPassword(String repeatPassword) {
+		this.repeatPassword = repeatPassword;
 	}
 }

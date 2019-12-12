@@ -9,8 +9,13 @@ import javax.persistence.Table;
 import entity.BaseEntity;
 import utils.QueryNames;
 
+/**
+ * Primary healthcare center entity.
+ * 
+ * @author adlo
+ */
 @Entity
-@Table(name = "PRIMARY_HEALTHCARE_CENTER", schema = "public")
+@Table(name = "PRIMARY_HEALTHCARE_CENTER")
 @NamedQueries({
 	@NamedQuery(name = QueryNames.GET_ALL_PRIMARY_HELTHCARE_CENTERS, query = "SELECT phc FROM PrimaryHealthCareCenter phc"),
 	@NamedQuery(name = QueryNames.GET_PRIMARY_HEALTHCARE_CENTER_BY_NAME, query = "SELECT phc FROM PrimaryHealthCareCenter phc WHERE phc.name = :name") 

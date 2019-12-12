@@ -11,7 +11,7 @@ import entity.Doctor;
  * @author adlo
  */
 @Entity
-@Table(name = "FAMILY_DOCTOR", schema = "public")
+@Table(name = "FAMILY_DOCTOR")
 public class FamilyDoctor extends Doctor {
 	private static final long serialVersionUID = 6910880586339922197L;
 }
