@@ -13,7 +13,7 @@ import utils.SessionUtils;
 public class MenuFactory {
 
 	// MENUS.
-	private static List<Menu> MENUS = new ArrayList<>();
+	private static List<Menu> MENUS = new ArrayList<Menu>();
 	static {
 		MENUS.add(new Menu("Dashboard", "fa-tachometer-alt", "homeView", Patient.class, FamilyDoctor.class,
 				SpecialistDoctor.class, Administrator.class));
@@ -27,7 +27,7 @@ public class MenuFactory {
 	 */
 	public List<Menu> getMenus() {
 		User u = SessionUtils.getUser();
-		List<Menu> menus = new ArrayList<>();
+		List<Menu> menus = new ArrayList<Menu>();
 		for (Menu m : MenuFactory.MENUS) {
 			if (m.getRoles().contains(u.getClass())) {
 				menus.add(m);
