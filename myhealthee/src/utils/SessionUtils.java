@@ -5,6 +5,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import entity.User;
+
 /**
  * JSF Session utilities.
  * 
@@ -38,5 +40,21 @@ public abstract class SessionUtils {
 	 */
 	public static ExternalContext getExternalContext() {
 		return FacesContext.getCurrentInstance().getExternalContext();
+	}
+	
+	/**
+	 * Add user to the session.
+	 * 
+	 * @param user the user.
+	 */
+	public static void addUser(User user) {
+		getSession().setAttribute("user", user);
+	}
+	
+	/**
+	 * @return the user stored in session.
+	 */
+	public static User getUser() {
+		return (User) getSession().getAttribute("user");
 	}
 }

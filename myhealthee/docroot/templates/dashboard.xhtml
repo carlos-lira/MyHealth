@@ -23,14 +23,19 @@
 				<!-- Divider -->
 				<hr class="sidebar-divider my-0" />
 
-				<!-- Pages - Sections -->
-				<!-- TODO -->
-
-				<!-- Divider -->
-				<hr class="sidebar-divider d-none d-md-block" />
+				<!-- Pages -->
+				<ui:repeat value="#{dashboard.navPages}" var="item">
+					<li class="nav-item"><h:link class="nav-link"
+							outcome="#{item.url}">
+							<i class="fas fa-fw #{item.iconClass}" />
+							<span> <h:outputText value="#{item.pageName}" />
+							</span>
+						</h:link></li>
+					<hr class="sidebar-divider my-0" />
+				</ui:repeat>
 
 				<!-- Sidebar Toggler (Sidebar) -->
-				<div class="text-center d-none d-md-inline">
+				<div class="text-center d-none d-md-inline mt-3">
 					<button class="rounded-circle border-0" id="sidebarToggle"></button>
 				</div>
 			</ul>
@@ -53,8 +58,9 @@
 							<li class="nav-item dropdown no-arrow"><a
 								class="nav-link dropdown-toggle" href="#" id="userDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> 
-								<span class="mr-2 d-none d-lg-inline text-gray-600 small">#{user.username}</span> <span class="img-profile rounded-circle"> <i
+								aria-expanded="false"> <span
+									class="mr-2 d-none d-lg-inline text-gray-600 small">#{user.username}</span>
+									<span class="img-profile rounded-circle"> <i
 										class="fas fa-user"
 										style="width: 100%; height: 100%; font-size: 1rem; text-align: center; border: 1px solid #00000026; border-radius: 100%; display: flex; align-items: center; justify-content: center;"></i>
 								</span>
@@ -62,10 +68,10 @@
 								<div
 									class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 									aria-labelledby="userDropdown">
-									<a class="dropdown-item" href="#"> <i
-										class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+									<h:link class="dropdown-item" outcome="profileView">
+										<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
 										Profile
-									</a>
+									</h:link>
 									<div class="dropdown-divider"></div>
 									<h:form>
 										<h:commandLink class="dropdown-item" action="#{login.logout}">

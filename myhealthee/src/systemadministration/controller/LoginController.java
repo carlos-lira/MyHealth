@@ -32,7 +32,7 @@ public class LoginController implements Serializable {
 	public String login() {
 		User u = ejb.login(id, password);
 		if (u != null) {
-			SessionUtils.getSession().setAttribute("user", u);
+			SessionUtils.addUser(u);
 			if (rememberMe) {
 				// TODO rememberMe cookie
 			}
