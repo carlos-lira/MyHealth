@@ -31,8 +31,14 @@ public interface SystemAdministrationFacadeRemote {
 	 * Logout from the system,
 	 */
 	public void logout();
-	
+
 	// User CRUD Operations
+	/**
+	 * @return a list with all the users, or an empty list if the database doesn't
+	 *         have any row.
+	 */
+	public Collection<User> listAllUsers();
+
 	/**
 	 * Get user by id
 	 * 
@@ -40,7 +46,7 @@ public interface SystemAdministrationFacadeRemote {
 	 * @return the user if found, null otherwise.
 	 */
 	public User getUser(String id);
-	
+
 	/**
 	 * Add a user to the system.
 	 * 
@@ -48,7 +54,7 @@ public interface SystemAdministrationFacadeRemote {
 	 * @return true if the user is add correctly, false otherwise.
 	 */
 	public boolean addUser(User user);
-	
+
 	/**
 	 * Remove user from the system.
 	 * 
@@ -56,7 +62,7 @@ public interface SystemAdministrationFacadeRemote {
 	 * @return true if the user is removed correctly, false otherwise.
 	 */
 	public boolean removeUser(User user);
-	
+
 	/**
 	 * Remove user by id.
 	 * 
@@ -67,8 +73,8 @@ public interface SystemAdministrationFacadeRemote {
 
 	// CAP CRUD operations
 	/**
-	 * @return a list with all the primary healthcare centers, or an empty list
-	 * if the database doesn't have any row.
+	 * @return a list with all the primary healthcare centers, or an empty list if
+	 *         the database doesn't have any row.
 	 */
 	public Collection<PrimaryHealthCareCenter> listAllCAPs();
 
@@ -113,8 +119,8 @@ public interface SystemAdministrationFacadeRemote {
 
 	// Medical Specialty CRUD operations
 	/**
-	 * @return a list with all the medical specialty, or an empty list
-	 * if the database doesn't have any row.
+	 * @return a list with all the medical specialty, or an empty list if the
+	 *         database doesn't have any row.
 	 */
 	public Collection<MedicalSpeciality> listAllMedicalSpecialities();
 

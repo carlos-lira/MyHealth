@@ -17,21 +17,27 @@
 									<div class="p-5">
 										<div class="text-center">
 											<h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-											<h:messages style="text-align: left;" errorStyle="color:red;"
-												infoStyle="color:blue;" />
+											<h:messages globalOnly="true" style="text-align: left;"
+												errorStyle="color:red;" infoStyle="color:blue;" />
 										</div>
 										<h:form class="user">
 											<div class="form-group">
-												<h:inputText value="#{login.id}"
+												<h:inputText id="login_id" value="#{login.id}"
 													class="form-control form-control-user" required="true"
 													a:placeholder="Enter a Username or an Email Address..."
 													requiredMessage="An Email or username is required." />
+												<div class="invalid-feedback d-block">
+													<h:message for="login_id" />
+												</div>
 											</div>
 											<div class="form-group">
-												<h:inputSecret value="#{login.password}"
+												<h:inputSecret id="login_password" value="#{login.password}"
 													class="form-control form-control-user" required="true"
 													a:placeholder="Password"
 													requiredMessage="The password field is required." />
+												<div class="invalid-feedback d-block">
+													<h:message for="login_password" />
+												</div>
 											</div>
 											<div class="form-group">
 												<div class="custom-control custom-checkbox small">
