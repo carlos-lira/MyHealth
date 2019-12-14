@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 
 import entity.Doctor;
@@ -14,7 +13,7 @@ import entity.imp.FamilyDoctor;
 import entity.imp.Patient;
 import entity.imp.SpecialistDoctor;
 import systemadministration.dao.SystemAdministrationFacadeRemote;
-import utils.SessionUtils;
+import utils.Messages;
 
 @Named("register")
 @RequestScoped
@@ -87,19 +86,15 @@ public class RegisterController implements Serializable {
 	private String registerUser(User u, String sucessfulMessage) {
 		// Check if the password are the same
 		if (!isSamePassword(u)) {
-			SessionUtils.getContext().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "The passwords need to be equals", ""));
+			Messages.addWarnGlobalMessage("The passwords need to be equals");
 			return null;
 		}
 		// Try to add the user.
 		if (ejb.addUser(u)) {
-			SessionUtils.getContext().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, sucessfulMessage, ""));
+			Messages.addInfoMessage(sucessfulMessage);
 			return "loginView";
-		} else {
-			SessionUtils.getContext().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error ocurred, please try again later", ""));
 		}
+		Messages.addErrorGlobalMessage("The passwords need to be equals");
 		return null;
 	}
 

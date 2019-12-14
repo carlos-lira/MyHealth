@@ -19,7 +19,8 @@ import entity.User;
 import entity.imp.FamilyDoctor;
 import entity.imp.MedicalSpeciality;
 import entity.imp.PrimaryHealthCareCenter;
-import utils.PasswordUtils;
+import security.Cypher;
+import security.HashAlgorithm;
 import utils.QueryNames;
 
 /**
@@ -30,7 +31,8 @@ import utils.QueryNames;
 @Stateless
 public class SystemAdministrationFacade implements SystemAdministrationFacadeRemote {
 
-	private final Logger logger = Log4jLogger.getLogger(SystemAdministrationFacade.class);
+	private static final Logger logger = Log4jLogger.getLogger(SystemAdministrationFacade.class);
+	private static final HashAlgorithm algorithm = HashAlgorithm.MD5;
 	
 	@PersistenceContext(name = "myhealthee")
 	private EntityManager em;
@@ -39,7 +41,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 	public User login(String id, String password) {
 		logger.info("Try of loggin of user: " + id);
 		User u = this.getUser(id);
-		if (u != null && PasswordUtils.verifyPassword(password, u.getPassword())) {
+		if (u != null && Cypher.verifyPassword(algorithm, password, u.getPassword())) {
 			logger.info("User logged: " + id);
 			return u;
 		}
@@ -51,6 +53,16 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 		// nop
 	}
 
+	@Override
+	public Collection<User> listAllUsers() {
+		try {
+			return em.createNamedQuery(QueryNames.GET_ALL_USERS).getResultList();
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return new ArrayList<User>();
+	}
+	
 	@Override
 	public User getUser(String id) {
 		try {
@@ -67,7 +79,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 	public boolean addUser(User user) {
 		try {
 			String rawPassword = user.getPassword();
-			user.setPassword(PasswordUtils.createHashedPassword(rawPassword));
+			user.setPassword(Cypher.createHashedPassword(algorithm, rawPassword));
 			em.persist(user);
 			em.flush();
 			return true;

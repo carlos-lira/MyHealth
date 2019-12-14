@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 
 import entity.User;
 import systemadministration.dao.SystemAdministrationFacadeRemote;
+import utils.Messages;
 import utils.SessionUtils;
 
 @Named("login")
@@ -38,8 +38,7 @@ public class LoginController implements Serializable {
 			}
 			return "homeView";
 		}
-		SessionUtils.getContext().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_ERROR, "The username, email or password are not corrects", ""));
+		Messages.addErrorGlobalMessage("The username, email or password are not corrects");
 		return null;
 	}
 
@@ -48,8 +47,7 @@ public class LoginController implements Serializable {
 	 */
 	public String logout() {
 		SessionUtils.getSession().invalidate();
-		SessionUtils.getContext().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, "You are now logged out.", ""));
+		Messages.addInfoGlobalMessage("You are now logged out.");
 		return "loginView";
 	}
 
@@ -58,6 +56,7 @@ public class LoginController implements Serializable {
 	 */
 	public String resetPassword() {
 		// TODO
+		Messages.addErrorGlobalMessage("Unable to send emails.");
 		return null;
 	}
 
