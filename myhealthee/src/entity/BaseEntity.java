@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,14 +26,25 @@ public abstract class BaseEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-//	@Temporal(TemporalType.DATE)
-//    @Column(name = "CREATE_DATE", nullable = false)
-//    private Date createDate;
-//	
-//	@Temporal(TemporalType.DATE)
-//    @Column(name = "UPDATE_DATE")
-//	private Date updateDate;
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATE_DATE", nullable = false)
+    private Date createDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "UPDATE_DATE")
+	private Date updateDate;
 
+	// Methods
+	@PrePersist
+	public void onCreate() {
+		this.createDate = new Date();
+	}
+	
+	@PreUpdate
+	public void onUpdate() {
+		this.updateDate = new Date();
+	}
+	
 	// Getters & Setters
 	public Long getId() {
 		return id;
@@ -41,19 +54,19 @@ public abstract class BaseEntity implements Serializable {
 		this.id = id;
 	}
 
-//	public Date getCreateDate() {
-//		return createDate;
-//	}
-//
-//	public void setCreateDate(Date createDate) {
-//		this.createDate = createDate;
-//	}
-//
-//	public Date getUpdateDate() {
-//		return updateDate;
-//	}
-//
-//	public void setUpdateDate(Date updateDate) {
-//		this.updateDate = updateDate;
-//	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.Transient;
+
 /**
  * Menu entity.
  * 
@@ -17,6 +19,8 @@ public class Menu implements Serializable {
 	private String pageName;
 	private String iconClass;
 	private String url;
+	
+	@Transient
 	private List<Class> roles;
 	
 	/**
