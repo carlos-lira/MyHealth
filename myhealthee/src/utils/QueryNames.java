@@ -18,4 +18,8 @@ public abstract interface QueryNames {
 	// MedicalSpeciality query names
 	public static final String GET_ALL_MEDICAL_SPECIALITIES = "getAllMedicalSpecialities";
 	public static final String GET_MEDICAL_SPECIALITY_BY_NAME = "getMedicalSpecialityByName";
+
+	// PatientFamilyDoctor
+	public static final String GET_ALL_FAMILY_DOCTOR_PATIENTS = "getAllFamilyDoctorPatients";
+	public static final String GET_PATIENT_FAMILY_DOCTOR = "getPatientFamilyDoctor";
 }
