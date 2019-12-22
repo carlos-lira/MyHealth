@@ -1,7 +1,6 @@
 package systemadministration.dao;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -54,7 +53,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 	}
 
 	@Override
-	public Collection<User> listAllUsers() {
+	public List<User> listAllUsers() {
 		try {
 			return em.createNamedQuery(QueryNames.GET_ALL_USERS).getResultList();
 		} catch (PersistenceException e) {
@@ -176,13 +175,13 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 	}
 
 	@Override
-	public Collection<FamilyDoctor> listAllFamilyDoctorsByCAP(PrimaryHealthCareCenter cap) {
+	public List<FamilyDoctor> listAllFamilyDoctorsByCAP(PrimaryHealthCareCenter cap) {
 		// TODO
 		return null;
 	}
 
 	@Override
-	public Collection<MedicalSpeciality> listAllMedicalSpecialities() {
+	public List<MedicalSpeciality> listAllMedicalSpecialities() {
 		try {
 			return em.createNamedQuery(QueryNames.GET_ALL_MEDICAL_SPECIALITIES).getResultList();
 		} catch (PersistenceException e) {
