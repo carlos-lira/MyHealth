@@ -1,17 +1,15 @@
-package profile.controller;
+package components.profile.controller;
 
-import entity.User;
-import profile.dao.ProfileFacadeRemote;
-import utils.Messages;
-import utils.SessionUtils;
-
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
 import java.io.Serializable;
 
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+import components.profile.dao.ProfileFacadeRemote;
+
 @Named("profile")
-@RequestScoped
+@SessionScoped
 public class ProfileController implements Serializable{
 	private static final long serialVersionUID = 9211805378364561644L;
 	

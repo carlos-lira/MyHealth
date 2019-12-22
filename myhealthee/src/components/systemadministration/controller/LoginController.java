@@ -1,4 +1,4 @@
-package systemadministration.controller;
+package components.systemadministration.controller;
 
 import java.io.Serializable;
 
@@ -6,8 +6,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import components.systemadministration.dao.SystemAdministrationFacadeRemote;
 import entity.User;
-import systemadministration.dao.SystemAdministrationFacadeRemote;
 import utils.Messages;
 import utils.SessionUtils;
 

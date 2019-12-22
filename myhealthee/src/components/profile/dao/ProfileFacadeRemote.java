@@ -1,4 +1,4 @@
-package profile.dao;
+package components.profile.dao;
 
 import entity.imp.FamilyDoctor;
 import entity.imp.MedicalSpeciality;

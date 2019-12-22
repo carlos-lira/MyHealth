@@ -1,8 +1,12 @@
-package profile.dao;
+package components.profile.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.jboss.resteasy.logging.Logger;
+import org.jboss.resteasy.logging.impl.Log4jLogger;
+
 import entity.imp.FamilyDoctor;
 import entity.imp.MedicalSpeciality;
 import entity.imp.PrimaryHealthCareCenter;
@@ -15,8 +19,7 @@ import entity.imp.PrimaryHealthCareCenter;
 @Stateless
 public class ProfileFacade implements ProfileFacadeRemote {
 
-	//private static final Logger logger = Log4jLogger.getLogger(ProfileFacade.class);
-	//private static final HashAlgorithm algorithm = HashAlgorithm.MD5;
+	private static final Logger logger = Log4jLogger.getLogger(ProfileFacade.class);
 	
 	@PersistenceContext(name = "myhealthee")
 	private EntityManager em;
