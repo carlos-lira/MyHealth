@@ -11,11 +11,6 @@ import systemadministration.dao.SystemAdministrationFacadeRemote;
 import utils.Messages;
 import utils.SessionUtils;
 
-/**
- * Login managed bean.
- * 
- * @author adlo
- */
 @Named("login")
 @RequestScoped
 public class LoginController implements Serializable {
@@ -61,7 +56,7 @@ public class LoginController implements Serializable {
 	 */
 	public String resetPassword() {
 		// TODO
-		Messages.addWarnGlobalMessage("Unable to send emails, smtp service not configured.");
+		Messages.addErrorGlobalMessage("Unable to send emails.");
 		return null;
 	}
 

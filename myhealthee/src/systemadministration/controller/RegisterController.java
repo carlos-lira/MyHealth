@@ -2,7 +2,6 @@ package systemadministration.controller;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -16,11 +15,6 @@ import entity.imp.SpecialistDoctor;
 import systemadministration.dao.SystemAdministrationFacadeRemote;
 import utils.Messages;
 
-/**
- * Register managed bean.
- * 
- * @author adlo
- */
 @Named("register")
 @RequestScoped
 public class RegisterController implements Serializable {
@@ -30,17 +24,10 @@ public class RegisterController implements Serializable {
 	private SystemAdministrationFacadeRemote ejb;
 
 	/* Fields */
-	private Patient patient;
-	private Doctor doctor;
-	private Administrator administrator;
+	private Patient patient = new Patient();
+	private Doctor doctor = new Doctor();
+	private Administrator administrator = new Administrator();
 
-	@PostConstruct
-	public void init() {
-		this.patient = new Patient();
-		this.doctor = new Doctor();
-		this.administrator = new Administrator();
-	}
-	
 	// ACTIONS
 	/**
 	 * Register patient Action.
