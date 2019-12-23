@@ -1,6 +1,8 @@
 package utils;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Locale;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -79,5 +81,25 @@ public abstract class SessionUtils {
 	public static User getUser() {
 		return (User) getValue(SessionKeys.USER);
 	}
+	
+	/**
+	 * @return the message bundle name.
+	 */
+	public static String getMessageBundle() {
+		return getContext().getApplication().getMessageBundle();
+	}
 
+	/**
+	 * @return the actual locale.
+	 */
+	public static Locale getLocale() {
+		return getContext().getViewRoot().getLocale();
+	}
+	
+	/**
+	 * @return an iterator with the supported locales.
+	 */
+	public static Iterator<Locale> getSuportedLocales() {
+		return getContext().getApplication().getSupportedLocales();
+	}
 }
