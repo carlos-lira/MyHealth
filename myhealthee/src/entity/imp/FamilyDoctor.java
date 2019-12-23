@@ -23,7 +23,7 @@ public class FamilyDoctor extends Doctor {
 	private static final long serialVersionUID = 6910880586339922197L;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PRIMARY_HEALTHCARE_CENTER_ID", nullable = false)
+	@JoinColumn(name = "PRIMARY_HEALTHCARE_CENTER_ID")
 	private PrimaryHealthCareCenter primaryHealthcareCenter;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

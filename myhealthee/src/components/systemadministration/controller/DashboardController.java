@@ -1,4 +1,4 @@
-package systemadministration.controller;
+package components.systemadministration.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,10 +12,10 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import components.systemadministration.dao.SystemAdministrationFacadeRemote;
 import entity.User;
 import menus.Menu;
 import menus.MenuFactory;
-import systemadministration.dao.SystemAdministrationFacadeRemote;
 import utils.StringUtils;
 
 /**

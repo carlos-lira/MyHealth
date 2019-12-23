@@ -1,4 +1,4 @@
-package systemadministration.controller;
+package components.systemadministration.controller;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import systemadministration.dao.SystemAdministrationFacadeRemote;
+import components.systemadministration.dao.SystemAdministrationFacadeRemote;
 
 /**
  * Cap managed bean

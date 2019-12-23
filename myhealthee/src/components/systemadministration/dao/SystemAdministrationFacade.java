@@ -1,4 +1,4 @@
-package systemadministration.dao;
+package components.systemadministration.dao;
 
 import java.util.ArrayList;
 import java.util.List;

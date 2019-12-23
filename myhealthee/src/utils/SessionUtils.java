@@ -1,5 +1,7 @@
 package utils;
 
+import java.io.Serializable;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -27,34 +29,55 @@ public abstract class SessionUtils {
 	public static HttpServletRequest getRequest() {
 		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	}
-	
+
 	/**
 	 * @return the context.
 	 */
 	public static FacesContext getContext() {
 		return FacesContext.getCurrentInstance();
 	}
-	
+
+	/**
+	 * Set a value to the session.
+	 * 
+	 * @param key a key
+	 * @param o   the serializable object to store.
+	 */
+	public static void setValue(String key, Serializable o) {
+		getSession().setAttribute(key, o);
+	}
+
+	/**
+	 * Get value from session.
+	 * 
+	 * @param key the key to get the value from session.
+	 * @return the object stored in session.
+	 */
+	public static Object getValue(String key) {
+		return getSession().getAttribute(key);
+	}
+
 	/**
 	 * @return the external context.
 	 */
 	public static ExternalContext getExternalContext() {
 		return FacesContext.getCurrentInstance().getExternalContext();
 	}
-	
+
 	/**
 	 * Add user to the session.
 	 * 
 	 * @param user the user.
 	 */
 	public static void addUser(User user) {
-		getSession().setAttribute("user", user);
+		setValue(SessionKeys.USER, user);
 	}
-	
+
 	/**
 	 * @return the user stored in session.
 	 */
 	public static User getUser() {
-		return (User) getSession().getAttribute("user");
+		return (User) getValue(SessionKeys.USER);
 	}
+
 }
