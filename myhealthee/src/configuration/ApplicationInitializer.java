@@ -11,7 +11,6 @@ public final class ApplicationInitializer {
 	public static final Boolean DEBUG_MODE;
 	// SMTP configuration
 	public static final String SMTP_HOST;
-	public static final String SMTP_PORT;
 	public static final String SMTP_PROTOCOL;
 	public static final String SMTP_ID;
 	public static final String SMTP_PASSWORD;
@@ -24,10 +23,9 @@ public final class ApplicationInitializer {
 		DEBUG_MODE = Boolean.valueOf(System.getProperty("debug", "true"));
 		// Smtp configuration.
 		SMTP_HOST = System.getProperty("smtp_host", "");
-		SMTP_PORT = System.getProperty("smtp_port", "");
 		SMTP_PROTOCOL = System.getProperty("smtp_protocol", "");
 		SMTP_ID = System.getProperty("smtp_id", "");
 		SMTP_PASSWORD = System.getProperty("smtp_password", "");
-		SMTP_FROM_EMAIL = System.getProperty("smtp_from_email", "");
+		SMTP_FROM_EMAIL = System.getProperty("smtp_from_email", "info@myhealth.com");
 	}
 }

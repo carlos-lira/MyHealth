@@ -5,7 +5,7 @@ package services.mail;
  *
  * @author adlo
  */
-enum SmtpHosts {
+public enum SmtpHosts {
 	O365("smtp.office365.com", true), GMAIL("smtp.gmail.com", true), CUSTOM("", false);
 
 	/* Fields */

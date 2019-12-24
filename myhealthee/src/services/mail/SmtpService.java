@@ -62,8 +62,8 @@ public final class SmtpService {
 	 */
 	public SmtpService() {
 		this.smtpHost = SmtpHosts.getHostFrom(ApplicationInitializer.SMTP_HOST);
-		this.smtpPort = ApplicationInitializer.SMTP_PORT;
 		this.smtpProtocol = Protocol.getFor(ApplicationInitializer.SMTP_PROTOCOL);
+		this.smtpPort = this.smtpProtocol.getDefaultPort();
 		this.smtpId = ApplicationInitializer.SMTP_ID;
 		this.smtpPassword = ApplicationInitializer.SMTP_PASSWORD;
 		if (SmtpHosts.getFor(this.smtpHost).useStmpIdentifierAsFromEmail()) {
@@ -194,6 +194,7 @@ public final class SmtpService {
 				this.smtpListener.onFinish();
 			}
 		} catch (Exception ex) {
+			logger.error(ex.getMessage());
 			if (this.smtpListener != null) {
 				this.smtpListener.onFail(ex);
 			}

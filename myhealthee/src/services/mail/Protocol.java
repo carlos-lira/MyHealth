@@ -5,7 +5,7 @@ package services.mail;
  *
  * @author adlo
  */
-enum Protocol {
+public enum Protocol {
 	SSL("ssl", "465"), TLS("tls", "587"), NO_AUTHENTICATION("", "");
 
 	/* Fields */
