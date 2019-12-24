@@ -106,7 +106,7 @@ public final class SessionUtils {
 	/**
 	 * @return an iterator with the supported locales.
 	 */
-	public static Iterator<Locale> getSuportedLocales() {
+	public static Iterator<Locale> getSupportedLocales() {
 		return getContext().getApplication().getSupportedLocales();
 	}
 }

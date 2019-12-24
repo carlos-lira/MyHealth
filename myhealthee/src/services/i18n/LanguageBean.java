@@ -30,7 +30,7 @@ public class LanguageBean implements Serializable {
 	public void init() {
 		this.locale = SessionUtils.getLocale();
 		this.supportedLocales = new ArrayList<Locale>();
-		for (Iterator<Locale> it = SessionUtils.getSuportedLocales(); it.hasNext();) {
+		for (Iterator<Locale> it = SessionUtils.getSupportedLocales(); it.hasNext();) {
 			this.supportedLocales.add(it.next());
 		}
 	}
@@ -63,7 +63,7 @@ public class LanguageBean implements Serializable {
 	 * @param country
 	 */
 	public void changeLanguage(String language, String country) {
-		Iterator<Locale> it = SessionUtils.getSuportedLocales();
+		Iterator<Locale> it = this.supportedLocales.iterator();
 		while (it.hasNext()) {
 			Locale l = it.next();
 			if (l.getLanguage().equals(language) && l.getCountry().equals(country)) {
