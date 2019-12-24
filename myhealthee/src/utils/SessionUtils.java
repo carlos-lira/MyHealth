@@ -16,8 +16,15 @@ import entity.User;
  * 
  * @author adlo
  */
-public abstract class SessionUtils {
+public final class SessionUtils {
 
+	/**
+	 * Hide constructor
+	 */
+	private SessionUtils() {
+		// nop
+	}
+	
 	/**
 	 * @return the current session.
 	 */

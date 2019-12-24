@@ -1,7 +1,7 @@
 package services.mail;
 
 /**
- * Enum to add the different smtp euthentication methods
+ * Enum to add the different smtp authentication methods
  *
  * @author adlo
  */

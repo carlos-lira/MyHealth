@@ -5,7 +5,7 @@ package utils;
  * 
  * @author adlo
  */
-public abstract interface QueryNames {
+public interface QueryNames {
 
 	// User query names
 	public static final String GET_ALL_USERS = "getAllUsers";

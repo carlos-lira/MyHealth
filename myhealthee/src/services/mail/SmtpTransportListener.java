@@ -15,12 +15,12 @@ public interface SmtpTransportListener extends TransportListener {
 	public void onStart();
 
 	/**
-	 * Event fired on email sended.
+	 * Event fired on email send.
 	 */
 	public void onFinish();
 
 	/**
-	 * Event fired if any exception ocurred.
+	 * Event fired if any exception occurred.
 	 *
 	 * @param ex the exception
 	 */

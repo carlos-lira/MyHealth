@@ -11,7 +11,7 @@ import utils.SessionUtils;
  * 
  * @author adlo
  */
-public abstract class I18n {
+public final class I18n {
 
 	/**
 	 * Hide constructor

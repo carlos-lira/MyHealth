@@ -3,8 +3,20 @@ package utils;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 
-public abstract class Messages {
+/**
+ * Messages class.
+ * 
+ * @author adlo
+ */
+public final class Messages {
 
+	/**
+	 * Hide constructor.
+	 */
+	private Messages() {
+		// nop
+	}
+	
 	/**
 	 * Add a global message.
 	 * 
