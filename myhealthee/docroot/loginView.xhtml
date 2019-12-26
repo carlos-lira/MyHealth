@@ -4,83 +4,60 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	template="/templates/base.xhtml">
-	<ui:define name="body">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-xl-10 col-lg-12 col-md-9">
-					<div class="card o-hidden border-0 shadow-lg my-5">
-						<div class="card-body p-0">
-							<div class="row">
-								<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-								<div class="col-lg-6">
-									<div class="p-5">
-										<div class="text-center">
-											<h1 class="h4 text-gray-900 mb-4">
-												<h:outputText value="#{msg['login.title']}" />
-											</h1>
-											<h:messages globalOnly="true" style="text-align: left;"
-												errorStyle="color:red;" infoStyle="color:blue;" />
-										</div>
-										<h:form class="user">
-											<div class="form-group">
-												<h:inputText id="login_id" value="#{login.id}"
-													class="form-control form-control-user" required="true"
-													a:placeholder="Enter a Username or an Email Address..."
-													requiredMessage="An Email or username is required." />
-												<div class="invalid-feedback d-block">
-													<h:message for="login_id" />
-												</div>
-											</div>
-											<div class="form-group">
-												<h:inputSecret id="login_password" value="#{login.password}"
-													class="form-control form-control-user" required="true"
-													a:placeholder="Password"
-													requiredMessage="The password field is required." />
-												<div class="invalid-feedback d-block">
-													<h:message for="login_password" />
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="custom-control custom-checkbox small">
-													<h:selectBooleanCheckbox value="#{login.rememberMe}"
-														class="custom-control-input" id="rememberMe" />
-													<h:outputLabel value="Remember Me"
-														class="custom-control-label" for="rememberMe" />
-												</div>
-											</div>
-											<h:commandButton value="Login"
-												class="btn btn-primary btn-user btn-block"
-												action="#{login.login}" />
-										</h:form>
-										<hr />
-										<div class="text-center">
-											<h:link value="Forgot Password?" class="small"
-												outcome="forgotPasswordView" />
-										</div>
-										<div class="text-center">
-											<h:link value="Create an Account!" class="small"
-												outcome="registerView" />
-										</div>
-									</div>
-									<footer class="sticky-footer bg-white">
-										<div class="container my-auto">
-											<div class="copyright text-center my-auto">
-												<span>Copyright © UOC - Team CRAFT 2019</span>
-											</div>
-										</div>
-									</footer>
-								</div>
-							</div>
-						</div>
-					</div>
+	template="/templates/baseLogin.xhtml">
+
+	<!-- Background image -->
+	<ui:define name="bgimage">
+		<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+	</ui:define>
+
+	<!-- Content -->
+	<ui:define name="content">
+		<div class="text-center">
+			<h1 class="h4 text-gray-900 mb-4">
+				<h:outputText value="#{msg['login.title']}" />
+			</h1>
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;" />
+		</div>
+		<h:form class="user">
+			<div class="form-group">
+				<h:inputText id="login_id" value="#{login.id}"
+					class="form-control form-control-user" required="true"
+					a:placeholder="Enter a Username or an Email Address..."
+					requiredMessage="An Email or username is required." />
+				<div class="invalid-feedback d-block">
+					<h:message for="login_id" />
 				</div>
 			</div>
+			<div class="form-group">
+				<h:inputSecret id="login_password" value="#{login.password}"
+					class="form-control form-control-user" required="true"
+					a:placeholder="Password"
+					requiredMessage="The password field is required." />
+				<div class="invalid-feedback d-block">
+					<h:message for="login_password" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="custom-control custom-checkbox small">
+					<h:selectBooleanCheckbox value="#{login.rememberMe}"
+						class="custom-control-input" id="rememberMe" />
+					<h:outputLabel value="Remember Me" class="custom-control-label"
+						for="rememberMe" />
+				</div>
+			</div>
+			<h:commandButton value="Login"
+				class="btn btn-primary btn-user btn-block" action="#{login.login}" />
+		</h:form>
+		<hr />
+		<div class="text-center">
+			<h:link value="Forgot Password?" class="small"
+				outcome="forgotPasswordView" />
 		</div>
-		<script>
-			(function() {
-				document.body.classList.add("bg-gradient-primary");
-			})();
-		</script>
+		<div class="text-center">
+			<h:link value="Create an Account!" class="small"
+				outcome="registerView" />
+		</div>
 	</ui:define>
 </ui:composition>

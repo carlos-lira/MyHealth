@@ -3,67 +3,51 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	template="/templates/base.xhtml">
-	<ui:define name="body">
-		<div class="container">
-			<div class="card o-hidden border-0 shadow-lg my-5">
-				<div class="card-body p-0">
-					<div class="row">
-						<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-						<div class="col-lg-7">
-							<div class="p-5">
-								<div class="text-center">
-									<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-									<h:messages globalOnly="true" style="text-align: left;"
-										errorStyle="color:red;" infoStyle="color:blue;"
-										warnStyle="color: orange;" />
-								</div>
-								<ul class="nav nav-tabs">
-									<li class="nav-item" style="font-size: 0.8rem;"><a
-										class="nav-link active" data-toggle="tab" href="#registerPatient">Patient</a></li>
-									<li class="nav-item" style="font-size: 0.8rem;"><a
-										class="nav-link" data-toggle="tab"
-										href="#registerFamilyDoctor">Doctor</a></li>
-									<li class="nav-item" style="font-size: 0.8rem;"><a
-										class="nav-link" data-toggle="tab"
-										href="#registerAdministrator">Administrator</a></li>
-								</ul>
-								<div class="tab-content">
-									<div class="tab-pane container active" id="registerPatient">
-										<ui:include src="/templates/register/patient.xhtml" />
-									</div>
-									<div class="tab-pane container fade" id="registerFamilyDoctor">
-										<ui:include src="/templates/register/doctor.xhtml" />
-									</div>
-									<div class="tab-pane container fade" id="registerAdministrator">
-										<ui:include src="/templates/register/administrator.xhtml" />
-									</div>
-								</div>
-								<hr />
-								<div class="text-center">
-									<h:link value="Forgot Password?" class="small"
-										outcome="forgotPasswordView" />
-								</div>
-								<div class="text-center">
-									<h:link value="Already have an account? Login!" class="small"
-										outcome="loginView" />
-								</div>
-							</div>
-							<footer class="sticky-footer bg-white">
-								<div class="container my-auto">
-									<div class="copyright text-center my-auto">
-										<span>Copyright © UOC - Team CRAFT 2019</span>
-									</div>
-								</div>
-							</footer>
-						</div>
-					</div>
-				</div>
+	template="/templates/baseLogin.xhtml">
+
+	<!-- Background image -->
+	<ui:define name="bgimage">
+		<div class="col-lg-6 d-none d-lg-block bg-register-image"></div>
+	</ui:define>
+
+	<!-- Content -->
+	<ui:define name="content">
+		<div class="text-center">
+			<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: orange;" />
+		</div>
+		<ul class="nav nav-tabs">
+			<li class="nav-item" style="font-size: 0.8rem;"><a
+				class="nav-link active" data-toggle="tab" href="#registerPatient">Patient</a></li>
+			<li class="nav-item" style="font-size: 0.8rem;"><a
+				class="nav-link" data-toggle="tab" href="#registerFamilyDoctor">Doctor</a></li>
+			<li class="nav-item" style="font-size: 0.8rem;"><a
+				class="nav-link" data-toggle="tab" href="#registerAdministrator">Administrator</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="registerPatient">
+				<ui:include src="/templates/register/patient.xhtml" />
 			</div>
+			<div class="tab-pane fade" id="registerFamilyDoctor">
+				<ui:include src="/templates/register/doctor.xhtml" />
+			</div>
+			<div class="tab-pane fade" id="registerAdministrator">
+				<ui:include src="/templates/register/administrator.xhtml" />
+			</div>
+		</div>
+		<hr />
+		<div class="text-center">
+			<h:link value="Forgot Password?" class="small"
+				outcome="forgotPasswordView" />
+		</div>
+		<div class="text-center">
+			<h:link value="Already have an account? Login!" class="small"
+				outcome="loginView" />
 		</div>
 		<script>
 			(function($) {
-				document.body.classList.add("bg-gradient-primary");
 				$(function() {
 					// Tabs state using session storage.
 					$("ul.nav-tabs > li > a").click(function(e) {
@@ -74,7 +58,9 @@
 					});
 					// on load of the page: switch to the currently selected tab
 					const hash = sessionStorage.getItem('tab');
-					if (hash) $('ul.nav-tabs > li > a[href="' + hash + '"]').tab('show');
+					if (hash) {
+						$('ul.nav-tabs > li > a[href="' + hash + '"]').tab('show');
+					}
 				});
 			})(jQuery);
 		</script>

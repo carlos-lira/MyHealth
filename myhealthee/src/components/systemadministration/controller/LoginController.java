@@ -60,7 +60,6 @@ public class LoginController implements Serializable {
 	 * Reset Password Action.
 	 */
 	public String resetPassword() {
-		// TODO
 		Messages.addWarnGlobalMessage("Unable to send emails, smtp service not configured.");
 		return null;
 	}

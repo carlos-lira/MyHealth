@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 
 import utils.SessionUtils;
@@ -23,6 +24,7 @@ public class LanguageBean implements Serializable {
 	private static final long serialVersionUID = 8157016164967209878L;
 
 	/* Fields */
+	private String localeCode;
 	private Locale locale;
 	private List<Locale> supportedLocales;
 
@@ -30,39 +32,49 @@ public class LanguageBean implements Serializable {
 	public void init() {
 		this.locale = SessionUtils.getLocale();
 		this.supportedLocales = new ArrayList<Locale>();
+		this.supportedLocales.add(this.locale);
 		for (Iterator<Locale> it = SessionUtils.getSupportedLocales(); it.hasNext();) {
 			this.supportedLocales.add(it.next());
 		}
 	}
 
 	/**
-	 * @return the actual locale.
+	 * @return a displayable language for a locale.
 	 */
-	public Locale getLocale() {
-		return this.locale;
+	public String getDisplayLanguage(Locale locale) {
+		return locale.getDisplayLanguage();
 	}
 
 	/**
-	 * @return the actual language
+	 * @return the language of a locale.
 	 */
-	public String getLanguage() {
-		return this.locale.getLanguage();
+	public String getLanguage(Locale locale) {
+		return locale.getLanguage();
 	}
 
 	/**
-	 * @return the actual country,
+	 * @return the country of a locale.
 	 */
-	public String getCountry() {
-		return this.locale.getCountry();
+	public String getCountry(Locale locale) {
+		return locale.getCountry();
+	}
+
+	/**
+	 * @return the locale code of a locale.
+	 */
+	public String getLocaleCode(Locale locale) {
+		return this.getLanguage(locale) + "_" + this.getCountry(locale);
 	}
 
 	/**
 	 * Change the actual locale to a new one based on language and country.
 	 * 
-	 * @param language
-	 * @param country
+	 * @param e jsf change event.
 	 */
-	public void changeLanguage(String language, String country) {
+	public void changeLanguage(ValueChangeEvent e) {
+		String newLocaleValue = e.getNewValue().toString();
+		String language = newLocaleValue.split("_")[0];
+		String country = newLocaleValue.split("_")[1];
 		Iterator<Locale> it = this.supportedLocales.iterator();
 		while (it.hasNext()) {
 			Locale l = it.next();
@@ -72,5 +84,25 @@ public class LanguageBean implements Serializable {
 				break;
 			}
 		}
+	}
+
+	// Getters & Setters
+	/**
+	 * @return the locale code.
+	 */
+	public String getLocaleCode() {
+		return this.localeCode;
+	}
+
+	public void setLocaleCode(String localeCode) {
+		this.localeCode = localeCode;
+	}
+
+	public Locale getLocale() {
+		return this.locale;
+	}
+
+	public List<Locale> getSupportedLocales() {
+		return supportedLocales;
 	}
 }
