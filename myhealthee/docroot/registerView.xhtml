@@ -14,16 +14,18 @@
 							<div class="p-5">
 								<div class="text-center">
 									<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-									<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;"
-										infoStyle="color:blue;" warnStyle="color: orange;" />
+									<h:messages globalOnly="true" style="text-align: left;"
+										errorStyle="color:red;" infoStyle="color:blue;"
+										warnStyle="color: orange;" />
 								</div>
 								<ul class="nav nav-tabs">
 									<li class="nav-item" style="font-size: 0.8rem;"><a
-										class="nav-link active" data-toggle="tab"
-										href="#registerPatient">Patient</a></li>
-									<li class="nav-item" style="font-size: 0.8rem;"><a class="nav-link" data-toggle="tab"
+										class="nav-link active" data-toggle="tab" href="#registerPatient">Patient</a></li>
+									<li class="nav-item" style="font-size: 0.8rem;"><a
+										class="nav-link" data-toggle="tab"
 										href="#registerFamilyDoctor">Doctor</a></li>
-									<li class="nav-item" style="font-size: 0.8rem;"><a class="nav-link" data-toggle="tab"
+									<li class="nav-item" style="font-size: 0.8rem;"><a
+										class="nav-link" data-toggle="tab"
 										href="#registerAdministrator">Administrator</a></li>
 								</ul>
 								<div class="tab-content">
@@ -60,9 +62,21 @@
 			</div>
 		</div>
 		<script>
-			(function() {
+			(function($) {
 				document.body.classList.add("bg-gradient-primary");
-			})();
+				$(function() {
+					// Tabs state using session storage.
+					$("ul.nav-tabs > li > a").click(function(e) {
+						e.preventDefault();
+						$(this).tab('show');
+						const id = $(e.target).attr("href").substr(1);
+						sessionStorage.setItem("tab", "#" + id);
+					});
+					// on load of the page: switch to the currently selected tab
+					const hash = sessionStorage.getItem('tab');
+					if (hash) $('ul.nav-tabs > li > a[href="' + hash + '"]').tab('show');
+				});
+			})(jQuery);
 		</script>
 	</ui:define>
 </ui:composition>
