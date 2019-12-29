@@ -9,35 +9,144 @@
 	<ui:define name="content">
 		<!-- Title page -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Medical Specialty</h1>
-			<a href="#"
-				class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-				<i class="fas fa-plus fa-sm text-white-50"></i> Add medical
-				specialty
-			</a>
+			<h1 class="h3 mb-0 text-gray-800">Medical Specialties</h1>
+			<button type="button"
+				class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+				data-toggle="modal" data-target="#exampleModal">
+				<i class="fas fa-plus fa-sm text-white-50"></i> <span>Add
+					medical specialty</span>
+			</button>
 		</div>
 
-		<!-- Subtitle -->
-		<p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing
-			elit. Curabitur eleifend dui non hendrerit dapibus. Fusce porttitor
-			sapien ut odio tristique rhoncus vitae non turpis. Sed scelerisque
-			lectus turpis, eu vulputate urna dictum id. Etiam sed mollis massa.
-			Phasellus vel vestibulum urna, id dictum ex. Nullam faucibus vel quam
-			et fermentum. Pellentesque accumsan vestibulum porta. Nam malesuada
-			egestas ante eu auctor. Proin hendrerit, elit sit amet tempus congue,
-			ex ante fermentum risus, ut pulvinar quam turpis tempor ante. Fusce
-			tempor ex sit amet ultricies dictum. Nam quis dignissim leo.</p>
+		<!-- Messages -->
+		<p class="mb-4">
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;" />
+		</p>
 
 		<!-- Table -->
 		<div class="card shadow mb-4">
-			<div class="card-body"></div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<h:form>
+						<table class="table table-bordered" id="dataTable" width="100%"
+							cellspacing="0">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th></th>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item"
+									value="#{medicalspec.listMedicalSpecialty}">
+									<tr>
+										<td style="width: 10%;">
+											<div class="d-flex justify-content-center">
+												<a href="#"
+													class="d-none d-sm-inline-block btn btn-sm btn-default shadow-sm mx-2 js-item-show">
+													<i class="fas fa-eye fa-sm fa-fw"></i>
+												</a> <a href="#"
+													class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm mx-2 js-item-update"
+													data-item="#{item.id}"> <i
+													class="fas fa-pencil-alt fa-sm fa-fw"></i>
+												</a> <a href="#"
+													class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mx-2 js-item-delete"
+													data-item="#{item.id}"> <i
+													class="fas fa-trash-alt fa-sm fa-fw"></i> <h:commandLink
+														actionListener="#{medicalspec.deleteMedicalSpeciality(item.name)}"
+														style="display: none;" />
+												</a>
+											</div>
+
+										</td>
+										<td><h:outputText value="#{item.name}" /></td>
+										<td><h:outputText value="#{item.description}" /></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+			</div>
 		</div>
 
 		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&#215;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<h:inputText id="name"
+									value="#{medicalspec.medicalSpeciality.name}"
+									class="form-control" required="true" a:placeholder="Name"
+									requiredMessage="A name is required." />
+								<div class="invalid-feedback d-block">
+									<h:message for="name" />
+								</div>
+							</div>
+							<div class="form-group">
+								<h:inputTextarea id="description"
+									value="#{medicalspec.medicalSpeciality.description}"
+									class="form-control" required="true"
+									a:placeholder="Description"
+									requiredMessage="A description is required." />
+								<div class="invalid-feedback d-block">
+									<h:message for="description" />
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<h:commandButton value="Save" class="btn btn-primary"
+								action="#{medicalspec.addMedicalSpeciality}" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
 
 		<!-- Js functionality -->
 		<script>
-			
+			(function($) {
+				$(function() {
+					$('#dataTable').DataTable();
+
+					// Row item events
+					$(".js-item-delete").on("click", function(e) {
+						e.preventDefault();
+						const el = $(this);
+						Swal.fire({
+							title: 'Are you sure?',
+							text: "You won't be able to revert this!",
+							icon: 'warning',
+							showCancelButton: true,
+							confirmButtonText: 'Yes, delete it!'
+						}).then((result) => {
+							if (result.value) {
+								el.next().click();
+							}
+						});
+					});
+				});
+			})(jQuery)
 		</script>
 	</ui:define>
 </ui:composition>

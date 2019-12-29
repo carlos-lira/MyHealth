@@ -23,14 +23,20 @@
 		rel="stylesheet" />
 
 	<!-- Custom styles -->
-	<h:outputStylesheet name="datatables/dataTables.bootstrap4.min.css" library="vendor" />
+	<h:outputStylesheet name="datatables/dataTables.bootstrap4.min.css"
+		library="vendor" />
 	<h:outputStylesheet name="sb-admin-2.min.css" library="css" />
 
 	<!--jQuery -->
 	<h:outputScript name="jquery/jquery.min.js" library="vendor" />
 </h:head>
-<h:body>
+<h:body id="page-top">
 	<ui:insert name="body" />
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
 	<!--Bootstrap -->
 	<h:outputScript name="bootstrap/bootstrap.min.js" library="vendor" />
@@ -42,6 +48,7 @@
 		library="vendor" />
 	<h:outputScript name="datatables/dataTables.bootstrap4.min.js"
 		library="vendor" />
+	<h:outputScript name="sweetalert2/sweetalert.min.js" library="vendor" />
 
 	<!-- Custom scripts -->
 	<h:outputScript name="sb-admin-2.min.js" library="js" />
