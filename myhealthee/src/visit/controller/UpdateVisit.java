@@ -48,12 +48,10 @@ public class UpdateVisit implements Serializable {
 			newTime = visit.getDate();
 			observations = visit.getObservations();
 			result = visit.getResult();
-			this.userType = userType;
-			System.out.println(visit.getId());
-			
+			this.userType = userType;			
 		} 
 		catch(Exception e){
-			System.out.println("Error");
+			//System.out.println("Error");
 		}
 	}
 
@@ -66,18 +64,18 @@ public class UpdateVisit implements Serializable {
 			ejb.updateVisit(id, d);
 		} 
 		catch(Exception e){
-			System.out.println("Error");
+			//System.out.println("Error");
 		}
 	}
 
 	public void updateVisitResult() throws Exception 
 	{
 		try {
-			System.out.println("id:" +id);
+			//System.out.println("id:" +id);
 			ejb.addResultToVisit(id, result);
 		} 
 		catch(Exception e){
-			System.out.println(e.toString());
+			//System.out.println(e.toString());
 		}
 	}
 	

@@ -30,7 +30,7 @@ public class RemoveVisit implements Serializable {
 			ejb.removeVisit(visitId);
 		} 
 		catch(Exception e){
-			System.out.println("Error");
+			//System.out.println("Error");
 		}
 	}
 

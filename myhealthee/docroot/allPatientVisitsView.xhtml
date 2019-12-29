@@ -7,7 +7,7 @@
 	template="/templates/dashboard.xhtml">
 
 <ui:define name="content">
-<a href="visitDashboardView.xhtml">Back</a>
+<h:link outcome="visitDashboardView" value="Atras"/>
 <h:form>	
 		<h:dataTable value="#{listallvisits.listAllScheduledVisits(user.id,0)}" var="item" cellpadding="5">
  			<f:facet name="header">			

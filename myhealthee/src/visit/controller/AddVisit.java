@@ -36,7 +36,7 @@ public class AddVisit implements Serializable {
 			ejb.addVisit(doctorId, patientId, concatDateTime(), observations);
 		} 
 		catch(Exception e){
-			System.out.println("Error");
+			//System.out.println("Error");
 		}
 	}
 

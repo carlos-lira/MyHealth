@@ -7,7 +7,7 @@
 	template="/templates/dashboard.xhtml">
 
 <ui:define name="content">
-<a href="visitDashboardView.xhtml">Back</a><br/>
+<h:link outcome="visitDashboardView" value="Atras"/><br/>
 	<h:form id="dateselector">
 		Select Date: <h:inputText value="#{listallvisits.date}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText>
 		<h:commandButton value="Submit" type="submit" action="#{listallvisits.listAllScheduledVisits(user.id,1)}" />

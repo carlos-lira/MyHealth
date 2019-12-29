@@ -1,10 +1,12 @@
 package visit.dao;
 
 import java.util.Date;
-import java.time.LocalDateTime;
+
+import javax.ejb.Remote;
 import java.util.Collection;
 import entity.Visit;
 
+@Remote
 public interface VisitFacadeRemote {
 
 	public void addVisit(long doctorId, long patientId, Date date, String observations);

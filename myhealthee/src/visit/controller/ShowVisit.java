@@ -34,7 +34,7 @@ public class ShowVisit implements Serializable {
 			setVisit(ejb.getVisit(id));
 		} 
 		catch(Exception e){
-			System.out.println("Error");
+			//System.out.println("Error");
 		}
 	}
 

@@ -8,19 +8,18 @@
    
 <ui:define name="content">
 	<h:form>
-		VisitId (This should be hidden)<br/>
-		<h:inputText value="#{updatevisit.id}" type="text"/><br/>
+		<h:inputHidden value="#{updatevisit.id}" type="text"/>
 		Doctor<br/>
-		<h:inputText value="#{updatevisit.doctorId}" type="text" readonly="true"/><br/>
+		<h:outputText value="#{updatevisit.doctorId}" type="text" readonly="true"/><br/>
 		<br/>
 		Fecha<br/>
-		<h:inputText value="#{updatevisit.newDate}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
+		<h:outputText value="#{updatevisit.newDate}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
 		<br/>
 		Hora<br/>
-		<h:inputText value="#{updatevisit.newTime}"><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
+		<h:outputText value="#{updatevisit.newTime}"><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
 		<br/>
 		Observaciones<br/>
-		<h:inputText value="#{updatevisit.observations}" readonly="true"/><br/>
+		<h:outputText value="#{updatevisit.observations}" readonly="true"/><br/>
 		<br/>
 		Resultados<br/>
 		<h:inputText value="#{updatevisit.result}"/><br/>

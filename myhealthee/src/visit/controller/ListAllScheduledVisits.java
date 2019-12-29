@@ -31,18 +31,17 @@ public class ListAllScheduledVisits implements Serializable {
 	private Date date;
 	private Collection<Visit> visits = new ArrayList<Visit>();
 
-	public Collection<Visit> listAllScheduledVisits() throws Exception 
+	public Collection<Visit> listAllScheduledVisits()
 	{
 		try {
 			return ejb.listAllScheduledVisits();
 		} 
 		catch(Exception e){
-			System.out.println("Error");
 			return null;
 		}
 	}
 	
-	public Collection<Visit> listAllScheduledVisits(long id, int userType) throws Exception 
+	public Collection<Visit> listAllScheduledVisits(long id, int userType)
 	{
 		try {
 			if (userType == 0) { //Paciente
@@ -54,7 +53,6 @@ public class ListAllScheduledVisits implements Serializable {
 			return visits;
 		} 
 		catch(Exception e){
-			System.out.println(e);
 			return null;
 		}
 	}
