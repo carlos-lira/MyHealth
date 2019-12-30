@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:form>
+		<h:selectOneMenu styleClass="form-control"
+			value="#{language.localeCode}" onchange="submit()"
+			valueChangeListener="#{language.changeLanguage}">
+			<f:selectItems value="#{language.supportedLocales}" var="l"
+				itemLabel="#{language.getDisplayLanguage(l)}"
+				itemValue="#{language.getLocaleCode(l)}" />
+		</h:selectOneMenu>
+	</h:form>
+</ui:composition>

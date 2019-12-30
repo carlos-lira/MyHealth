@@ -1,4 +1,4 @@
-package systemadministration.dao;
+package components.systemadministration.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import entity.imp.MedicalSpeciality;
 import entity.imp.PrimaryHealthCareCenter;
 import security.Cypher;
 import security.HashAlgorithm;
+import utils.Messages;
 import utils.QueryNames;
 
 /**
@@ -139,6 +140,8 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				cap.setLocation(location);
 				em.persist(cap);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage("The primary healthcare center already exists");
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
@@ -212,6 +215,8 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				ms.setDescription(description);
 				em.persist(ms);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage("The medical specialty already exists");
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());

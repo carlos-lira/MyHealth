@@ -1,12 +1,181 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/templates/dashboard.xhtml">
 
-<ui:define name="content">
-	Medical specialities page
- </ui:define>
+	<ui:define name="content">
+		<!-- Title page -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Medical Specialties</h1>
+			<h:form>
+				<h:commandLink
+					actionListener="#{medicalspec.openModal(operation.create)}"
+					styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+					<i class="fas fa-plus fa-sm text-white-50"></i>
+					<span>Add medical specialty</span>
+				</h:commandLink>
+			</h:form>
+		</div>
+
+		<!-- Messages -->
+		<p class="mb-4">
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;" />
+		</p>
+
+		<!-- Table -->
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<div class="table-responsive" style="padding: 0 .75rem;">
+					<h:form>
+						<table class="table table-bordered" id="dataTable">
+							<thead>
+								<tr>
+									<th style="width: 10%;">Operations</th>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Operations</th>
+									<th>Name</th>
+									<th>Description</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item"
+									value="#{medicalspec.listMedicalSpecialty}">
+									<tr>
+										<td>
+											<div class="d-flex justify-content-center">
+												<h:commandLink
+													actionListener="#{medicalspec.openModal(operation.read, item)}"
+													styleClass="btn btn-sm btn-default shadow-sm mx-2"
+													title="Show">
+													<i class="fas fa-eye fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink
+													actionListener="#{medicalspec.openModal(operation.update, item)}"
+													styleClass="btn btn-sm btn-info shadow-sm mx-2"
+													title="Update">
+													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink
+													actionListener="#{medicalspec.openModal(operation.delete, item)}"
+													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
+													title="Delete">
+													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
+												</h:commandLink>
+											</div>
+										</td>
+										<td><h:outputText value="#{item.name}" /></td>
+										<td><h:outputText value="#{item.description}" /></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="crudModal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title">
+								<c:if test="#{operation.isCreate(medicalspec.mode)}">
+									<h:outputText value="Create Medical Specialty" />
+								</c:if>
+								<c:if test="#{operation.isRead(medicalspec.mode)}">
+									<h:outputText value="Show Medical Specialty" />
+								</c:if>
+								<c:if test="#{operation.isUpdate(medicalspec.mode)}">
+									<h:outputText value="Update Medical Specialty" />
+								</c:if>
+								<c:if test="#{operation.isDelete(medicalspec.mode)}">
+									<h:outputText value="Delete Medical Specialty" />
+								</c:if>
+							</h5>
+						</div>
+						<div class="modal-body">
+							<c:choose>
+								<c:when test="#{operation.isDelete(medicalspec.mode)}">
+									<div class="form-group">
+										<h6 class="font-weight-bold">Are you sure?</h6>
+										<p>You won't be able to revert this!</p>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="form-group">
+										<h:inputText class="form-control"
+											disabled="#{operation.isDisabled(medicalspec.mode)}"
+											id="name" a:placeholder="Name"
+											value="#{medicalspec.medicalSpeciality.name}"
+											requiredMessage="A name is required." required="true" />
+										<div class="invalid-feedback d-block">
+											<h:message for="name" />
+										</div>
+									</div>
+									<div class="form-group">
+										<h:inputTextarea class="form-control"
+											disabled="#{operation.isRead(medicalspec.mode)}"
+											id="description" a:placeholder="Description"
+											value="#{medicalspec.medicalSpeciality.description}"
+											requiredMessage="A description is required." required="true" />
+										<div class="invalid-feedback d-block">
+											<h:message for="description" />
+										</div>
+									</div>
+								</c:otherwise>
+							</c:choose>
+
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{medicalspec.closeModal}" immediate="true" />
+							<c:if test="#{operation.isCreate(medicalspec.mode)}">
+								<h:commandButton value="Add" class="btn btn-primary"
+									action="#{medicalspec.addMedicalSpeciality}" />
+							</c:if>
+							<c:if test="#{operation.isUpdate(medicalspec.mode)}">
+								<h:commandButton value="Update" class="btn btn-primary"
+									action="#{medicalspec.updateMedicalSpeciality}" />
+							</c:if>
+							<c:if test="#{operation.isDelete(medicalspec.mode)}">
+								<h:commandButton value="Delete" class="btn btn-primary"
+									action="#{medicalspec.deleteMedicalSpeciality}" />
+							</c:if>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('#dataTable').DataTable({
+						"columnDefs": [
+							{ "orderable": false, "targets": 0 }
+						],
+						"order": [[ 1, "asc" ]]
+					});
+					
+					// Open modal if has operation
+					if (#{operation.hasOperation(medicalspec.mode)}) {
+						$('#crudModal').modal('show');
+					}
+				});
+			})(jQuery)
+		</script>
+	</ui:define>
 </ui:composition>
