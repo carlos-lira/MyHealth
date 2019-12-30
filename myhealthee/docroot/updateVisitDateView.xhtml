@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+   
+<ui:define name="content">
+	<h:form>
+		<h:inputHidden value="#{updatevisit.id}" type="text"/>
+		Doctor<br/>
+		<h:outputText value="#{updatevisit.familyDoctor.name}" type="text" readonly="true"/><br/>
+		<br/>
+		Fecha<br/>
+		<h:inputText value="#{updatevisit.newDate}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
+		<br/>
+		Hora<br/>
+		<h:inputText value="#{updatevisit.newTime}"><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
+		<br/>
+		Observaciones<br/>
+		<h:outputText value="#{updatevisit.observations}" readonly="true"/><br/>
+		<br/>
+		Resultados<br/>
+		<h:outputText value="#{updatevisit.result}"/><br/>
+		<br/>
+		<h:commandButton value="Actualizar Fecha" type="submit" action="visitDashboardView.xhtml">
+			<f:actionListener binding="#{updatevisit.updateVisitTime()}" />
+		</h:commandButton>		
+	</h:form>
+ </ui:define>
+</ui:composition>

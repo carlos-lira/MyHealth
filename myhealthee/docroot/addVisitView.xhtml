@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+
+<ui:define name="content">
+	<h:form>
+		<br/>
+		Fecha<br/>
+		<h:inputText value="#{addvisit.date}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
+		<br/>
+		Hora<br/>
+		<h:inputText value="#{addvisit.time}"><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
+		<br/>
+		<h:commandButton value="Añadir" type="submit" action="visitDashboardView.xhtml">
+			<f:actionListener binding="#{addvisit.addVisit(user.id)}" />
+		</h:commandButton>
+		
+	</h:form>
+ </ui:define>
+</ui:composition>
