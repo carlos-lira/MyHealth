@@ -20,6 +20,7 @@ import entity.imp.MedicalSpeciality;
 import entity.imp.PrimaryHealthCareCenter;
 import security.Cypher;
 import security.HashAlgorithm;
+import utils.Messages;
 import utils.QueryNames;
 
 /**
@@ -212,6 +213,8 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				ms.setDescription(description);
 				em.persist(ms);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage("The medical speciality already exists");
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
