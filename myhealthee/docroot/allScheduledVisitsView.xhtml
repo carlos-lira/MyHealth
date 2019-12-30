@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+
+<ui:define name="content">
+<h:link outcome="visitDashboardView" value="Atras"/><br/>
+	<h:form id="dateselector">
+		Select Date: <h:inputText value="#{listallvisits.date}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText>
+		<h:commandButton value="Submit" type="submit" action="#{listallvisits.listAllScheduledVisits(user.id,1)}" />
+	</h:form>
+	<h:form id="scheduledvisitstable">	
+		<h:dataTable value="#{listallvisits.visits}" var="item" cellpadding="5">
+ 			<f:facet name="header">			
+  			<h:outputText align="center" value="Mis Visitas" />		
+  			</f:facet> 
+ 			<h:column>
+   				<f:facet name="header">
+   					<h:outputText value="Doctor" />
+   				</f:facet> 
+   				<p align="center"><h:outputText value="#{item.doctorId}" /></p>
+ 			</h:column>
+ 			<h:column>
+   				<f:facet name="header">
+   					<h:outputText value="Paciente" />
+   				</f:facet> 
+   				<p align="center"><h:outputText value="#{item.patientId}" /></p>
+ 			</h:column>
+ 			<h:column align="center">
+   				<f:facet name="header">
+   					<h:outputText value="Dia"/>
+   				</f:facet> 
+     			<h:outputText value="#{item.date}">
+     				<f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+     			</h:outputText>
+ 			</h:column>
+ 			<h:column align="center">
+   				<f:facet name="header">
+   					<h:outputText value="Hora"/>
+   				</f:facet> 
+     			<h:outputText value="#{item.date}">
+     				<f:convertDateTime type="time" timeStyle="short"/>
+     			</h:outputText>
+ 			</h:column>
+		 	<h:column align="center">			
+				<h:commandLink outcome="visitView.xhtml" value="Ver visita"  action="visitView.xhtml">
+					<f:actionListener binding="#{showvisit.showVisit(item.id)}" />
+				</h:commandLink>		
+ 			</h:column>
+		 	<h:column align="center">			
+				<h:commandLink value="Añadir Resultado"  action="updateVisitResultView.xhtml">
+					<f:actionListener binding="#{updatevisit.getVisit(item.id,1)}" />
+				</h:commandLink>			
+ 			</h:column>
+ 		</h:dataTable>
+ 	  </h:form>		
+ </ui:define>
+</ui:composition>

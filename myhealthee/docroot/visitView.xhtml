@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+   <f:metadata>
+      <f:viewParam name="id" value="#{showvisit.id}"/>
+   </f:metadata>
+   
+<ui:define name="content">
+	<h:form>
+		Doctor: <h:outputText value="#{showvisit.visit.doctorId}"></h:outputText><br/>
+		Dia: <h:outputText value="#{showvisit.visit.date}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText><br/>
+		Hora: <h:outputText value="#{showvisit.visit.date}"><f:convertDateTime type="time" timeStyle="short"/></h:outputText><br/>
+		Observaciones: <h:outputText value="#{showvisit.visit.observations}"></h:outputText><br/>
+		Resultados: <h:outputText value="#{showvisit.visit.result}"></h:outputText>
+	</h:form>
+ </ui:define>
+</ui:composition>
