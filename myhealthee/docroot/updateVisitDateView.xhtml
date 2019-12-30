@@ -13,10 +13,16 @@
 		<h:outputText value="#{updatevisit.familyDoctor.name}" type="text" readonly="true"/><br/>
 		<br/>
 		Fecha<br/>
-		<h:inputText value="#{updatevisit.newDate}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
+		<h:inputText id="updateDateInput" value="#{updatevisit.newDate}"
+			a:placeholder="DD/MM/AAAA" required="true"
+			requiredMessage="Por favor introduzca una fecha."><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
+			<h:message for="updateDateInput" style="color:red"/>
 		<br/>
 		Hora<br/>
-		<h:inputText value="#{updatevisit.newTime}"><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
+		<h:inputText id="updateTimeInput" value="#{updatevisit.newTime}"
+			a:placeholder="HH:MM" required="true"
+			requiredMessage="Por favor introduzca una hora."><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
+			<h:message for="updateTimeInput" style="color:red"/>
 		<br/>
 		Observaciones<br/>
 		<h:outputText value="#{updatevisit.observations}" readonly="true"/><br/>
