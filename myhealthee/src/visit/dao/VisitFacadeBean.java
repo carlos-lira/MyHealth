@@ -92,6 +92,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 	
 	public Collection<Visit> listAllScheduledVisits(long patientId){
 		try {
+			@SuppressWarnings("unchecked")
 			Collection<Visit> visits = entman.createQuery("from Visit b WHERE b.patientID = ?1").setParameter(1, patientId).getResultList();
 			return visits;
 		}
@@ -108,6 +109,8 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			cal.setTime(date);
 			cal.add(Calendar.DATE, 1);
 			Date nextDay = cal.getTime();
+			
+			@SuppressWarnings("unchecked")
 			Collection<Visit> visits = entman.createQuery("from Visit b WHERE b.doctorID = ?1 AND b.date >= ?2 AND b.date < ?3").setParameter(1, id).setParameter(2, date).setParameter(3, nextDay).getResultList();
 			return visits;
 		}
