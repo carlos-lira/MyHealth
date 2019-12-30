@@ -140,6 +140,8 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				cap.setLocation(location);
 				em.persist(cap);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage("The primary healthcare center already exists");
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
@@ -214,7 +216,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				em.persist(ms);
 				em.flush();
 			} else {
-				Messages.addErrorGlobalMessage("The medical speciality already exists");
+				Messages.addErrorGlobalMessage("The medical specialty already exists");
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());

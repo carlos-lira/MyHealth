@@ -85,12 +85,12 @@
 		</div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="crudModal" tabindex="-1">
+		<div class="modal fade" id="crudModal" tabindex="-1" data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<h:form>
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">
+							<h5 class="modal-title">
 								<c:if test="#{operation.isCreate(medicalspec.mode)}">
 									<h:outputText value="Create Medical Specialty" />
 								</c:if>
@@ -104,10 +104,6 @@
 									<h:outputText value="Delete Medical Specialty" />
 								</c:if>
 							</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&#215;</span>
-							</button>
 						</div>
 						<div class="modal-body">
 							<c:choose>
@@ -120,7 +116,7 @@
 								<c:otherwise>
 									<div class="form-group">
 										<h:inputText class="form-control"
-											disabled="#{operation.isRead(medicalspec.mode) or operation.isUpdate(medicalspec.mode)}"
+											disabled="#{operation.isDisabled(medicalspec.mode)}"
 											id="name" a:placeholder="Name"
 											value="#{medicalspec.medicalSpeciality.name}"
 											requiredMessage="A name is required." required="true" />
@@ -143,7 +139,7 @@
 
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Cancel" class="btn btn-secondary"
+							<h:commandButton value="Close" class="btn btn-secondary"
 								action="#{medicalspec.closeModal}" immediate="true" />
 							<c:if test="#{operation.isCreate(medicalspec.mode)}">
 								<h:commandButton value="Add" class="btn btn-primary"

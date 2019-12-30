@@ -42,6 +42,10 @@ public class OperationBean implements Serializable {
 		return op == Operation.DELETE;
 	}
 
+	public boolean isDisabled(Operation op) {
+		return op == Operation.READ || op == Operation.UPDATE;
+	}
+	
 	// Getters
 	public Operation getCreate() {
 		return create;
