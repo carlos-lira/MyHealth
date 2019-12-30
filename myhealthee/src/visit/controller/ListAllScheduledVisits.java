@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -50,9 +51,11 @@ public class ListAllScheduledVisits implements Serializable {
 			else {
 				this.visits = ejb.listAllScheduledVisits(id, date);
 			}
+			
 			return visits;
 		} 
 		catch(Exception e){
+			//System.out.println(e);
 			return null;
 		}
 	}

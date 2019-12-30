@@ -1,6 +1,7 @@
 package visit.dao;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,8 +13,11 @@ import java.util.Calendar;
 import java.util.Collection;
 import entity.Visit;
 
+
 @Stateless
 public class VisitFacadeBean implements VisitFacadeRemote {
+	
+	final int MINUTES_BETWEEN_VISITS = 15;
 	
 	//Persistence Unit Context
 	@PersistenceContext(name="myhealthee") 
@@ -86,13 +90,14 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 	}
 	
-	public Collection<Visit> listAllScheduledVisits(long id){
+	public Collection<Visit> listAllScheduledVisits(long patientId){
 		try {
-			Collection<Visit> visits = entman.createQuery("from Visit b WHERE b.patientID = ?1").setParameter(1, id).getResultList();
+			Collection<Visit> visits = entman.createQuery("from Visit b WHERE b.patientID = ?1").setParameter(1, patientId).getResultList();
 			return visits;
 		}
 		catch (Exception e)
 		{
+			System.out.println(e);
 			return null;
 		}
 	}
@@ -113,6 +118,40 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 	}
 	
 	
+	public boolean visitAvailable (long doctorId, Date visitTime) {
+		boolean visitAvailable = false;
+		
+		try {
+			Calendar c = Calendar.getInstance();
+			c.setTime(visitTime);
+			c.add(Calendar.MINUTE, MINUTES_BETWEEN_VISITS);
+			Date higherMargin = c.getTime();
+			c.setTime(visitTime);
+			c.add(Calendar.MINUTE, -MINUTES_BETWEEN_VISITS);
+			Date lowerMargin = c.getTime();
+
+			@SuppressWarnings("unchecked")
+			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.doctorID = ?1 AND v.date < ?2 AND v.date > ?3 ")
+												.setParameter(1, doctorId)
+												.setParameter(2, higherMargin)
+												.setParameter(3, lowerMargin)
+												.getResultList();
+			
+			if (visits.isEmpty())
+				visitAvailable = true;
+
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		
+		return visitAvailable;
+	}
+	
+	
 	public Visit getVisit(long id){
 		try {
 			Visit visit = (Visit) entman.createQuery("from Visit WHERE id = ?1").setParameter(1, id).getSingleResult();
@@ -122,6 +161,12 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		{
 			return null;
 		}
+	}
+	
+	public long getPatientDoctor(long patientId) {
+		long docId = -1;
+		
+		return docId;
 	}
 
 }

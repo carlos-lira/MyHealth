@@ -16,5 +16,6 @@ public interface VisitFacadeRemote {
 	public Collection<Visit> listAllScheduledVisits();
 	public Collection<Visit> listAllScheduledVisits(long id);
 	public Collection<Visit> listAllScheduledVisits(long id, Date date);
+	public boolean visitAvailable (long doctorId, Date visitTime);
 	public Visit getVisit(long id);
 }

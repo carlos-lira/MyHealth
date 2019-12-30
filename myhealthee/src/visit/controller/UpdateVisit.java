@@ -59,7 +59,6 @@ public class UpdateVisit implements Serializable {
 	public void updateVisitTime() throws Exception 
 	{
 		Date d = concatDateTime();
-		System.out.println(d);
 		try {
 			ejb.updateVisit(id, d);
 		} 

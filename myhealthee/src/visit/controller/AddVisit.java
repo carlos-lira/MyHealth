@@ -30,10 +30,17 @@ public class AddVisit implements Serializable {
 	private Date time;
 	private String observations;
 
+	
 	public void addVisit(long patientId) throws Exception 
 	{
 		try {
-			ejb.addVisit(doctorId, patientId, concatDateTime(), observations);
+			//Get the patient's doctor
+			
+			if (ejb.visitAvailable(doctorId, concatDateTime()))		
+				//Add the visit
+				ejb.addVisit(doctorId, patientId, concatDateTime(), observations);
+			else
+				; //No visit available
 		} 
 		catch(Exception e){
 			//System.out.println("Error");

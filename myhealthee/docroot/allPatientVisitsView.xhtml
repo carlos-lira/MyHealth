@@ -42,12 +42,12 @@
      			</h:outputText>
  			</h:column>
 		 	<h:column align="center">			
-				<h:commandLink outcome="visitView.xhtml?myVar=true" value="Ver visita"  action="visitView.xhtml">
+				<h:commandLink outcome="visitView.xhtml" value="Ver visita"  action="visitView.xhtml">
 					<f:actionListener binding="#{showvisit.showVisit(item.id)}" />
 				</h:commandLink>		
  			</h:column>
 	 		<h:column align="center">	
-				<h:commandLink outcome="updateVisitView.xhtml?myVar=true" value="Modificar fecha y hora"  action="updateVisitDateView.xhtml">
+				<h:commandLink outcome="updateVisitView.xhtml" value="Modificar fecha y hora"  action="updateVisitDateView.xhtml">
 					<f:actionListener binding="#{updatevisit.getVisit(item.id,0)}" />
 				</h:commandLink>		
  			</h:column>

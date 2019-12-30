@@ -1,11 +1,15 @@
 package entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
@@ -17,10 +21,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "VISITS")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Visit extends BaseEntity{
+public class Visit implements Serializable {
 
 	private static final long serialVersionUID = -7876193601884042332L;
+	
+	@Id
+	@Column(name = "ID", nullable = false, unique = true, updatable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
 	@Column(name = "DOCTORID", nullable = false)
 	private long doctorID;
 	
@@ -37,6 +46,13 @@ public class Visit extends BaseEntity{
 	private String result;
 	
 	// Getters & Setters
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public long getDoctorId() {
 		return doctorID;
 	}
