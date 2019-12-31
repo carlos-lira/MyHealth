@@ -231,8 +231,6 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			
 			c.setTime(previousVisit);
 			c.add(Calendar.MINUTE, MINUTES_BETWEEN_VISITS);
-			//To correct for CET
-			c.add(Calendar.HOUR, -1);
 			return c.getTime();
 		}
 		catch (Exception ex) {
