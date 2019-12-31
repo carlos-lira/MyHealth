@@ -9,16 +9,12 @@
 <ui:define name="content">
 	Dashboard visitas<br/>
 	<br/>
-	<h:form>
-		<h:commandLink value="Añadir visita" action="addVisitView.xhtml" rendered="#{user.getClass().getSimpleName() == 'Patient'}"/>
-		<h:panelGroup rendered="#{user.getClass().getSimpleName() == 'Patient'}"><br/></h:panelGroup>
-		<h:commandLink value="Ver mis visitas"  action="allPatientVisitsView.xhtml" rendered="#{user.getClass().getSimpleName() == 'Patient'}"/>
-		<h:panelGroup rendered="#{user.getClass().getSimpleName() == 'Patient'}"><br/></h:panelGroup>
-		<h:commandLink value="Ver horario"  action="allScheduledVisitsView.xhtml" rendered="#{user.getClass().getSimpleName() == 'FamilyDoctor'}"/>
-		<h:panelGroup rendered="#{user.getClass().getSimpleName() == 'FamilyDoctor'}"><br/></h:panelGroup>
-		<h:commandLink value="Administrar visitas"  action="adminVisitsView.xhtml" rendered="#{user.getClass().getSimpleName() == 'Administrator'}"/>
-		<h:panelGroup rendered="#{user.getClass().getSimpleName() == 'Administrator'}"><br/></h:panelGroup>
-	</h:form>
+	<!-- Pages -->
+	<ui:repeat value="#{visitdashboard.navPages}" var="item">
+		<h:link class="nav-link" outcome="#{item.url}">
+			<span> <h:outputText value="#{item.pageName}" /> </span>
+		</h:link>
+	</ui:repeat>
 
  </ui:define>
 </ui:composition>
