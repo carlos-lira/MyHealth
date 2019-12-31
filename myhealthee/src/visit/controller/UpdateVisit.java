@@ -16,6 +16,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import entity.User;
+import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
 import entity.imp.Patient;
 import entity.imp.Visit;
@@ -39,6 +40,9 @@ public class UpdateVisit implements Serializable {
 	private Date newTime;
 	private String result;
 	
+	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd/MM/yyyy");
+	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("HH:mm");
+	
 	public String visitToUpdate(Visit visit) {
 		this.visit = visit;
 		this.id = visit.getId();
@@ -55,24 +59,32 @@ public class UpdateVisit implements Serializable {
 
 	public String updateVisitTime()
 	{
+		User u = SessionUtils.getUser();
 		Date d = concatDateTime();
+		
 		try {
 			//getVisit(id,0);
 			if (ejb.visitAvailable(id, d)) {
 				ejb.updateVisit(visit.getId(), d);
-				return "visitDashboardView";
+				
+				if(u.getClass() == Patient.class)
+					return "allPatientVisitsView";
+				else if (u.getClass() == Administrator.class)
+					return "adminVisitsView";
+				else
+					return "visitDashboardView";
 			}
 			else {
 				Date nextAppointment = ejb.nextAvailableAppointment(visit.getFamilyDoctor(), d);
-				String dateToPrint = (new SimpleDateFormat("dd/MM/yyyy")).format(nextAppointment);
-				String hourToPrint = (new SimpleDateFormat("HH:mm")).format(nextAppointment);
+				String dateToPrint = SDF_DATE.format(nextAppointment);
+				String hourToPrint = SDF_TIME.format(nextAppointment);
 				Messages.addInfoGlobalMessage("El doctor " + visit.getFamilyDoctor().getSurnames() + " no tiene visita disponible a esa hora.");
 				Messages.addInfoGlobalMessage("La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
 				return null; //timeslot unavailable
 			}
 		} 
 		catch(Exception e){
-			Messages.addErrorGlobalMessage("A ocurrido un error insertando el resultado.");
+			Messages.addErrorGlobalMessage("A ocurrido un error modificando la hora.");
 			return null;
 		}
 	}
@@ -82,10 +94,10 @@ public class UpdateVisit implements Serializable {
 		try {
 			//System.out.println("id:" +id);
 			ejb.addResultToVisit(id, result);
-			return "visitDashboardView";
+			return "allScheduledVisitsView";
 		} 
 		catch(Exception e){
-			//System.out.println(e.toString());
+			Messages.addErrorGlobalMessage("A ocurrido un error insertando el resultado.");
 			return null;
 		}
 	}
@@ -136,53 +148,7 @@ public class UpdateVisit implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	/*
 
-	public FamilyDoctor getFamilyDoctor() {
-		return familyDoctor;
-	}
-
-	public void setFamilyDoctor(FamilyDoctor familyDoctor) {
-		this.familyDoctor = familyDoctor;
-	}
-	
-	public Patient getPatient() {
-		return patient;
-	}
-
-	public void setFamilyDoctor(Patient patient) {
-		this.patient = patient;
-	}
-	
-	public long getDoctorId() {
-		return doctorId;
-	}
-
-
-	public void setDoctorId(long doctorId) {
-		this.doctorId = doctorId;
-	}
-
-
-	public long getPatientId() {
-		return patientId;
-	}
-
-
-	public void setPatientId(long patientId) {
-		this.patientId = patientId;
-	}
-	 
-
-	public String getObservations() {
-		return observations;
-	}
-
-
-	public void setObservations(String observations) {
-		this.observations = observations;
-	}
-	*/
 
 	public String getResult() {
 		return result;

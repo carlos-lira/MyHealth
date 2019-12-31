@@ -2,6 +2,7 @@ package visit.dao;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.ejb.Stateless;
@@ -39,7 +40,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 		catch (Exception e)
 		{
-			//
+			// nop
 		}
 	}
 	
@@ -53,7 +54,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 		catch (Exception e)
 		{
-			//
+			// nop
 		}
 	}
 	
@@ -63,7 +64,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 		catch (Exception e)
 		{
-			//
+			// nop
 		}
 	}
 	
@@ -77,14 +78,14 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 		catch (Exception e)
 		{
-			//
+			// nop
 		}
 	}
 	
-	public Collection<Visit> listAllScheduledVisits(){
+	public List<Visit> listAllScheduledVisits(){
 		try {
 			@SuppressWarnings("unchecked")
-			Collection<Visit> visits = entman.createQuery("from Visit v ORDER BY v.date ASC").getResultList();
+			List<Visit> visits = entman.createQuery("from Visit v ORDER BY v.date ASC").getResultList();
 			return visits;
 		}
 		catch (Exception e)
@@ -93,10 +94,10 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 	}
 	
-	public Collection<Visit> listAllScheduledVisits(Patient patient){
+	public List<Visit> listAllScheduledVisits(Patient patient){
 		try {
 			@SuppressWarnings("unchecked")
-			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.patient = ?1 ORDER BY v.date ASC").setParameter(1, patient).getResultList();
+			List<Visit> visits = entman.createQuery("from Visit v WHERE v.patient = ?1 ORDER BY v.date ASC").setParameter(1, patient).getResultList();
 			return visits;
 		}
 		catch (Exception e)
@@ -106,7 +107,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 	}
 	
-	public Collection<Visit> listAllScheduledVisits(FamilyDoctor familyDoctor, Date date){
+	public List<Visit> listAllScheduledVisits(FamilyDoctor familyDoctor, Date date){
 		try {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
@@ -114,7 +115,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			Date nextDay = cal.getTime();
 			
 			@SuppressWarnings("unchecked")
-			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date >= ?2 AND v.date < ?3 ORDER BY v.date ASC").setParameter(1, familyDoctor).setParameter(2, date).setParameter(3, nextDay).getResultList();
+			List<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date >= ?2 AND v.date < ?3 ORDER BY v.date ASC").setParameter(1, familyDoctor).setParameter(2, date).setParameter(3, nextDay).getResultList();
 			return visits;
 		}
 		catch (Exception e)
@@ -157,7 +158,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 		catch(Exception e)
 		{
-			//System.out.println(e);
+			// nop
 		}
 		
 		return visitAvailable;
@@ -191,7 +192,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			// nop
 		}
 		
 		return visitAvailable;
@@ -203,7 +204,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			c.setTime(requestedDate);
 			c.add(Calendar.MINUTE, -MINUTES_BETWEEN_VISITS);
 			@SuppressWarnings("unchecked")
-			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date > ?2 ORDER BY v.date ASC")
+			List<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date > ?2 ORDER BY v.date ASC")
 												.setParameter(1, familyDoctor)
 												.setParameter(2, c.getTime())
 												.getResultList();
@@ -233,7 +234,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			c.add(Calendar.MINUTE, MINUTES_BETWEEN_VISITS);
 			return c.getTime();
 		}
-		catch (Exception ex) {
+		catch (Exception e) {
 			return null;
 		}
 	}

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -36,9 +37,9 @@ public class ListAllScheduledVisits implements Serializable {
 	
 	private long id;
 	private Date date;
-	private Collection<Visit> visits = new ArrayList<Visit>();
+	private List<Visit> visits = new ArrayList<Visit>();
 
-	public Collection<Visit> listAllScheduledVisits()
+	public List<Visit> listAllScheduledVisits()
 	{
 		try {
 			User u = SessionUtils.getUser();
@@ -73,11 +74,11 @@ public class ListAllScheduledVisits implements Serializable {
 		this.date = date;
 	}
 
-	public Collection<Visit> getVisits() {
+	public List<Visit> getVisits() {
 		return visits;
 	}
 
-	public void setVisits(Collection<Visit> visits) {
+	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
 

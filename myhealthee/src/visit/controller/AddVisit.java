@@ -34,6 +34,8 @@ public class AddVisit implements Serializable {
 	private Date time;
 	private String observations;
 
+	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd/MM/yyyy");
+	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("HH:mm");
 	
 	public String addVisit() {
 		try {
@@ -49,8 +51,8 @@ public class AddVisit implements Serializable {
 			}
 			else {
 				Date nextAppointment = ejb.nextAvailableAppointment(doctor, d);
-				String dateToPrint = (new SimpleDateFormat("dd/MM/yyyy")).format(nextAppointment);
-				String hourToPrint = (new SimpleDateFormat("HH:mm")).format(nextAppointment);
+				String dateToPrint = SDF_DATE.format(nextAppointment);
+				String hourToPrint = SDF_TIME.format(nextAppointment);
 				Messages.addInfoGlobalMessage("El doctor " + doctor.getSurnames() + " no tiene visita disponible a esa hora.");
 				Messages.addInfoGlobalMessage("La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
 				return null;
