@@ -1,6 +1,7 @@
 package visit.controller;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -39,14 +40,19 @@ public class AddVisit implements Serializable {
 			//Get the patient's doctor
 			Patient patient = (Patient) SessionUtils.getUser();
 			FamilyDoctor doctor = patient.getFamilyDoctor();
+			Date d = concatDateTime();
 			
 			if (ejb.visitAvailable(doctor, concatDateTime())){
 				//Add the visit
-				ejb.addVisit(doctor, patient, concatDateTime(), observations);
+				ejb.addVisit(doctor, patient, d, observations);
 				return "visitDashboardView";
 			}
 			else {
-				Messages.addErrorGlobalMessage("Su medico de cabecera no tiene visita disponible a esa hora.");
+				Date nextAppointment = ejb.nextAvailableAppointment(doctor, d);
+				String dateToPrint = (new SimpleDateFormat("dd/MM/yyyy")).format(nextAppointment);
+				String hourToPrint = (new SimpleDateFormat("HH:mm")).format(nextAppointment);
+				Messages.addInfoGlobalMessage("El doctor " + doctor.getSurnames() + " no tiene visita disponible a esa hora.");
+				Messages.addInfoGlobalMessage("La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
 				return null;
 			}
 		} 

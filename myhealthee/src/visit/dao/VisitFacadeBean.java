@@ -2,6 +2,7 @@ package visit.dao;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.TimeZone;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -122,7 +123,17 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 	}
 	
-	
+	public Visit getVisit(long id){
+		try {
+			Visit visit = (Visit) entman.createQuery("from Visit WHERE id = ?1").setParameter(1, id).getSingleResult();
+			return visit;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
+
 	public boolean visitAvailable (FamilyDoctor familyDoctor, Date visitTime) {
 		boolean visitAvailable = false;
 		
@@ -186,17 +197,47 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		return visitAvailable;
 	}
 	
-	
-	public Visit getVisit(long id){
+	public Date nextAvailableAppointment (FamilyDoctor familyDoctor, Date requestedDate) {
 		try {
-			Visit visit = (Visit) entman.createQuery("from Visit WHERE id = ?1").setParameter(1, id).getSingleResult();
-			return visit;
+			Calendar c = Calendar.getInstance();
+			c.setTime(requestedDate);
+			c.add(Calendar.MINUTE, -MINUTES_BETWEEN_VISITS);
+			@SuppressWarnings("unchecked")
+			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date > ?2 ORDER BY v.date ASC")
+												.setParameter(1, familyDoctor)
+												.setParameter(2, c.getTime())
+												.getResultList();
+			
+			Date previousVisit = null;
+			Iterator<Visit> it = visits.iterator();
+			while(it.hasNext()) {
+				Visit visit = it.next();
+				//FirstIteration
+				if (previousVisit == null)
+					previousVisit = visit.getDate();
+				else {
+					//Adding 30min to the previous visit
+					c.setTime(previousVisit);
+					c.add(Calendar.MINUTE, 2*MINUTES_BETWEEN_VISITS);
+					Date comparableDate = c.getTime();
+					
+					//If there is more than 30min between visits, we can schedule a visit
+					if (comparableDate.compareTo(visit.getDate()) <= 0)
+						break;
+					else
+						previousVisit = visit.getDate();
+				}
+			}
+			
+			c.setTime(previousVisit);
+			c.add(Calendar.MINUTE, MINUTES_BETWEEN_VISITS);
+			//To correct for CET
+			c.add(Calendar.HOUR, -1);
+			return c.getTime();
 		}
-		catch (Exception e)
-		{
+		catch (Exception ex) {
 			return null;
 		}
 	}
-
-
+	
 }
