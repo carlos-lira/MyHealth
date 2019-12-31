@@ -14,7 +14,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import entity.User;
+import entity.imp.Administrator;
+import entity.imp.FamilyDoctor;
+import entity.imp.Patient;
 import entity.imp.Visit;
+import utils.SessionUtils;
 import visit.dao.VisitFacadeRemote;
 
 
@@ -38,6 +43,18 @@ public class ShowVisit implements Serializable {
 		}
 	}
 
+	public String backToVisits() {
+		User u = SessionUtils.getUser();
+		if (u.getClass() == Patient.class)
+			return "allPatientVisitsView";
+		else if (u.getClass() == FamilyDoctor.class)
+			return "allScheduledVisitsView";
+		else if (u.getClass() == Administrator.class)
+			return "adminVisitsView";
+		else
+			return "visitDashboardView";			
+	}
+	
 	public Visit getVisit() {
 		return visit;
 	}

@@ -5,18 +5,16 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/templates/dashboard.xhtml">
-   <f:metadata>
-      <f:viewParam name="id" value="#{showvisit.id}"/>
-   </f:metadata>
    
 <ui:define name="content">
 	<h:form>
-		Doctor: <h:outputText value="#{showvisit.visit.familyDoctor.name} #{showvisit.visit.familyDoctor.surnames}"></h:outputText><br/>
-		Paciente: <h:outputText value="#{showvisit.visit.patient.name} #{showvisit.visit.patient.surnames}"></h:outputText><br/>
+		Doctor: <h:outputText value="#{showvisit.visit.familyDoctor.name} #{showvisit.visit.familyDoctor.surnames}"/><br/>
+		Paciente: <h:outputText value="#{showvisit.visit.patient.name} #{showvisit.visit.patient.surnames}"/><br/>
 		Dia: <h:outputText value="#{showvisit.visit.date}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText><br/>
 		Hora: <h:outputText value="#{showvisit.visit.date}"><f:convertDateTime type="time" timeStyle="short"/></h:outputText><br/>
-		Observaciones: <h:outputText value="#{showvisit.visit.observations}"></h:outputText><br/>
-		Resultados: <h:outputText value="#{showvisit.visit.result}"></h:outputText>
+		Observaciones: <h:outputText value="#{showvisit.visit.observations}"/><br/>
+		Resultados: <h:outputText value="#{showvisit.visit.result}"/><br/>
+		<h:commandButton value="Volver" type="submit" action="#{showvisit.backToVisits}"/><br/>
 	</h:form>
  </ui:define>
 </ui:composition>
