@@ -8,9 +8,10 @@
    
 <ui:define name="content">
 	<h:form>
+		<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
 		<h:inputHidden value="#{updatevisit.id}" type="text"/>
 		Doctor<br/>
-		<h:outputText value="#{updatevisit.familyDoctor.name}" type="text" readonly="true"/><br/>
+		<h:outputText value="#{updatevisit.visit.familyDoctor.name} #{updatevisit.visit.familyDoctor.surnames}" type="text" readonly="true"/><br/>
 		<br/>
 		Fecha<br/>
 		<h:inputText id="updateDateInput" value="#{updatevisit.newDate}"
@@ -25,14 +26,12 @@
 			<h:message for="updateTimeInput" style="color:red"/>
 		<br/>
 		Observaciones<br/>
-		<h:outputText value="#{updatevisit.observations}" readonly="true"/><br/>
+		<h:outputText value="#{updatevisit.visit.observations}" readonly="true"/><br/>
 		<br/>
 		Resultados<br/>
-		<h:outputText value="#{updatevisit.result}"/><br/>
+		<h:outputText value="#{updatevisit.visit.result}"/><br/>
 		<br/>
-		<h:commandButton value="Actualizar Fecha" type="submit" action="visitDashboardView.xhtml">
-			<f:actionListener binding="#{updatevisit.updateVisitTime()}" />
-		</h:commandButton>		
+		<h:commandButton value="Actualizar Fecha" type="submit" action="#{updatevisit.updateVisitTime}"/>
 	</h:form>
  </ui:define>
 </ui:composition>

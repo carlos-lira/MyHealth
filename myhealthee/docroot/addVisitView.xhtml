@@ -8,6 +8,7 @@
 
 <ui:define name="content">
 	<h:form>
+		<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
 		<br/>
 		Fecha<br/>
 		<h:inputText id="addDateInput" value="#{addvisit.date}"
@@ -21,10 +22,7 @@
 			requiredMessage="Por favor introduzca una hora."><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
 			<h:message for="addTimeInput" style="color:red"/>
 		<br/>
-		<h:commandButton value="Añadir" type="submit" action="visitDashboardView.xhtml">
-			<f:actionListener binding="#{addvisit.addVisit(user.id)}" />
-		</h:commandButton>
-		
+		<h:commandButton value="Añadir" type="submit" action="#{addvisit.addVisit}" />	
 	</h:form>
  </ui:define>
 </ui:composition>

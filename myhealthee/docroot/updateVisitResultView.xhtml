@@ -8,25 +8,24 @@
    
 <ui:define name="content">
 	<h:form>
+		<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
 		<h:inputHidden value="#{updatevisit.id}" type="text"/>
 		Doctor<br/>
-		<h:outputText value="#{updatevisit.familyDoctor.name}" type="text" readonly="true"/><br/>
+		<h:outputText value="#{updatevisit.visit.familyDoctor.name} #{updatevisit.visit.familyDoctor.surnames}" type="text" readonly="true"/><br/>
 		<br/>
 		Fecha<br/>
-		<h:outputText value="#{updatevisit.newDate}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText><br/>
+		<h:outputText value="#{updatevisit.visit.date}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:outputText><br/>
 		<br/>
 		Hora<br/>
-		<h:outputText value="#{updatevisit.newTime}"><f:convertDateTime pattern="HH:mm"/></h:outputText><br/>
+		<h:outputText value="#{updatevisit.visit.date}"><f:convertDateTime pattern="HH:mm"/></h:outputText><br/>
 		<br/>
 		Observaciones<br/>
-		<h:outputText value="#{updatevisit.observations}" readonly="true"/><br/>
+		<h:outputText value="#{updatevisit.visit.observations}" readonly="true"/><br/>
 		<br/>
 		Resultados<br/>
 		<h:inputText value="#{updatevisit.result}"/><br/>
 		<br/>
-		<h:commandButton value="Actualizar Resultado" type="submit" action="visitDashboardView.xhtml">
-			<f:actionListener binding="#{updatevisit.updateVisitResult()}" />
-		</h:commandButton>		
+		<h:commandButton value="Actualizar Resultado" type="submit" action="#{updatevisit.updateVisitResult}"/>	
 	</h:form>
  </ui:define>
 </ui:composition>

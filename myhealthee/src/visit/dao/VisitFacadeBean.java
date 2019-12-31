@@ -83,7 +83,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 	public Collection<Visit> listAllScheduledVisits(){
 		try {
 			@SuppressWarnings("unchecked")
-			Collection<Visit> visits = entman.createQuery("from Visit").getResultList();
+			Collection<Visit> visits = entman.createQuery("from Visit v ORDER BY v.date ASC").getResultList();
 			return visits;
 		}
 		catch (Exception e)
@@ -92,11 +92,10 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 	}
 	
-	public Collection<Visit> listAllScheduledVisits(long patientId){
+	public Collection<Visit> listAllScheduledVisits(Patient patient){
 		try {
-			Patient p = entman.find(Patient.class, patientId);
 			@SuppressWarnings("unchecked")
-			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.patient = ?1").setParameter(1, p).getResultList();
+			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.patient = ?1 ORDER BY v.date ASC").setParameter(1, patient).getResultList();
 			return visits;
 		}
 		catch (Exception e)
@@ -106,17 +105,15 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 	}
 	
-	public Collection<Visit> listAllScheduledVisits(long doctorId, Date date){
+	public Collection<Visit> listAllScheduledVisits(FamilyDoctor familyDoctor, Date date){
 		try {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
 			cal.add(Calendar.DATE, 1);
 			Date nextDay = cal.getTime();
 			
-			FamilyDoctor fd = entman.find(FamilyDoctor.class, doctorId);
-			
 			@SuppressWarnings("unchecked")
-			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date >= ?2 AND v.date < ?3").setParameter(1, fd).setParameter(2, date).setParameter(3, nextDay).getResultList();
+			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date >= ?2 AND v.date < ?3 ORDER BY v.date ASC").setParameter(1, familyDoctor).setParameter(2, date).setParameter(3, nextDay).getResultList();
 			return visits;
 		}
 		catch (Exception e)
@@ -126,7 +123,7 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 	}
 	
 	
-	public boolean visitAvailable (long doctorId, Date visitTime) {
+	public boolean visitAvailable (FamilyDoctor familyDoctor, Date visitTime) {
 		boolean visitAvailable = false;
 		
 		try {
@@ -137,12 +134,10 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			c.setTime(visitTime);
 			c.add(Calendar.MINUTE, -MINUTES_BETWEEN_VISITS);
 			Date lowerMargin = c.getTime();
-
-			FamilyDoctor fd = entman.find(FamilyDoctor.class, doctorId);
 			
 			@SuppressWarnings("unchecked")
 			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date < ?2 AND v.date > ?3")
-												.setParameter(1, fd)
+												.setParameter(1, familyDoctor)
 												.setParameter(2, higherMargin)
 												.setParameter(3, lowerMargin)
 												.getResultList();
@@ -151,13 +146,13 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			//System.out.println(e);
 		}
 		
 		return visitAvailable;
 	}
 	
-	public boolean visitAvailable (long doctorId, Date visitTime, long visitId) {
+	public boolean visitAvailable (long visitId, Date visitTime) {
 		boolean visitAvailable = false;
 		
 		try {
@@ -168,17 +163,17 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			c.setTime(visitTime);
 			c.add(Calendar.MINUTE, -MINUTES_BETWEEN_VISITS);
 			Date lowerMargin = c.getTime();
-
-			Visit v = entman.find(Visit.class, visitId);
+			
+			Visit visit = entman.find(Visit.class, visitId);
 			
 			@SuppressWarnings("unchecked")
 			Collection<Visit> visits = entman.createQuery("from Visit v WHERE v.familyDoctor = ?1 AND v.date < ?2 AND v.date > ?3")
-												.setParameter(1, v.getFamilyDoctor())
+												.setParameter(1, visit.getFamilyDoctor())
 												.setParameter(2, higherMargin)
 												.setParameter(3, lowerMargin)
 												.getResultList();
 			
-			visits.remove(v);
+			visits.remove(visit);
 				
 			if (visits.isEmpty())
 				visitAvailable = true;		
@@ -202,15 +197,6 @@ public class VisitFacadeBean implements VisitFacadeRemote {
 			return null;
 		}
 	}
-	
-	public Patient getPatient(long patientId) {
-		Patient p = entman.find(Patient.class, patientId);
-		return p;
-	}
-	
-	public FamilyDoctor getPatientDoctor(long patientId) {
-		Patient p = entman.find(Patient.class, patientId);
-		return p.getFamilyDoctor();
-	}
+
 
 }

@@ -15,6 +15,8 @@ import entity.User;
 import entity.imp.FamilyDoctor;
 import entity.imp.Patient;
 import entity.imp.Visit;
+import utils.Messages;
+import utils.SessionUtils;
 import visit.dao.VisitFacadeRemote;
 
 
@@ -27,28 +29,30 @@ public class AddVisit implements Serializable {
 	@EJB
 	private VisitFacadeRemote ejb;
 	
-	private long doctorId;
-	private long patientId;
 	private Date date;
 	private Date time;
 	private String observations;
 
 	
-	public void addVisit(long patientId) throws Exception 
-	{
+	public String addVisit() {
 		try {
 			//Get the patient's doctor
-			FamilyDoctor doctor = ejb.getPatientDoctor(patientId);
-			Patient patient = ejb.getPatient(patientId);
+			Patient patient = (Patient) SessionUtils.getUser();
+			FamilyDoctor doctor = patient.getFamilyDoctor();
 			
-			if (ejb.visitAvailable(doctor.getId(), concatDateTime()))		
+			if (ejb.visitAvailable(doctor, concatDateTime())){
 				//Add the visit
 				ejb.addVisit(doctor, patient, concatDateTime(), observations);
-			else
-				System.out.println("Ha dado false"); //No visit available
+				return "visitDashboardView";
+			}
+			else {
+				Messages.addErrorGlobalMessage("Su medico de cabecera no tiene visita disponible a esa hora.");
+				return null;
+			}
 		} 
 		catch(Exception e){
-			System.out.println(e);
+			Messages.addErrorGlobalMessage("No tiene un medico de cabecera asignado. Por favor, seleccione su médico de cabecera desde su perfil.");
+			return null;
 		}
 	}
 
@@ -60,23 +64,8 @@ public class AddVisit implements Serializable {
 		Date newDate = Date.from(dt.atZone(ZoneId.systemDefault()).toInstant());
 		return newDate;
 	}
-	//Getters & Setters
-	public long getDoctorId() {
-		return doctorId;
-	}
-
-	public void setDoctorId(long doctorId) {
-		this.doctorId = doctorId;
-	}
-
-	public long getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(long patientId) {
-		this.patientId = patientId;
-	}
 	
+	//Getters & Setters	
 	public Date getDate() {
 		return date;
 	}

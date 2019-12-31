@@ -7,7 +7,6 @@
 	template="/templates/dashboard.xhtml">
 
 <ui:define name="content">
-<h:link outcome="visitDashboardView" value="Atras"/>
 <h:form>	
 		<h:dataTable value="#{listallvisits.listAllScheduledVisits()}" var="item" cellpadding="5">
  			<f:facet name="header">			
@@ -54,14 +53,10 @@
      			</h:outputText>
  			</h:column>
 		 	<h:column align="center">			
-				<h:commandLink outcome="visitView.xhtml" value="Ver visita"  action="visitView.xhtml">
-					<f:actionListener binding="#{showvisit.showVisit(item.id)}" />
-				</h:commandLink>		
+				<h:commandLink value="Ver visita"  action="#{showvisit.showVisit(item)}" />	
  			</h:column>
 	 		<h:column align="center">	
-				<h:commandLink outcome="updateVisitView.xhtml" value="Modificar fecha y hora"  action="updateVisitDateView.xhtml">
-					<f:actionListener binding="#{updatevisit.getVisit(item.id,0)}" />
-				</h:commandLink>		
+				<h:commandLink value="Modificar fecha y hora"  action="#{updatevisit.visitToUpdate(item)}" />		
  			</h:column>
  		</h:dataTable>
  	  </h:form>		

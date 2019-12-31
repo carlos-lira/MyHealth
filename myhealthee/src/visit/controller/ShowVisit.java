@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import entity.imp.Visit;
@@ -18,23 +19,22 @@ import visit.dao.VisitFacadeRemote;
 
 
 @Named("showvisit")
-@RequestScoped
+@SessionScoped
 public class ShowVisit implements Serializable {
 
 	private static final long serialVersionUID = 6972663073709391508L;
-
-	@EJB
-	private VisitFacadeRemote ejb;
 	
 	private Visit visit = new Visit();
 
-	public void showVisit(long id)
+	public String showVisit(Visit visit)
 	{
 		try {
-			setVisit(ejb.getVisit(id));
+			this.visit = visit;
+			return "visitView";
 		} 
 		catch(Exception e){
 			//System.out.println("Error");
+			return null;
 		}
 	}
 

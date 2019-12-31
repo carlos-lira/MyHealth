@@ -7,10 +7,9 @@
 	template="/templates/dashboard.xhtml">
 
 <ui:define name="content">
-<h:link outcome="visitDashboardView" value="Atras"/><br/>
 	<h:form id="dateselector">
 		Select Date: <h:inputText value="#{listallvisits.date}"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText>
-		<h:commandButton value="Submit" type="submit" action="#{listallvisits.listAllScheduledVisits(user.id,1)}" />
+		<h:commandButton value="Submit" type="submit" action="#{listallvisits.listAllScheduledVisits}" />
 	</h:form>
 	<h:form id="scheduledvisitstable">	
 		<h:dataTable value="#{listallvisits.visits}" var="item" cellpadding="5">
@@ -40,14 +39,10 @@
      			</h:outputText>
  			</h:column>
 		 	<h:column align="center">			
-				<h:commandLink outcome="visitView.xhtml" value="Ver visita"  action="visitView.xhtml">
-					<f:actionListener binding="#{showvisit.showVisit(item.id)}" />
-				</h:commandLink>		
+				<h:commandLink value="Ver visita" action="#{showvisit.showVisit(item)}" />	
  			</h:column>
 		 	<h:column align="center">			
-				<h:commandLink value="Añadir Resultado"  action="updateVisitResultView.xhtml">
-					<f:actionListener binding="#{updatevisit.getVisit(item.id,1)}" />
-				</h:commandLink>			
+				<h:commandLink value="Añadir Resultado"  action="#{updatevisit.visitToUpdate(item)}"/>		
  			</h:column>
  		</h:dataTable>
  	  </h:form>		

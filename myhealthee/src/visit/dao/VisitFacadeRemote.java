@@ -17,11 +17,9 @@ public interface VisitFacadeRemote {
 	public void removeVisit(long id);
 	public void addResultToVisit(long id, String result);
 	public Collection<Visit> listAllScheduledVisits();
-	public Collection<Visit> listAllScheduledVisits(long patientId);
-	public Collection<Visit> listAllScheduledVisits(long doctorId, Date date);
-	public boolean visitAvailable (long doctorId, Date visitTime);
-	public boolean visitAvailable (long doctorId, Date visitTime, long visitId);
+	public Collection<Visit> listAllScheduledVisits(Patient patient);
+	public Collection<Visit> listAllScheduledVisits(FamilyDoctor familyDoctor, Date date);
+	public boolean visitAvailable (FamilyDoctor familyDoctor, Date visitTime);
+	public boolean visitAvailable (long visitId, Date visitTime);
 	public Visit getVisit(long id);
-	public Patient getPatient(long patientId);
-	public FamilyDoctor getPatientDoctor(long patientId);
 }
