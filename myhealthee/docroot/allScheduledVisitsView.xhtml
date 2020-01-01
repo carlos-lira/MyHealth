@@ -9,8 +9,7 @@
 <ui:define name="content">
 	<h:form>
 		Select Date: 
-		<h:inputText id="dateselector" value="#{listallvisits.date}"
-						a:placeholder="DD/MM/AAAA" required="true"><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText>
+		<h:inputText a:type="date" id="dateselector" value="#{listallvisits.date}" required="true"><f:convertDateTime pattern="yyyy-MM-dd"/></h:inputText>
 		<h:commandButton value="Consultar" type="submit" /><br/>
 		<h:message for="dateselector" style="color:red"/>
 	</h:form>

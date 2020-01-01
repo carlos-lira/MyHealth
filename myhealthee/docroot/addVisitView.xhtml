@@ -5,20 +5,20 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/templates/dashboard.xhtml">
-
+ 
 <ui:define name="content">
 	<h:form>
 		<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
 		<br/>
 		Fecha<br/>
-		<h:inputText id="addDateInput" value="#{addvisit.date}"
-			a:placeholder="DD/MM/AAAA" required="true"
-			requiredMessage="Por favor introduzca una fecha."><f:convertDateTime pattern="dd/MM/yyyy"/></h:inputText><br/>
+		<h:inputText a:type="date"
+			id="addDateInput" value="#{addvisit.date}" required="true"
+			requiredMessage="Por favor introduzca una fecha."><f:convertDateTime pattern="yyyy-MM-dd"/></h:inputText><br/>
 			<h:message for="addDateInput" style="color:red"/>
 		<br/>
 		Hora<br/>
-		<h:inputText id="addTimeInput" value="#{addvisit.time}"
-			a:placeholder="HH:MM"  required="true"
+		<h:inputText a:type="time" a:step="900" 
+			id="addTimeInput" value="#{addvisit.time}" required="true"
 			requiredMessage="Por favor introduzca una hora."><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
 			<h:message for="addTimeInput" style="color:red"/>
 		<br/>

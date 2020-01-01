@@ -41,7 +41,7 @@ public class UpdateVisit implements Serializable {
 	private String result;
 	
 	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd/MM/yyyy");
-	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("HH:mm");
+	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("h:mm aa");
 	
 	public String visitToUpdate(Visit visit) {
 		this.visit = visit;
@@ -57,30 +57,34 @@ public class UpdateVisit implements Serializable {
 			return "updateVisitDateView";
 	}
 
-	public String updateVisitTime()
-	{
+	public String updateVisitTime() {
 		User u = SessionUtils.getUser();
 		Date d = concatDateTime();
 		
 		try {
-			//getVisit(id,0);
-			if (ejb.visitAvailable(id, d)) {
-				ejb.updateVisit(visit.getId(), d);
-				
-				if(u.getClass() == Patient.class)
-					return "allPatientVisitsView";
-				else if (u.getClass() == Administrator.class)
-					return "adminVisitsView";
-				else
-					return "visitDashboardView";
+			if (visitPriorToCurrentTime(d)) {
+				Messages.addErrorGlobalMessage("La visita que desea reservar ya ha pasado. Por favor introduzca una fecha posterior.");
+				return null;
 			}
 			else {
-				Date nextAppointment = ejb.nextAvailableAppointment(visit.getFamilyDoctor(), d);
-				String dateToPrint = SDF_DATE.format(nextAppointment);
-				String hourToPrint = SDF_TIME.format(nextAppointment);
-				Messages.addInfoGlobalMessage("El doctor " + visit.getFamilyDoctor().getSurnames() + " no tiene visita disponible a esa hora.");
-				Messages.addInfoGlobalMessage("La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
-				return null; //timeslot unavailable
+				if (ejb.visitAvailable(id, d)) {
+					ejb.updateVisit(visit.getId(), d);
+					
+					if(u.getClass() == Patient.class)
+						return "allPatientVisitsView";
+					else if (u.getClass() == Administrator.class)
+						return "adminVisitsView";
+					else
+						return "visitDashboardView";
+				}
+				else {
+					Date nextAppointment = ejb.nextAvailableAppointment(visit.getFamilyDoctor(), d);
+					String dateToPrint = SDF_DATE.format(nextAppointment);
+					String hourToPrint = SDF_TIME.format(nextAppointment);
+					Messages.addInfoGlobalMessage("El doctor " + visit.getFamilyDoctor().getSurnames() + " no tiene visita disponible a esa hora.");
+					Messages.addInfoGlobalMessage("La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
+					return null; //timeslot unavailable
+				}
 			}
 		} 
 		catch(Exception e){
@@ -111,6 +115,10 @@ public class UpdateVisit implements Serializable {
 		return newDate;
 	}
 
+	private boolean visitPriorToCurrentTime(Date d) {
+		return ((d.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()).compareTo(LocalDateTime.now()) < 0 );
+	}
+	
 	public Visit getVisit() {
 		return visit;
 	}

@@ -35,7 +35,7 @@ public class AddVisit implements Serializable {
 	private String observations;
 
 	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd/MM/yyyy");
-	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("HH:mm");
+	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("h:mm aa");
 	
 	public String addVisit() {
 		try {
@@ -44,18 +44,24 @@ public class AddVisit implements Serializable {
 			FamilyDoctor doctor = patient.getFamilyDoctor();
 			Date d = concatDateTime();
 			
-			if (ejb.visitAvailable(doctor, concatDateTime())){
-				//Add the visit
-				ejb.addVisit(doctor, patient, d, observations);
-				return "visitDashboardView";
+			if (visitPriorToCurrentTime(d)) {
+				Messages.addErrorGlobalMessage("La visita que desea reservar ya ha pasado. Por favor introduzca una fecha posterior.");
+				return null;
 			}
 			else {
-				Date nextAppointment = ejb.nextAvailableAppointment(doctor, d);
-				String dateToPrint = SDF_DATE.format(nextAppointment);
-				String hourToPrint = SDF_TIME.format(nextAppointment);
-				Messages.addInfoGlobalMessage("El doctor " + doctor.getSurnames() + " no tiene visita disponible a esa hora.");
-				Messages.addInfoGlobalMessage("La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
-				return null;
+				if (ejb.visitAvailable(doctor, concatDateTime())){
+					//Add the visit
+					ejb.addVisit(doctor, patient, d, observations);
+					return "visitDashboardView";
+				}
+				else {
+					Date nextAppointment = ejb.nextAvailableAppointment(doctor, d);
+					String dateToPrint = SDF_DATE.format(nextAppointment);
+					String hourToPrint = SDF_TIME.format(nextAppointment);
+					Messages.addInfoGlobalMessage("El doctor " + doctor.getSurnames() + " no tiene visita disponible a esa hora.");
+					Messages.addInfoGlobalMessage("La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
+					return null;
+				}
 			}
 		} 
 		catch(Exception e){
@@ -71,6 +77,10 @@ public class AddVisit implements Serializable {
 		
 		Date newDate = Date.from(dt.atZone(ZoneId.systemDefault()).toInstant());
 		return newDate;
+	}
+	
+	private boolean visitPriorToCurrentTime(Date d) {
+		return ((d.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()).compareTo(LocalDateTime.now()) < 0 );
 	}
 	
 	//Getters & Setters	
