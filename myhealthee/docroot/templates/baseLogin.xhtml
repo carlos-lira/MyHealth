@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/base.xhtml">
+	<ui:define name="body">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-10 col-lg-12 col-md-9">
+					<div class="card o-hidden border-0 shadow-lg my-5">
+						<div class="card-body p-0">
+							<div class="row">
+								<ui:insert name="bgimage" />
+								<div class="col-lg-6">
+									<div class="p-5">
+										<ui:insert name="content" />
+									</div>
+									<footer class="sticky-footer bg-white">
+										<div class="container my-auto d-flex flex-row align-items-center">
+											<div class="copyright">
+												<ui:include src="/templates/components/copyright.xhtml" />
+											</div>
+											<div class="ml-auto">
+												<ui:include src="/templates/components/language.xhtml" />
+											</div>
+										</div>
+									</footer>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			(function() {
+				document.body.classList.add("bg-gradient-primary");
+			})();
+		</script>
+	</ui:define>
+</ui:composition>

@@ -42,6 +42,7 @@
 
 			<!-- Content Wrapper -->
 			<div id="content-wrapper" class="d-flex flex-column">
+
 				<!-- Main Content -->
 				<div id="content">
 					<!-- Topbar -->
@@ -88,6 +89,20 @@
 						<ui:insert name="content" />
 					</div>
 				</div>
+
+				<!-- Footer -->
+				<footer class="sticky-footer bg-white">
+					<div class="my-auto px-4">
+						<div class="my-auto d-flex flex-row align-items-center">
+							<div class="copyright">
+								<ui:include src="/templates/components/copyright.xhtml" />
+							</div>
+							<div class="ml-auto">
+								<ui:include src="/templates/components/language.xhtml" />
+							</div>
+						</div>
+					</div>
+				</footer>
 			</div>
 		</div>
 		<script>

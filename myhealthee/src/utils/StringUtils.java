@@ -5,8 +5,15 @@ package utils;
  * 
  * @author adlo
  */
-public abstract class StringUtils {
+public final class StringUtils {
 
+	/**
+	 * Hide constructor
+	 */
+	private StringUtils() {
+		// nop
+	}
+	
 	/**
 	 * Convert a camel case String into a readable String.
 	 * Examples:
