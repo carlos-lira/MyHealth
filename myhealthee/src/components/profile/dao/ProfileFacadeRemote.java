@@ -6,6 +6,7 @@ import entity.User;
 import entity.imp.PrimaryHealthCareCenter;
 
 import javax.ejb.Remote;
+import java.util.List;
 
 /**
  * Profile EJB remote.
@@ -109,9 +110,28 @@ public interface ProfileFacadeRemote {
 
 	/**
 	 *
-	 * @param id User identification code
+	 * @param email User identification code
 	 * @return a User with the specific identification code
 	 */
-	public User getUser(String id);
+	public User getUser(String email);
+
+	/**
+	 *
+	 * @return List of all family doctors
+	 */
+	public List<FamilyDoctor> listAllFamilyDoctors();
+
+	/**
+	 *
+	 * @return List of all primary health care centers
+	 */
+	public List<PrimaryHealthCareCenter> listAllCaps();
+
+	/**
+	 *
+	 * @param name Primary health care center name
+	 * @return a Primary health care center
+	 */
+	public PrimaryHealthCareCenter getCap(String name);
 
 }

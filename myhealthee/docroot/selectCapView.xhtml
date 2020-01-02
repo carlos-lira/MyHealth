@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                template="/templates/dashboard.xhtml">
+
+    <ui:define name="content">
+        Seleccionar centro de atención primaria
+        <hr/>
+
+        Actual centro de atención primaria: #{selectcap.cap}
+        <br/>
+
+        <h:form>
+            <h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
+            <br/>
+            Nuevo centro de atención primaria: <br/>
+            <h:selectOneMenu value="#{selectcap.newCap}">
+                <f:selectItems value="#{selectcap.listAllCaps()}" var="cap" itemValue="#{cap.name}" itemLabel="#{cap.name} (#{cap.location})" />
+            </h:selectOneMenu>
+            <br/><br/>
+
+            <h:commandButton value="Seleccionar" type="submit" action="#{selectcap.updateCap}" />
+        </h:form>
+
+    </ui:define>
+</ui:composition>

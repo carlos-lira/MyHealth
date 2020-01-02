@@ -8,5 +8,13 @@
 
 <ui:define name="content">
 	Profile page
+	<hr/>
+
+	<!-- Pages -->
+	<ui:repeat value="#{profile.navPages}" var="item">
+		<h:link class="nav-link" outcome="#{item.url}">
+			<span> <h:outputText value="#{item.pageName}" /> </span>
+		</h:link>
+	</ui:repeat>
  </ui:define>
 </ui:composition>

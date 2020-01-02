@@ -2,7 +2,9 @@ package components.profile.dao;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
 import entity.User;
 import entity.imp.*;
@@ -10,6 +12,8 @@ import org.jboss.resteasy.logging.Logger;
 import org.jboss.resteasy.logging.impl.Log4jLogger;
 
 import utils.QueryNames;
+
+import java.util.List;
 
 /**
  * Profile EJB.
@@ -25,7 +29,6 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	private EntityManager em;
 
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean changeFamilyDoctor(String id, FamilyDoctor newDoctor) {
 		try {
 			Patient patient = (Patient) this.getUser(id);
@@ -57,7 +60,6 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	}
 
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean updatePatientData(String id, String nif, String name, String surnames, String password, String email) {
 		try {
 			Patient patient = (Patient) this.getUser(id);
@@ -78,7 +80,6 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	}
 
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean updateSpecialistDoctorData(String id, String nif, String name, String surnames, String password, String email, MedicalSpeciality speciality) {
 		try {
 			SpecialistDoctor specialistDoctor = (SpecialistDoctor) this.getUser(id);
@@ -89,7 +90,7 @@ public class ProfileFacade implements ProfileFacadeRemote {
 				specialistDoctor.setPassword(password);
 				specialistDoctor.setEmail(email);
 				specialistDoctor.setMedicalSpeciality(speciality);
-				em.merge(patient);
+				em.merge(specialistDoctor);
 				em.flush();
 			}
 		} catch (PersistenceException e) {
@@ -100,7 +101,6 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	}
 
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean updateFamilyDoctorData(String id, String nif, String name, String surnames, String password, String email, PrimaryHealthCareCenter cap) {
 		try {
 			FamilyDoctor familyDoctor = (FamilyDoctor) this.getUser(id);
@@ -111,7 +111,7 @@ public class ProfileFacade implements ProfileFacadeRemote {
 				familyDoctor.setPassword(password);
 				familyDoctor.setEmail(email);
 				familyDoctor.setPrimaryHealthcareCenter(cap);
-				em.merge(patient);
+				em.merge(familyDoctor);
 				em.flush();
 			}
 		} catch (PersistenceException e) {
@@ -122,7 +122,6 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	}
 
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean changePrimaryHealthCareCenter(String id, PrimaryHealthCareCenter newCenter) {
 		try {
 			FamilyDoctor familyDoctor = (FamilyDoctor) this.getUser(id);
@@ -139,13 +138,39 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	}
 
 	@Override
-	public User getUser(String id) {
+	public User getUser(String email) {
 		try {
-			return (User) em.createNamedQuery(QueryNames.GET_USER).setParameter("email", id)
-					.setParameter("username", id).getSingleResult();
+			return (User) em.createQuery("from User WHERE email = ?1").setParameter(1, email).getSingleResult();
 		} catch (NoResultException e) {
 			logger.error(e.getMessage());
 		}
 		return null;
+	}
+
+	public PrimaryHealthCareCenter getCap(String name) {
+		try {
+			return (PrimaryHealthCareCenter) em.createQuery("from PrimaryHealthCareCenter WHERE name = ?1").setParameter(1, name).getSingleResult();
+		} catch (NoResultException e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public List<FamilyDoctor> listAllFamilyDoctors() {
+		try {
+			return em.createQuery("from FamilyDoctor ORDER BY id ASC").getResultList();
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public List<PrimaryHealthCareCenter> listAllCaps() {
+		try {
+			return em.createQuery("from PrimaryHealthCareCenter ORDER BY id ASC").getResultList();
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 }

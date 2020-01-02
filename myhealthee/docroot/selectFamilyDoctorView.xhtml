@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                template="/templates/dashboard.xhtml">
+
+    <ui:define name="content">
+        Seleccionar médico de familia
+        <hr/>
+
+        Actual médico de familia actual: #{selectfamilydoctor.familyDoctor}
+        <br/>
+
+        <h:form>
+            <h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
+            <br/>
+            Nuevo médico de familia: <br/>
+            <h:selectOneMenu value="#{selectfamilydoctor.newFamilyDoctor}">
+               	<f:selectItems value="#{selectfamilydoctor.listAllFamilyDoctors()}" var="doctor" itemValue="#{doctor.email}" itemLabel="#{doctor.name} #{doctor.surnames}" />
+            </h:selectOneMenu>
+            <br/><br/>
+
+            <h:commandButton value="Seleccionar" type="submit" action="#{selectfamilydoctor.updateFamilyDoctor}" />
+        </h:form>
+
+    </ui:define>
+</ui:composition>
