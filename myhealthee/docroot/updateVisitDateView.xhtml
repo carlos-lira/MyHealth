@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+   
+<ui:define name="content">
+	<h:form>
+		<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
+		<h:inputHidden value="#{updatevisit.id}" type="text"/>
+		Doctor<br/>
+		<h:outputText value="#{updatevisit.visit.familyDoctor.name} #{updatevisit.visit.familyDoctor.surnames}" type="text" readonly="true"/><br/>
+		<br/>
+		Fecha<br/>
+		<h:inputText a:type="date"
+			id="updateDateInput" value="#{updatevisit.newDate}" required="true"
+			requiredMessage="Por favor introduzca una fecha."><f:convertDateTime pattern="yyyy-MM-dd"/></h:inputText><br/>
+			<h:message for="updateDateInput" style="color:red"/>
+		<br/>
+		Hora<br/>
+		<h:inputText a:type="time" a:step="900" 
+			id="updateTimeInput" value="#{updatevisit.newTime}" required="true"
+			requiredMessage="Por favor introduzca una hora."><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
+			<h:message for="updateTimeInput" style="color:red"/>
+		<br/>
+		Observaciones<br/>
+		<h:outputText value="#{updatevisit.visit.observations}" readonly="true"/><br/>
+		<br/>
+		Resultados<br/>
+		<h:outputText value="#{updatevisit.visit.result}"/><br/>
+		<br/>
+		<h:commandButton value="Actualizar Fecha" type="submit" action="#{updatevisit.updateVisitTime}"/>
+	</h:form>
+ </ui:define>
+</ui:composition>
