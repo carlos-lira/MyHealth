@@ -1,28 +1,20 @@
 package components.profile.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import components.profile.dao.ProfileFacadeRemote;
-import components.systemadministration.dao.SystemAdministrationFacade;
 import entity.User;
-import entity.imp.FamilyDoctor;
-import entity.imp.Patient;
 import entity.imp.SpecialistDoctor;
 import utils.Messages;
 import utils.SessionUtils;
 import java.io.Serializable;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import org.jboss.resteasy.logging.Logger;
-import org.jboss.resteasy.logging.impl.Log4jLogger;
 
 @Named("updatespecialistdoctorprofile")
 @SessionScoped
 public class UpdateSpecialistDoctorProfileController implements Serializable {
 	private static final long serialVersionUID = 5948297105297169616L;
-	private static final Logger logger = Log4jLogger.getLogger(UpdateFamilyDoctorProfileController.class);
 
 	@EJB
 	private ProfileFacadeRemote ejb;

@@ -10,5 +10,88 @@
         Registrar médico especialista
         <hr/>
 
+        <h:form class="user pt-3">
+            <h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
+            <div class="form-group row">
+                <div class="col-sm-4 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_doctor-nif">NIF:</h:outputLabel>
+                    <h:inputText id="register_doctor-nif"
+                                 value="#{registeruser.specialistDoctor.nif}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Nif" requiredMessage="The nif field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_doctor-nif" />
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_doctor-name">Name:</h:outputLabel>
+                    <h:inputText id="register_doctor-name"
+                                 value="#{registeruser.specialistDoctor.name}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Name" requiredMessage="The name field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_doctor-name" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h:outputLabel for="register_doctor-surnames">Surnames:</h:outputLabel>
+                    <h:inputText id="register_doctor-surnames"
+                                 value="#{registeruser.specialistDoctor.surnames}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Surnames"
+                                 requiredMessage="The surnames field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_doctor-surnames" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_doctor-username">Username:</h:outputLabel>
+                    <h:inputText id="register_doctor-username"
+                                 value="#{registeruser.specialistDoctor.username}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Username"
+                                 requiredMessage="The username field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_doctor-username" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputLabel for="register_doctor-email">Email:</h:outputLabel>
+                    <h:inputText id="register_doctor-email"
+                                 value="#{registeruser.specialistDoctor.email}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Email"
+                                 requiredMessage="The email field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_doctor-email" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_doctor-password">Password:</h:outputLabel>
+                    <h:inputSecret id="register_doctor-password"
+                                   value="#{registeruser.specialistDoctor.password}"
+                                   class="form-control form-control-user" required="true"
+                                   a:placeholder="Password"
+                                   requiredMessage="The password field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_doctor-password" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputLabel for="register_doctor-repeat-password">Repeat Password:</h:outputLabel>
+                    <h:inputSecret id="register_doctor-repeat-password"
+                                   value="#{registeruser.specialistDoctor.repeatPassword}"
+                                   class="form-control form-control-user"
+                                   a:placeholder="Repeat Password" />
+                </div>
+            </div>
+            <h:commandButton value="Register Specialist Doctor"
+                             class="btn btn-primary btn-user btn-block"
+                             action="#{registeruser.registerSpecialistDoctor}" />
+        </h:form>
     </ui:define>
 </ui:composition>

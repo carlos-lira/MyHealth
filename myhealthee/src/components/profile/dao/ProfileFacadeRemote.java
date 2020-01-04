@@ -34,7 +34,7 @@ public interface ProfileFacadeRemote {
 	 * @param email Patient email
 	 * @return true if patient is registered, false otherwise.
 	 */
-	public boolean registerPatient(String id, String nif, String name, String surnames, String password, String email);
+	public boolean registerPatient(String id, String nif, String name, String surnames, String password, String username, String email);
 
 	/**
 	 *
@@ -47,7 +47,7 @@ public interface ProfileFacadeRemote {
 	 * @param speciality Specialist doctor medical speciality
 	 * @return true if specialist doctor is registered, false otherwise.
 	 */
-	public boolean registerSpecialistDoctor(String id, String nif, String name, String surnames, String password, String email, MedicalSpeciality speciality);
+	public boolean registerSpecialistDoctor(String id, String nif, String name, String surnames, String password, String username, String email, MedicalSpeciality speciality);
 
 	/**
 	 *
@@ -60,7 +60,7 @@ public interface ProfileFacadeRemote {
 	 * @param cap Family doctor primary health care center
 	 * @return true if family doctor is registered, false otherwise.
 	 */
-	public boolean registerFamilyDoctor(String id, String nif, String name, String surnames, String password, String email, PrimaryHealthCareCenter cap);
+	public boolean registerFamilyDoctor(String id, String nif, String name, String surnames, String password, String username, String email, PrimaryHealthCareCenter cap);
 
 	/**
 	 *

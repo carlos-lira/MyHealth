@@ -44,17 +44,63 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	}
 
 	@Override
-	public boolean registerPatient(String id, String nif, String name, String surnames, String password, String email) {
+	public boolean registerPatient(String id, String nif, String name, String surnames, String password, String username, String email) {
+		try {
+			Patient patient = new Patient();
+			patient.setNif(nif);
+			patient.setName(name);
+			patient.setSurnames(surnames);
+			patient.setPassword(Cypher.createHashedPassword(algorithm, password));
+			patient.setUsername(username);
+			patient.setEmail(email);
+			em.persist(patient);
+			em.flush();
+			return true;
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
 		return false;
 	}
 
 	@Override
-	public boolean registerSpecialistDoctor(String id, String nif, String name, String surnames, String password, String email, MedicalSpeciality speciality) {
+	public boolean registerSpecialistDoctor(String id, String nif, String name, String surnames, String password, String username, String email, MedicalSpeciality speciality) {
+		try {
+			logger.info(email);
+			SpecialistDoctor specialistDoctor = new SpecialistDoctor();
+			specialistDoctor.setNif(nif);
+			specialistDoctor.setName(name);
+			specialistDoctor.setSurnames(surnames);
+			specialistDoctor.setPassword(Cypher.createHashedPassword(algorithm, password));
+			specialistDoctor.setUsername(username);
+			specialistDoctor.setEmail(email);
+			specialistDoctor.setMedicalSpeciality(speciality);
+			em.persist(specialistDoctor);
+			em.flush();
+			return true;
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
 		return false;
 	}
 
 	@Override
-	public boolean registerFamilyDoctor(String id, String nif, String name, String surnames, String password, String email, PrimaryHealthCareCenter cap) {
+	public boolean registerFamilyDoctor(String id, String nif, String name, String surnames, String password, String username, String email, PrimaryHealthCareCenter cap) {
+		try {
+			logger.info(email);
+			FamilyDoctor familyDoctor = new FamilyDoctor();
+			familyDoctor.setNif(nif);
+			familyDoctor.setName(name);
+			familyDoctor.setSurnames(surnames);
+			familyDoctor.setPassword(Cypher.createHashedPassword(algorithm, password));
+			familyDoctor.setUsername(username);
+			familyDoctor.setEmail(email);
+			familyDoctor.setPrimaryHealthcareCenter(cap);
+			em.persist(familyDoctor);
+			em.flush();
+			return true;
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
 		return false;
 	}
 
