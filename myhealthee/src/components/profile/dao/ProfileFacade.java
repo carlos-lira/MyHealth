@@ -66,7 +66,7 @@ public class ProfileFacade implements ProfileFacadeRemote {
 				patient.setNif(nif);
 				patient.setName(name);
 				patient.setSurnames(surnames);
-				patient.setPassword(password);
+				patient.setPassword(Cypher.createHashedPassword(algorithm, password));
 				patient.setEmail(email);
 				em.merge(patient);
 				em.flush();
@@ -86,7 +86,7 @@ public class ProfileFacade implements ProfileFacadeRemote {
 				specialistDoctor.setNif(nif);
 				specialistDoctor.setName(name);
 				specialistDoctor.setSurnames(surnames);
-				specialistDoctor.setPassword(password);
+				specialistDoctor.setPassword(Cypher.createHashedPassword(algorithm, password));
 				specialistDoctor.setEmail(email);
 				specialistDoctor.setMedicalSpeciality(speciality);
 				em.merge(specialistDoctor);
