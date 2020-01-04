@@ -45,7 +45,7 @@ public class SelectFamilyDoctorController implements Serializable {
         }
     }
 
-    public String updateFamilyDoctor() {
+    public void updateFamilyDoctor() {
         try {
             Patient patient = (Patient) SessionUtils.getUser();
             FamilyDoctor doctor = patient.getFamilyDoctor();
@@ -53,15 +53,13 @@ public class SelectFamilyDoctorController implements Serializable {
 
             if (doctor != null && doctor.getEmail().equals(newDoctor.getEmail())) {
                 Messages.addErrorGlobalMessage("El actual y el nuevo médico de familia son el mismo. Seleccione uno distinto.");
-                return null;
             } else {
                 ejb.changeFamilyDoctor(patient.getEmail(), newDoctor);
-                return "selectFamilyDoctorView";
+                Messages.addInfoGlobalMessage("Médico de familia seleccionado correctamente.");
             }
         }
         catch(Exception e){
             Messages.addErrorGlobalMessage("Error seleccionando un médico de familia. Por favor inténtalo de nuevo.");
-            return null;
         }
     }
 

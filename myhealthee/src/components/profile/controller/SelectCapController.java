@@ -2,7 +2,6 @@ package components.profile.controller;
 
 import components.profile.dao.ProfileFacadeRemote;
 import entity.imp.FamilyDoctor;
-import entity.imp.Patient;
 import entity.imp.PrimaryHealthCareCenter;
 import utils.Messages;
 import utils.SessionUtils;
@@ -46,23 +45,21 @@ public class SelectCapController  implements Serializable {
 		}
 	}
 
-	public String updateCap() {
+	public void updateCap() {
 		try {
 			FamilyDoctor doctor = (FamilyDoctor) SessionUtils.getUser();
 			PrimaryHealthCareCenter cap = doctor.getPrimaryHealthcareCenter();
 			PrimaryHealthCareCenter newCap = (PrimaryHealthCareCenter) ejb.getCap(this.newCap);
 
 			if (cap != null && cap.getName().equals(newCap.getName())) {
-				Messages.addErrorGlobalMessage("El actual y el nuevo centro de atenciÃ³n primaria son el mismo. Seleccione uno distinto.");
-				return null;
+				Messages.addErrorGlobalMessage("El actual y el nuevo centro de atención primaria son el mismo. Seleccione uno distinto.");
 			} else {
 				ejb.changePrimaryHealthCareCenter(doctor.getEmail(), newCap);
-				return "selectCapView";
+				Messages.addInfoGlobalMessage("Centro de atención primaria seleccionado correctamente.");
 			}
 		}
 		catch(Exception e){
-			Messages.addErrorGlobalMessage("Error seleccionando un centro de atenciÃ³n primaria. Por favor intÃ©ntalo de nuevo.");
-			return null;
+			Messages.addErrorGlobalMessage("Error seleccionando un centro de atención primaria. Por favor inténtalo de nuevo.");
 		}
 	}
 

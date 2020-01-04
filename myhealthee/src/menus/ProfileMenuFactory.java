@@ -14,12 +14,14 @@ public class ProfileMenuFactory {
     // MENUS.
     private static List<Menu> MENUS = new ArrayList<Menu>();
     static {
-        MENUS.add(new Menu("Actualizar datos personales", null, "updateProfileView", Patient.class));
-        MENUS.add(new Menu("Actualizar datos personales", null, "updateProfileView", FamilyDoctor.class));
-        MENUS.add(new Menu("Actualizar datos personales", null, "updateProfileView", SpecialistDoctor.class));
+        MENUS.add(new Menu("Actualizar datos personales", null, "updatePatientProfileView", Patient.class));
+        MENUS.add(new Menu("Actualizar datos personales", null, "updateFamilyDoctorProfileView", FamilyDoctor.class));
+        MENUS.add(new Menu("Actualizar datos personales", null, "updateSpecialistDoctorProfileView", SpecialistDoctor.class));
         MENUS.add(new Menu("Seleccionar médico de familia", null, "selectFamilyDoctorView", Patient.class));
         MENUS.add(new Menu("Seleccionar centro de atención primaria", null, "selectCapView", FamilyDoctor.class));
-        MENUS.add(new Menu("Registrar usuario", null, "registerUserView", Administrator.class));
+        MENUS.add(new Menu("Registrar paciente", null, "registerPatientView", Administrator.class));
+        MENUS.add(new Menu("Registrar médico de familia", null, "registerFamilyDoctorView", Administrator.class));
+        MENUS.add(new Menu("Registrar médico especialista", null, "registerSpecialistDoctorView", Administrator.class));
     }
 
     /**

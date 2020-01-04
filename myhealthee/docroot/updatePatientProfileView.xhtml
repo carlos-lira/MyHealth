@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                template="/templates/dashboard.xhtml">
+
+    <ui:define name="content">
+        Actualizar datos personales de paciente
+        <hr/>
+
+        <h:form class="user pt-3">
+            <h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
+            <div class="form-group row">
+                <div class="col-sm-4 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_patient-nif">NIF:</h:outputLabel>
+                    <h:inputText id="register_patient-nif"
+                                 value="#{updatepatientprofile.patient.nif}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Nif" requiredMessage="The nif field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_patient-nif" />
+                    </div>
+                </div>
+                <div class="col-sm-4 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_patient-name">Name:</h:outputLabel>
+                    <h:inputText id="register_patient-name"
+                                 value="#{updatepatientprofile.patient.name}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Name" requiredMessage="The name field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_patient-name" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h:outputLabel for="register_patient-surnames">Surnames:</h:outputLabel>
+                    <h:inputText id="register_patient-surnames"
+                                 value="#{updatepatientprofile.patient.surnames}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Surnames"
+                                 requiredMessage="The surnames field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_patient-surnames" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_patient-username">Username:</h:outputLabel>
+                    <h:inputText id="register_patient-username"
+                                 value="#{updatepatientprofile.patient.username}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Username"
+                                 requiredMessage="The username field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_patient-username" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputLabel for="register_patient-email">Email:</h:outputLabel>
+                    <h:inputText id="register_patient-email"
+                                 value="#{updatepatientprofile.patient.email}"
+                                 class="form-control form-control-user" required="true"
+                                 a:placeholder="Email"
+                                 requiredMessage="The email field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_patient-email" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <h:outputLabel for="register_patient-password">Password:</h:outputLabel>
+                    <h:inputSecret id="register_patient-password"
+                                   value="#{updatepatientprofile.patient.password}"
+                                   class="form-control form-control-user" required="true"
+                                   a:placeholder="Password"
+                                   requiredMessage="The password field is required." />
+                    <div class="invalid-feedback d-block">
+                        <h:message for="register_patient-password" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h:outputLabel for="register_patient-repeat-password">Repeat Password:</h:outputLabel>
+                    <h:inputSecret id="register_patient-repeat-password"
+                                   value="#{updatepatientprofile.patient.repeatPassword}"
+                                   class="form-control form-control-user"
+                                   a:placeholder="Repeat Password" />
+                </div>
+            </div>
+            <h:commandButton value="Update Patient Profile"
+                             class="btn btn-primary btn-user btn-block"
+                             action="#{updatepatientprofile.updatePatientData}" />
+        </h:form>
+    </ui:define>
+</ui:composition>
