@@ -10,6 +10,11 @@ import entity.imp.Patient;
 import entity.imp.SpecialistDoctor;
 import utils.SessionUtils;
 
+/**
+ * Menu generator for the dashboard.
+ * 
+ * @author adlo
+ */
 public class MenuFactory {
 
 	// MENUS.

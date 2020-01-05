@@ -31,10 +31,10 @@ public class Visit extends BaseEntity {
 	@Column(name = "TIME", nullable = false, length = 22)
 	private Date time;
 
-	@Column(name = "observations", length = 2000)
+	@Column(name = "OBSERVATIONS", length = 2000)
 	private String observations;
 
-	@Column(name = "result", length = 200)
+	@Column(name = "RESULT", length = 200)
 	private String result;
 
 	@ManyToOne(fetch = FetchType.EAGER)

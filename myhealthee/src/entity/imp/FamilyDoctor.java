@@ -1,5 +1,6 @@
 package entity.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,10 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import entity.Doctor;
+import utils.QueryNames;
 
 /**
  * Family doctor entity.
@@ -19,6 +23,9 @@ import entity.Doctor;
  */
 @Entity
 @Table(name = "FAMILY_DOCTOR")
+@NamedQueries({
+		@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP, query = "SELECT d FROM FamilyDoctor d WHERE d.primaryHealthcareCenter = :cap") 
+})
 public class FamilyDoctor extends Doctor {
 	private static final long serialVersionUID = 6910880586339922197L;
 
@@ -28,11 +35,11 @@ public class FamilyDoctor extends Doctor {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "FAMILY_DOCTOR_ID")
-	private List<Visit> visits;
+	private List<Visit> visits = new ArrayList<Visit>();
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "FAMILY_DOCTOR_ID")
-	private List<Patient> patients;
+	private List<Patient> patients = new ArrayList<Patient>();
 
 	// Getters & Setters
 	public PrimaryHealthCareCenter getPrimaryHealthcareCenter() {

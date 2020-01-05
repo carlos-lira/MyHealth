@@ -5,11 +5,21 @@ package utils;
  * 
  * @author adlo
  */
-public interface QueryNames {
+public final class QueryNames {
 
+	/**
+	 * Hide constructor.
+	 */
+	private QueryNames() {
+		// nop
+	}
+	
 	// User query names
 	public static final String GET_ALL_USERS = "getAllUsers";
 	public static final String GET_USER = "getUser";
+	
+	// Family doctor queries
+	public static final String GET_ALL_FAMILY_DOCTORS_BY_CAP = "getAllFamilyDoctorsByCap";
 	
 	// PrimaryHealthCareCenter query names
 	public static final String GET_ALL_PRIMARY_HELTHCARE_CENTERS = "getAllPrimaryHealthCareCenters";

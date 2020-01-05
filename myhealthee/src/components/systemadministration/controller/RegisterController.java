@@ -54,13 +54,7 @@ public class RegisterController implements Serializable {
 	 */
 	public String registerFamilyDoctor() {
 		FamilyDoctor familyDoctor = new FamilyDoctor();
-		familyDoctor.setNif(doctor.getNif());
-		familyDoctor.setName(doctor.getName());
-		familyDoctor.setSurnames(doctor.getSurnames());
-		familyDoctor.setUsername(doctor.getUsername());
-		familyDoctor.setEmail(doctor.getEmail());
-		familyDoctor.setPassword(doctor.getPassword());
-		familyDoctor.setRepeatPassword(doctor.getRepeatPassword());
+		familyDoctor.copy(doctor);
 		return this.registerUser(familyDoctor, "Family Doctor register sucessfully");
 	}
 
@@ -69,13 +63,7 @@ public class RegisterController implements Serializable {
 	 */
 	public String registerSpecialistDoctor() {
 		SpecialistDoctor specialistDoctor = new SpecialistDoctor();
-		specialistDoctor.setNif(doctor.getNif());
-		specialistDoctor.setName(doctor.getName());
-		specialistDoctor.setSurnames(doctor.getSurnames());
-		specialistDoctor.setUsername(doctor.getUsername());
-		specialistDoctor.setEmail(doctor.getEmail());
-		specialistDoctor.setPassword(doctor.getPassword());
-		specialistDoctor.setRepeatPassword(doctor.getRepeatPassword());
+		specialistDoctor.copy(doctor);
 		return this.registerUser(specialistDoctor, "Specialist Doctor register sucessfully");
 	}
 

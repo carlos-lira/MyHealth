@@ -113,7 +113,8 @@ public interface SystemAdministrationFacadeRemote {
 	 * Get all family doctors in a primary healthcare center.
 	 * 
 	 * @param cap the primary healthcare center to get all the family doctors.
-	 * @return a list with all the family doctors in a primary healthcare center.
+	 * @return a list with all the family doctors in a primary healthcare center,
+	 *         empty list if the cap doesn have any doctor.
 	 */
 	public Collection<FamilyDoctor> listAllFamilyDoctorsByCAP(PrimaryHealthCareCenter cap);
 

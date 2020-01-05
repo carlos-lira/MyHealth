@@ -22,30 +22,51 @@ public class OperationBean implements Serializable {
 	private Operation delete = Operation.DELETE;
 
 	// ACTIONS
+	/**
+	 * @return true if the operation is a CRUD operation.
+	 */
 	public boolean hasOperation(Operation op) {
 		return op != Operation.NO_OPERATION;
 	}
-	
+
+	/**
+	 * @return true if the operation is a create operation, false otherwise.
+	 */
 	public boolean isCreate(Operation op) {
 		return op == Operation.CREATE;
 	}
 
+	/**
+	 * @return true if the operation is a read operation, false otherwise.
+	 */
 	public boolean isRead(Operation op) {
 		return op == Operation.READ;
 	}
 
+	/**
+	 * @return true if the operation is a update operation, false otherwise.
+	 */
 	public boolean isUpdate(Operation op) {
 		return op == Operation.UPDATE;
 	}
 
+	/**
+	 * @return true if the operation is a delete operation, false otherwise.
+	 */
 	public boolean isDelete(Operation op) {
 		return op == Operation.DELETE;
 	}
 
+	/**
+	 * Method used to disable input text, for example in a read or update view
+	 * disable the id field.
+	 * 
+	 * @return true if the operation should be disabled, false otherwise.
+	 */
 	public boolean isDisabled(Operation op) {
 		return op == Operation.READ || op == Operation.UPDATE;
 	}
-	
+
 	// Getters
 	public Operation getCreate() {
 		return create;

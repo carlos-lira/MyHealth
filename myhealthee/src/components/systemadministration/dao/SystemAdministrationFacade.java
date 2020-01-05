@@ -179,8 +179,12 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 
 	@Override
 	public List<FamilyDoctor> listAllFamilyDoctorsByCAP(PrimaryHealthCareCenter cap) {
-		// TODO
-		return null;
+		try {
+			return em.createNamedQuery(QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP).setParameter("cap", cap).getResultList();
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return new ArrayList<FamilyDoctor>();
 	}
 
 	@Override

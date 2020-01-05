@@ -12,8 +12,7 @@
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
 			<h1 class="h3 mb-0 text-gray-800">CAPs</h1>
 			<h:form>
-				<h:commandLink
-					actionListener="#{cap.openModal(operation.create)}"
+				<h:commandLink actionListener="#{cap.openModal(operation.create)}"
 					styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 					<i class="fas fa-plus fa-sm text-white-50"></i>
 					<span>Add cap</span>
@@ -32,7 +31,7 @@
 			<div class="card-body">
 				<div class="table-responsive" style="padding: 0 .75rem;">
 					<h:form>
-						<table class="table table-bordered" id="dataTable">
+						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
 									<th style="width: 10%;">Operations</th>
@@ -48,8 +47,7 @@
 								</tr>
 							</tfoot>
 							<tbody>
-								<ui:repeat var="item"
-									value="#{cap.listCaps}">
+								<ui:repeat var="item" value="#{cap.listCaps}">
 									<tr>
 										<td>
 											<div class="d-flex justify-content-center">
@@ -71,6 +69,12 @@
 													title="Delete">
 													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
 												</h:commandLink>
+												<h:commandLink
+													actionListener="#{cap.openFamilyDoctorModal(item)}"
+													styleClass="btn btn-sm btn-success shadow-sm mx-2"
+													title="Show family doctors in this cap">
+													<i class="fas fa-user-md fa-sm fa-fw"></i>
+												</h:commandLink>
 											</div>
 										</td>
 										<td><h:outputText value="#{item.name}" /></td>
@@ -85,7 +89,8 @@
 		</div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="crudModal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+		<div class="modal fade" id="crudModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<h:form>
@@ -116,9 +121,8 @@
 								<c:otherwise>
 									<div class="form-group">
 										<h:inputText class="form-control"
-											disabled="#{operation.isDisabled(cap.mode)}"
-											id="name" a:placeholder="Name"
-											value="#{cap.cap.name}"
+											disabled="#{operation.isDisabled(cap.mode)}" id="name"
+											a:placeholder="Name" value="#{cap.cap.name}"
 											requiredMessage="A name is required." required="true" />
 										<div class="invalid-feedback d-block">
 											<h:message for="name" />
@@ -126,9 +130,8 @@
 									</div>
 									<div class="form-group">
 										<h:inputTextarea class="form-control"
-											disabled="#{operation.isRead(cap.mode)}"
-											id="location" a:placeholder="Location"
-											value="#{cap.cap.location}"
+											disabled="#{operation.isRead(cap.mode)}" id="location"
+											a:placeholder="Location" value="#{cap.cap.location}"
 											requiredMessage="A location is required." required="true" />
 										<div class="invalid-feedback d-block">
 											<h:message for="location" />
@@ -136,7 +139,6 @@
 									</div>
 								</c:otherwise>
 							</c:choose>
-
 						</div>
 						<div class="modal-footer">
 							<h:commandButton value="Close" class="btn btn-secondary"
@@ -159,11 +161,53 @@
 			</div>
 		</div>
 
+		<!-- Modal family doctors by cap -->
+		<div class="modal fade" id="familyDoctorsByCapModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-lg" role="document">
+				<h:form>
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Family doctors by cap</h5>
+						</div>
+						<div class="modal-body">
+							<table class="js-datatable table table-bordered">
+								<thead>
+									<tr>
+										<th>Doctor Name</th>
+										<th>Number of users</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Doctor Name</th>
+										<th>Number of users</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<ui:repeat var="item" value="#{cap.familyDoctorsByCap}">
+										<tr>
+											<td><h:outputText value="#{item.name}" /></td>
+											<td><h:outputText value="#{item.patients.size()}" /></td>
+										</tr>
+									</ui:repeat>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{cap.closeModal}" immediate="true" />
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+
 		<!-- Js functionality -->
 		<script>
 			(function($) {
 				$(function() {
-					$('#dataTable').DataTable({
+					$('.js-datatable').DataTable({
 						"columnDefs": [
 							{ "orderable": false, "targets": 0 }
 						],
@@ -173,6 +217,11 @@
 					// Open modal if has operation
 					if (#{operation.hasOperation(cap.mode)}) {
 						$('#crudModal').modal('show');
+					}
+					
+					// Open family doctors modal by cap
+					if (#{cap.isFamilyDoctorsByCapModal()}) {
+						$('#familyDoctorsByCapModal').modal('show');
 					}
 				});
 			})(jQuery)

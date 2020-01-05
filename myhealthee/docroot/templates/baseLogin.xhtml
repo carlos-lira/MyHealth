@@ -18,12 +18,17 @@
 										<ui:insert name="content" />
 									</div>
 									<footer class="sticky-footer bg-white">
-										<div class="container my-auto d-flex flex-row align-items-center">
-											<div class="copyright">
-												<ui:include src="/templates/components/copyright.xhtml" />
-											</div>
-											<div class="ml-auto">
-												<ui:include src="/templates/components/language.xhtml" />
+										<div class="container my-auto">
+											<div class="row">
+												<div class="copyright col-md-8 col-sm-12">
+													<div class="d-flex flex-row align-items-center w-100 h-100">
+														<ui:include src="/templates/components/copyright.xhtml" />
+													</div>
+												</div>
+												<div class="d-md-none d-sm-block col-12 mt-3" />
+												<div class="ml-auto col-md-4 col-sm-12">
+													<ui:include src="/templates/components/language.xhtml" />
+												</div>
 											</div>
 										</div>
 									</footer>
