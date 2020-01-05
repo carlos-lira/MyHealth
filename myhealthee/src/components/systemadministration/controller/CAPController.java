@@ -9,6 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import components.systemadministration.dao.SystemAdministrationFacadeRemote;
+import entity.imp.FamilyDoctor;
 import entity.imp.PrimaryHealthCareCenter;
 import services.crud.Operation;
 
@@ -27,8 +28,10 @@ public class CAPController implements Serializable {
 
 	/* Fields */
 	private Operation mode;
+	private boolean familyDoctorsByCapModalOpen;
 	private PrimaryHealthCareCenter cap;
 	private List<PrimaryHealthCareCenter> listCaps;
+	private List<FamilyDoctor> familyDoctorsByCap;
 
 	// ACTIONS
 	@PostConstruct
@@ -47,6 +50,12 @@ public class CAPController implements Serializable {
 	public String openModal(Operation operation, PrimaryHealthCareCenter cap) {
 		this.mode = operation;
 		this.cap = cap;
+		return null;
+	}
+	
+	public String openFamilyDoctorModal(PrimaryHealthCareCenter cap) {
+		this.familyDoctorsByCapModalOpen = true;
+		this.listFamilyDoctorsByCap(cap);
 		return null;
 	}
 
@@ -84,16 +93,25 @@ public class CAPController implements Serializable {
 	// PRIVATE METHODS
 	private void clear() {
 		this.mode = Operation.NO_OPERATION;
+		this.familyDoctorsByCapModalOpen = false;
 		this.cap = new PrimaryHealthCareCenter();
 	}
 
 	private void listCAPs() {
 		this.listCaps = (List<PrimaryHealthCareCenter>) ejb.listAllCAPs();
 	}
+	
+	private void listFamilyDoctorsByCap(PrimaryHealthCareCenter cap) {
+		this.familyDoctorsByCap = (List<FamilyDoctor>) ejb.listAllFamilyDoctorsByCAP(cap);
+	}
 
 	// Getters & Setters
 	public Operation getMode() {
 		return mode;
+	}
+	
+	public boolean isFamilyDoctorsByCapModal() {
+		return familyDoctorsByCapModalOpen;
 	}
 
 	public PrimaryHealthCareCenter getCap() {
@@ -102,5 +120,9 @@ public class CAPController implements Serializable {
 
 	public List<PrimaryHealthCareCenter> getListCaps() {
 		return listCaps;
+	}
+
+	public List<FamilyDoctor> getFamilyDoctorsByCap() {
+		return familyDoctorsByCap;
 	}
 }

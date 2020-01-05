@@ -21,7 +21,6 @@ import utils.QueryNames;
 	@NamedQuery(name = QueryNames.GET_MEDICAL_SPECIALITY_BY_NAME, query = "SELECT ms FROM MedicalSpeciality ms WHERE ms.name = :name") 
 })
 public class MedicalSpeciality extends BaseEntity {
-
 	private static final long serialVersionUID = 7224485420069005482L;
 
 	@Column(name = "NAME", nullable = false, length = 100, unique = true)

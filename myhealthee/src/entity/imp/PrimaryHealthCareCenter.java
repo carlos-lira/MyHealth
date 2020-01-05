@@ -21,7 +21,6 @@ import utils.QueryNames;
 	@NamedQuery(name = QueryNames.GET_PRIMARY_HEALTHCARE_CENTER_BY_NAME, query = "SELECT phc FROM PrimaryHealthCareCenter phc WHERE phc.name = :name") 
 })
 public class PrimaryHealthCareCenter extends BaseEntity {
-
 	private static final long serialVersionUID = 6573584678308375182L;
 
 	@Column(name = "NAME", nullable = false, length = 100, unique = true)

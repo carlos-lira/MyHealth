@@ -1,5 +1,6 @@
 package entity.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,11 +30,11 @@ public class SpecialistDoctor extends Doctor {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PATIENT_ID")
-	private List<Patient> patients;
+	private List<Patient> patients = new ArrayList<Patient>();
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "SPECIALIST_DOCTOR_ID")
-	private List<MedicalTest> medicalTests;
+	private List<MedicalTest> medicalTests = new ArrayList<MedicalTest>();
 
 	// Getters & Setters
 	public MedicalSpeciality getMedicalSpeciality() {
