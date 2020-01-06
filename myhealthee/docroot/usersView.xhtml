@@ -1,12 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/templates/dashboard.xhtml">
 
-<ui:define name="content">
-	users page
- </ui:define>
+	<ui:define name="content">
+		<!-- Title page -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Users</h1>
+		</div>
+		
+		<!-- Messages -->
+		<p class="mb-4">
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;" />
+		</p>
+
+		<div class="row">
+			<!-- Patient users -->
+			<div class="col-md-12 mb-4">
+				<div class="card shadow">
+					<a href="#patientsCard" class="d-block card-header py-3"
+						data-toggle="collapse">
+						<h6 class="m-0 font-weight-bold text-primary">Patients</h6>
+					</a>
+					<div id="patientsCard" class="collapse show">
+						<div class="card-body">
+							<h:form>
+								<h:commandLink actionListener="#{users.addPatient()}"
+									styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4">
+									<i class="fas fa-plus fa-sm text-white-50"></i>
+									<span>Add Patient</span>
+								</h:commandLink>
+								<table class="js-datatable table table-bordered">
+									<thead>
+										<tr>
+											<th style="width: 10%;">Operations</th>
+											<th>Username</th>
+											<th>Email</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>Operations</th>
+											<th>Username</th>
+											<th>Email</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<ui:repeat var="item" value="#{users.listPatients}">
+											<tr>
+												<td>
+													<div class="d-flex justify-content-center">
+														<h:commandLink
+															actionListener="#{users.openModal(operation.read, item)}"
+															styleClass="btn btn-sm btn-default shadow-sm mx-2"
+															title="Show">
+															<i class="fas fa-eye fa-sm fa-fw"></i>
+														</h:commandLink>
+														<h:commandLink
+															actionListener="#{users.openModal(operation.update, item)}"
+															styleClass="btn btn-sm btn-info shadow-sm mx-2"
+															title="Update">
+															<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+														</h:commandLink>
+														<h:commandLink
+															actionListener="#{users.openModal(operation.delete, item)}"
+															styleClass="btn btn-sm btn-danger shadow-sm mx-2"
+															title="Delete">
+															<i class="fas fa-trash-alt fa-sm fa-fw"></i>
+														</h:commandLink>
+													</div>
+												</td>
+												<td><h:outputText value="#{item.username}" /></td>
+												<td><h:outputText value="#{item.email}" /></td>
+											</tr>
+										</ui:repeat>
+									</tbody>
+								</table>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Family doctors users -->
+			<div class="col-md-12 mb-4">
+				<div class="card shadow">
+					<a href="#familyDoctorsCard" class="d-block card-header py-3"
+						data-toggle="collapse">
+						<h6 class="m-0 font-weight-bold text-primary">Family Doctors</h6>
+					</a>
+					<div id="familyDoctorsCard" class="collapse show">
+						<div class="card-body">...</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Specialist doctor users -->
+			<div class="col-md-12 mb-4">
+				<div class="card shadow">
+					<a href="#specialistDoctorsCard" class="d-block card-header py-3"
+						data-toggle="collapse">
+						<h6 class="m-0 font-weight-bold text-primary">Specialist
+							Doctors</h6>
+					</a>
+					<div id="specialistDoctorsCard" class="collapse show">
+						<div class="card-body">...</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Administrators users -->
+			<div class="col-md-12">
+				<div class="card shadow">
+					<a href="#administratorsCard" class="d-block card-header py-3"
+						data-toggle="collapse">
+						<h6 class="m-0 font-weight-bold text-primary">Administrators</h6>
+					</a>
+					<div id="administratorsCard" class="collapse show">
+						<div class="card-body">...</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="crudModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title">
+								<h:outputText value="#{users.getModalTitle()}" />
+							</h5>
+						</div>
+						<div class="modal-body">
+							<c:choose>
+								<c:when test="#{operation.isDelete(users.mode)}">
+									<div class="form-group">
+										<h6 class="font-weight-bold">Are you sure?</h6>
+										<p>You won't be able to revert this!</p>
+									</div>
+								</c:when>
+								<c:otherwise>
+									
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{users.closeModal}" immediate="true" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable({
+						"columnDefs": [
+							{ "orderable": false, "targets": 0 }
+						],
+						"order": [[ 1, "asc" ]]
+					});
+					
+					// Open modal if has operation
+					if (#{operation.hasOperation(users.mode)}) {
+						$('#crudModal').modal('show');
+					}
+				});
+			})(jQuery)
+		</script>
+	</ui:define>
 </ui:composition>

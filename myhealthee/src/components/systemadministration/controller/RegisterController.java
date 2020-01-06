@@ -77,11 +77,8 @@ public class RegisterController implements Serializable {
 	// PRIVATE METHODS
 	private boolean isSamePassword(User user) {
 		String password = user.getPassword();
-		String repeatPassword = user.getRepeatPassword();
-		if (password != null && repeatPassword != null && password.equals(repeatPassword)) {
-			return true;
-		}
-		return false;
+        String repeatPassword = user.getRepeatPassword();
+        return password != null && password.equals(repeatPassword);
 	}
 
 	private String registerUser(User u, String sucessfulMessage) {
