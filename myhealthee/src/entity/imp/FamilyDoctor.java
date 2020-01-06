@@ -1,6 +1,5 @@
 package entity.imp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,7 +23,7 @@ import utils.QueryNames;
 @Entity
 @Table(name = "FAMILY_DOCTOR")
 @NamedQueries({
-		@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP, query = "SELECT d FROM FamilyDoctor d WHERE d.primaryHealthcareCenter = :cap") 
+		@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP, query = "FROM FamilyDoctor d JOIN FETCH d.patients WHERE d.primaryHealthcareCenter = :cap") 
 })
 public class FamilyDoctor extends Doctor {
 	private static final long serialVersionUID = 6910880586339922197L;
@@ -35,11 +34,11 @@ public class FamilyDoctor extends Doctor {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "FAMILY_DOCTOR_ID")
-	private List<Visit> visits = new ArrayList<Visit>();
+	private List<Visit> visits;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "FAMILY_DOCTOR_ID")
-	private List<Patient> patients = new ArrayList<Patient>();
+	private List<Patient> patients;
 
 	// Getters & Setters
 	public PrimaryHealthCareCenter getPrimaryHealthcareCenter() {

@@ -17,8 +17,8 @@ import utils.QueryNames;
 @Entity
 @Table(name = "PRIMARY_HEALTHCARE_CENTER")
 @NamedQueries({
-	@NamedQuery(name = QueryNames.GET_ALL_PRIMARY_HELTHCARE_CENTERS, query = "SELECT phc FROM PrimaryHealthCareCenter phc"),
-	@NamedQuery(name = QueryNames.GET_PRIMARY_HEALTHCARE_CENTER_BY_NAME, query = "SELECT phc FROM PrimaryHealthCareCenter phc WHERE phc.name = :name") 
+	@NamedQuery(name = QueryNames.GET_ALL_PRIMARY_HELTHCARE_CENTERS, query = "FROM PrimaryHealthCareCenter phc"),
+	@NamedQuery(name = QueryNames.GET_PRIMARY_HEALTHCARE_CENTER_BY_NAME, query = "FROM PrimaryHealthCareCenter phc WHERE phc.name = :name") 
 })
 public class PrimaryHealthCareCenter extends BaseEntity {
 	private static final long serialVersionUID = 6573584678308375182L;

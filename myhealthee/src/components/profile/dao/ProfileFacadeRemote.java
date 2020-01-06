@@ -1,94 +1,137 @@
 package components.profile.dao;
 
-import java.util.Collection;
-
-import javax.ejb.Remote;
-
-import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
 import entity.imp.MedicalSpeciality;
-import entity.imp.Patient;
+import entity.User;
 import entity.imp.PrimaryHealthCareCenter;
-import entity.imp.SpecialistDoctor;
+
+import javax.ejb.Remote;
+import java.util.List;
 
 /**
  * Profile EJB remote.
  * 
  * @author apeleteiro
- * @author adlo
  */
 @Remote
 public interface ProfileFacadeRemote {
 
-	// PATIENT
 	/**
-	 * @return a list with all the patients, or an empty list if the database
-	 *         doesn't have any row.
-	 */
-	public Collection<Patient> listAllPatients();
-
-	/**
-	 * Update the patient data.
-	 * 
-	 * @param patient to be updated.
-	 * @return true if the patient was updated, false otherwise.
-	 */
-	public boolean updatePatientData(Patient patient);
-
-	/**
-	 * Change the family doctor of a patient.
-	 * 
-	 * @param patient   the patient to change the family doctor.
-	 * @param newDoctor the new family doctor of the patient.
+	 *
+	 * @param id Patient identification code
+	 * @param newDoctor New family doctor
 	 * @return true if family doctor change is done, false otherwise.
 	 */
-	public boolean changeFamilyDoctor(Patient patient, FamilyDoctor newDoctor);
-
-	// FAMILY DOCTOR
-	/**
-	 * @return a list with all the family doctors, or an empty list if the database
-	 *         doesn't have any row.
-	 */
-	public Collection<FamilyDoctor> listAllFamilyDoctors();
-	
-	/**
-	 * Update the family doctor data.
-	 * 
-	 * @param doctor the doctor to be updated.
-	 * @param cap    the primary healthcare center of the family doctor.
-	 * @return true if the family doctor was updated, false otherwise.
-	 */
-	public boolean updateFamilyDoctorData(FamilyDoctor doctor, PrimaryHealthCareCenter cap);
+	public boolean changeFamilyDoctor(String id, FamilyDoctor newDoctor);
 
 	/**
-	 * Change the cap of a family doctor.
-	 * 
-	 * @param doctor the family doctor to change the cap.
-	 * @param cap    the new cap of the family doctor.
-	 * @return true if the primary healthcare center is changed, false otherwise.
+	 *
+	 * @param id Patient identification code
+	 * @param nif Patient NIF
+	 * @param name Patient name
+	 * @param surnames Patient surname
+	 * @param password Patient password
+	 * @param email Patient email
+	 * @return true if patient is registered, false otherwise.
 	 */
-	public boolean changePrimaryHealthcareCenter(FamilyDoctor doctor, PrimaryHealthCareCenter cap);
+	public boolean registerPatient(String id, String nif, String name, String surnames, String password, String username, String email);
 
-	// SPECIALIST DOCTOR
 	/**
-	 * @return a list with all the specialist doctors, or an empty list if the database
-	 *         doesn't have any row.
+	 *
+	 * @param id Specialist doctor professional number
+	 * @param nif Specialist doctor NIF
+	 * @param name Specialist doctor name
+	 * @param surnames Specialist doctor surname
+	 * @param password Specialist doctor password
+	 * @param email Specialist doctor email
+	 * @param speciality Specialist doctor medical speciality
+	 * @return true if specialist doctor is registered, false otherwise.
 	 */
-	public Collection<SpecialistDoctor> listAllSpecialistDoctors();
-	
-	/**
-	 * Update the specialist doctor data.
-	 * 
-	 * @param doctor     the doctor to be updated.
-	 * @param speciality the new medical specialty of the doctor.
-	 * @return true if the specialist doctor was updated, false otherwise.
-	 */
-	public boolean updateSpecialistDoctorData(SpecialistDoctor doctor, MedicalSpeciality speciality);
+	public boolean registerSpecialistDoctor(String id, String nif, String name, String surnames, String password, String username, String email, MedicalSpeciality speciality);
 
-	// ADMINISTRATOR
 	/**
-	 * @return a list with all the administrators, or an empty list if the database
-	 *         doesn't have any row.
+	 *
+	 * @param id Family doctor professional number
+	 * @param nif Family doctor NIF
+	 * @param name Family doctor name
+	 * @param surnames Family doctor surname
+	 * @param password Family doctor password
+	 * @param email Family doctor email
+	 * @param cap Family doctor primary health care center
+	 * @return true if family doctor is registered, false otherwise.
 	 */
-	public Collection<Administrator> listAllAdministrators();
+	public boolean registerFamilyDoctor(String id, String nif, String name, String surnames, String password, String username, String email, PrimaryHealthCareCenter cap);
+
+	/**
+	 *
+	 * @param id Patient identification code
+	 * @param nif Patient NIF
+	 * @param name Patient name
+	 * @param surnames Patient surname
+	 * @param password Patient password
+	 * @param email Patient email
+	 * @return true if patient data is updated, false otherwise.
+	 */
+	public boolean updatePatientData(String id, String nif, String name, String surnames, String password, String email);
+
+	/**
+	 *
+	 * @param id Specialist doctor professional number
+	 * @param nif Specialist doctor NIF
+	 * @param name Specialist doctor name
+	 * @param surnames Specialist doctor surname
+	 * @param password Specialist doctor password
+	 * @param email Specialist doctor email
+	 * @param speciality Specialist doctor medical speciality
+	 * @return true if specialist doctor data is updated, false otherwise.
+	 */
+	public boolean updateSpecialistDoctorData(String id, String nif, String name, String surnames, String password, String email, MedicalSpeciality speciality);
+
+	/**
+	 *
+	 * @param id Family doctor professional number
+	 * @param nif Family doctor NIF
+	 * @param name Family doctor name
+	 * @param surnames Family doctor surname
+	 * @param password Family doctor password
+	 * @param email Family doctor email
+	 * @param cap Family doctor primary health care center
+	 * @return true if family doctor data is updated, false otherwise.
+	 */
+	public boolean updateFamilyDoctorData(String id, String nif, String name, String surnames, String password, String email, PrimaryHealthCareCenter cap);
+
+	/**
+	 *
+	 * @param id Family doctor professional number
+	 * @param newCenter New primary health care center
+	 * @return true if change is done, false otherwise.
+	 */
+	public boolean changePrimaryHealthCareCenter(String id, PrimaryHealthCareCenter newCenter);
+
+	/**
+	 *
+	 * @param email User identification code
+	 * @return a User with the specific identification code
+	 */
+	public User getUser(String email);
+
+	/**
+	 *
+	 * @return List of all family doctors
+	 */
+	public List<FamilyDoctor> listAllFamilyDoctors();
+
+	/**
+	 *
+	 * @return List of all primary health care centers
+	 */
+	public List<PrimaryHealthCareCenter> listAllCaps();
+
+	/**
+	 *
+	 * @param name Primary health care center name
+	 * @return a Primary health care center
+	 */
+	public PrimaryHealthCareCenter getCap(String name);
+
 }

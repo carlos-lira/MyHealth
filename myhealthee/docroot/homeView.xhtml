@@ -23,9 +23,9 @@
 			<ui:include src="/templates/dashboards/patient.xhtml" />
 		</c:if>
 
-		<!-- Family Doctor dashboard -->
-		
-		<!-- Specialist doctor dashboard -->
-
+		<!-- Doctor dashboard -->
+		<c:if test="#{role.isDoctor()}">
+			<ui:include src="/templates/dashboards/doctor.xhtml" />
+		</c:if>
 	</ui:define>
 </ui:composition>

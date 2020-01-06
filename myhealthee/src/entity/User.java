@@ -19,8 +19,8 @@ import utils.QueryNames;
 @Entity
 @Table(name = "USERS")
 @NamedQueries({ 
-	@NamedQuery(name = QueryNames.GET_ALL_USERS, query = "SELECT u FROM User u"),
-	@NamedQuery(name = QueryNames.GET_USER, query = "SELECT u FROM User u WHERE u.email = :email OR u.username = :username") 
+	@NamedQuery(name = QueryNames.GET_ALL_USERS, query = "FROM User u"),
+	@NamedQuery(name = QueryNames.GET_USER, query = "FROM User u WHERE u.email = :email OR u.username = :username") 
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity {
