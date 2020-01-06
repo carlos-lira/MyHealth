@@ -33,7 +33,6 @@ public class CAPController implements Serializable {
 	private List<PrimaryHealthCareCenter> listCaps;
 	private List<FamilyDoctor> familyDoctorsByCap;
 
-	// ACTIONS
 	@PostConstruct
 	public void init() {
 		this.mode = Operation.NO_OPERATION;

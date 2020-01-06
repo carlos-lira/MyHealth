@@ -9,7 +9,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import components.systemadministration.dao.SystemAdministrationFacadeRemote;
@@ -24,7 +24,7 @@ import utils.StringUtils;
  * @author adlo
  */
 @Named("dashboard")
-@SessionScoped
+@RequestScoped
 public class DashboardController implements Serializable {
 	private static final long serialVersionUID = 3414463670400022600L;
 

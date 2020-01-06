@@ -1,6 +1,5 @@
 package entity.imp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,10 +8,13 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import entity.Person;
+import utils.QueryNames;
 
 /**
  * Patient entity.
@@ -21,6 +23,9 @@ import entity.Person;
  */
 @Entity
 @Table(name = "PATIENT")
+@NamedQueries({ 
+	@NamedQuery(name = QueryNames.GET_ALL_PATIENTS, query = "FROM Patient u"),
+})
 public class Patient extends Person {
 	private static final long serialVersionUID = 5119359086731145181L;
 
@@ -30,19 +35,19 @@ public class Patient extends Person {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "SPECIALIST_DOCTOR_ID")
-	private List<SpecialistDoctor> specialistDoctors = new ArrayList<SpecialistDoctor>();
+	private List<SpecialistDoctor> specialistDoctors;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "PATIENT_ID")
-	private List<MedicalTest> medicalTests = new ArrayList<MedicalTest>();
+	private List<MedicalTest> medicalTests;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "PATIENT_ID")
-	private List<Visit> visits = new ArrayList<Visit>();
+	private List<Visit> visits;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "PATIENT_ID")
-	private List<Question> questions = new ArrayList<Question>();
+	private List<Question> questions;
 
 	// Getters & Setters
 	public FamilyDoctor getFamilyDoctor() {

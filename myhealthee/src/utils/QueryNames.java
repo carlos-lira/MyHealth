@@ -18,6 +18,9 @@ public final class QueryNames {
 	public static final String GET_ALL_USERS = "getAllUsers";
 	public static final String GET_USER = "getUser";
 	
+	// Patient quieries
+	public static final String GET_ALL_PATIENTS = "getAllPatients";
+	
 	// Family doctor queries
 	public static final String GET_ALL_FAMILY_DOCTORS_BY_CAP = "getAllFamilyDoctorsByCap";
 	

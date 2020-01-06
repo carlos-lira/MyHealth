@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
 	template="/templates/dashboard.xhtml">
 
-<ui:define name="content">
-	users page
- </ui:define>
+	<ui:define name="content">
+		<!-- Register patient link -->
+		<h:link class="nav-link" outcome="registerPatientView">
+			<h:outputText value="Registrar paciente" />
+		</h:link>
+
+		<!-- Register family doctor -->
+		<h:link class="nav-link" outcome="registerFamilyDoctorView">
+			<h:outputText value="Registrar médico de familia" />
+		</h:link>
+
+		<!-- Register specialist doctor -->
+		<h:link class="nav-link" outcome="registerSpecialistDoctorView">
+			<h:outputText value="Registrar médico especialista" />
+		</h:link>
+	</ui:define>
 </ui:composition>

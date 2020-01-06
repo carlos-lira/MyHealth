@@ -41,7 +41,7 @@ public class Visit extends BaseEntity {
 	@JoinColumn(name = "FAMILY_DOCTOR_ID", nullable = false)
 	private FamilyDoctor familyDoctor;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PATIENT_ID", nullable = false)
 	private Patient patient;
 
