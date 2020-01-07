@@ -3,7 +3,6 @@ package medicaltest.dao;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -38,23 +37,19 @@ public class MedicalTestFacadeBean implements MedicalTestFacadeRemote {
 	@PersistenceContext(name="myhealthee") 
 	private EntityManager em;
 	
-	private SpecialistDoctor specialistDoctor;
-
-	@PostConstruct
-	public void init() {
-		this.specialistDoctor = (SpecialistDoctor) SessionUtils.getUser();
-
-	}
 	
 	public void askQuestion(long id, String title, String message) {
 		try {	
+			
+			Patient patient = (Patient) SessionUtils.getUser();
 			
 			Question question = new Question();
 			question.setMessage(message);
 			question.setStatus(QuestionStatus.PENDING);
 			question.setTitle(title);
-			question.setPatient((Patient) this.getUser(id));
 			question.setCreateDate(new Date());
+			question.setPatient(patient);
+			
 			
 			em.persist(question);
 			em.flush();
@@ -68,6 +63,8 @@ public class MedicalTestFacadeBean implements MedicalTestFacadeRemote {
 	public void answerQuestion(String question, String response) {
 		
 		try {
+			Patient patient = (Patient) SessionUtils.getUser();
+			
 			Question questionObj = this.getQuestion(question);
 			
 			Response responseObj = new Response();
@@ -88,7 +85,7 @@ public class MedicalTestFacadeBean implements MedicalTestFacadeRemote {
 	@Override
 	public List<Question> listAllPendingQuestions(long id) {
 		try {
-			return (List<Question>) em.createQuery("from Question q WHERE q.message = ?id").setParameter("id", id).getResultList();
+			return (List<Question>) em.createQuery("from Question q WHERE q.message = ?1").setParameter("1", id).getResultList();
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -101,11 +98,10 @@ public class MedicalTestFacadeBean implements MedicalTestFacadeRemote {
 		
 		try {
 			MedicalTest medicalTest = new MedicalTest();
-			medicalTest.setId(id);
 			medicalTest.setDate(date);
 			medicalTest.setTestType(type);
 			medicalTest.setCreateDate(new Date());
-			medicalTest.setSpecialistDoctor(specialistDoctor);
+			medicalTest.setSpecialistDoctor((SpecialistDoctor) this.getUser(id));
 			
 			em.persist(medicalTest);
 			em.flush();
@@ -130,7 +126,7 @@ public class MedicalTestFacadeBean implements MedicalTestFacadeRemote {
 	@Override
 	public Question getQuestion(String question) {
 		try {
-			return (Question) em.createQuery("from Question q WHERE q.message = ?question").setParameter("question", question).getSingleResult();
+			return (Question) em.createQuery("from Question q WHERE q.title = ?question").setParameter("question", question).getSingleResult();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -196,7 +192,7 @@ public class MedicalTestFacadeBean implements MedicalTestFacadeRemote {
 	
 	private User getUser(long id) {
 		try {
-			return (User) em.createQuery("from User WHERE id = ?id").setParameter("id", id).getSingleResult();
+			return (User) em.createQuery("from User u WHERE u.id = ?1").setParameter("1", id).getSingleResult();
 		} catch (NoResultException e) {
 			logger.error(e.getMessage());
 		}

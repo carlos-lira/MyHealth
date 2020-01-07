@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import entity.imp.Patient;
+import entity.imp.SpecialistDoctor;
 import medicaltest.dao.MedicalTestFacadeRemote;
 import utils.Messages;
 import utils.SessionUtils;
@@ -23,13 +24,6 @@ public class AskQuestion implements Serializable {
 	@EJB
 	private MedicalTestFacadeRemote ejb;
 	
-    private Patient patient;
-
-    @PostConstruct
-    public void init() {
-        this.patient = (Patient) SessionUtils.getUser();
-
-    }
 	
 	private String title;
 	private String message;
@@ -38,8 +32,10 @@ public class AskQuestion implements Serializable {
 	public String askQuestion() {
 		try {
 			
+			Patient patient = (Patient) SessionUtils.getUser();
+			
 			ejb.askQuestion(patient.getId(), title, message);
-			return "MedicalTestDashboardView";
+			return "medicalTestDashboardView";
 			
 		} 
 		catch(Exception e){

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+ 
+<ui:define name="content">
+	<h:form>
+		<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
+		<br/>
+		Pregunta<br/>
+		<h:inputText id="titleInput" value="#{askQuestion.title}" maxlength="100"            
+			size="100" required="true"              
+			requiredMessage="Por favor, escriba su pregunta.">  
+	    </h:inputText> 
+	    <br/>
+		<h:message for="titleInput" style="color:red"/> 
+		
+		<br/>
+		Mensaje<br/>
+		<h:inputTextarea id="messageInput" value="#{askQuestion.message}" required="true"   
+			requiredMessage="Por favor, escriba su mensaje" cols="50" rows="10" maxlength="2000">
+		</h:inputTextarea>  
+	    <br/>
+	    <h:message for="messageInput" style="color:red"/>
+		<br/>
+		
+		<br/>
+		
+		<h:commandButton value="Añadir Pregunta" type="submit" action="#{askQuestion.askQuestion}" />	
+	</h:form>
+ </ui:define>
+</ui:composition>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+ 
+<ui:define name="content">
+	<h:form>
+		<h:messages globalOnly="true" style="text-align: left;" errorStyle="color:red;" infoStyle="color:blue;" />
+		<br/>
+		Fecha<br/>
+		<h:inputText a:type="date"
+			id="addDateInput" value="#{addMedicalTest.date}" required="true"
+			requiredMessage="Por favor, introduzca una fecha."><f:convertDateTime pattern="yyyy-MM-dd"/></h:inputText><br/>
+			<h:message for="addDateInput" style="color:red"/>
+		<br/>
+		Hora<br/>
+		<h:inputText a:type="time" a:step="900" 
+			id="addTimeInput" value="#{addMedicalTest.time}" required="true"
+			requiredMessage="Por favor, introduzca una hora."><f:convertDateTime pattern="HH:mm"/></h:inputText><br/>
+			<h:message for="addTimeInput" style="color:red"/>
+		<br/>
+		
+		<br/>
+		Tipo de prueba<br/>
+		<h:selectOneMenu id="addTestTypeInput" value="#{addMedicalTest.testType}" required="true"
+			requiredMessage="Por favor, seleccione el tipo de prueba."> 
+		   <f:selectItem itemValue = "MAGNETIC_RESONANCE_IMAGING" itemLabel = "Resonancia Magnética" /> 
+		   <f:selectItem itemValue = "CTSCAN" itemLabel = "Scaner" /> 
+		   <f:selectItem itemValue = "BLOOD_TEST" itemLabel = "Sangre" /> 
+		</h:selectOneMenu> 
+		
+		<br/>
+		
+		<h:commandButton value="Añadir Prueba" type="submit" action="#{addMedicalTest.addMedicalTest}" />	
+	</h:form>
+ </ui:define>
+</ui:composition>

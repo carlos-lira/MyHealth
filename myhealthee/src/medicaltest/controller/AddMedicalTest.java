@@ -47,7 +47,7 @@ public class AddMedicalTest implements Serializable {
 			else {
 				
 				ejb.addMedicalTest(doctor.getId(), d, testType, observations);
-				return "visitDashboardView";
+				return "medicalTestDashboardView";
 			}
 		} 
 		catch(Exception e){

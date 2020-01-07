@@ -1,7 +1,6 @@
 package menus;
 
 import entity.User;
-import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
 import entity.imp.Patient;
 import entity.imp.SpecialistDoctor;
@@ -16,10 +15,10 @@ public class MedicalTestMenuFactory {
     static {
         MENUS.add(new Menu("Añadir una prueba médica", null, "addMedicalTestView", SpecialistDoctor.class));
         MENUS.add(new Menu("Consultar una prueba médica", null, "getMedicalTestView", FamilyDoctor.class));
-        MENUS.add(new Menu("Hacer una pregunta al médico de familia", null, "updateSpecialistDoctorProfileView", Patient.class));
-        MENUS.add(new Menu("Responder a una pregunta de un paciente", null, "selectFamilyDoctorView", FamilyDoctor.class));
-        MENUS.add(new Menu("Buscar un especialista por especialidad médica", null, "selectCapView", Patient.class));
-        MENUS.add(new Menu("Gestionar la imagen de una prueba médica", null, "registerPatientView", SpecialistDoctor.class));
+        MENUS.add(new Menu("Hacer una pregunta al médico de familia", null, "askQuestionView", Patient.class));
+        MENUS.add(new Menu("Responder a una pregunta de un paciente", null, "answerQuestionView", FamilyDoctor.class));
+        MENUS.add(new Menu("Buscar un especialista por especialidad médica", null, "searchSpecialistDoctorView", Patient.class));
+        MENUS.add(new Menu("Gestionar la imagen de una prueba médica", null, "manageImageView", SpecialistDoctor.class));
     }
 
     /**
