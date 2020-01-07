@@ -16,7 +16,6 @@ import components.visit.dao.VisitFacadeRemote;
 import entity.User;
 import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
-import entity.imp.Patient;
 import entity.imp.Visit;
 import utils.Messages;
 import utils.SessionUtils;
@@ -48,9 +47,9 @@ public class UpdateVisit implements Serializable {
 
 		User u = SessionUtils.getUser();
 		if (u.getClass() == FamilyDoctor.class)
-			return "updateVisitResultView";
+			return "visitUpdateResultView";
 		else
-			return "updateVisitDateView";
+			return "visitUpdateView";
 	}
 
 	public String updateVisitTime() {
@@ -66,12 +65,10 @@ public class UpdateVisit implements Serializable {
 				if (ejb.visitAvailable(id, d)) {
 					ejb.updateVisit(visit.getId(), d);
 
-					if (u.getClass() == Patient.class)
-						return "allPatientVisitsView";
-					else if (u.getClass() == Administrator.class)
-						return "adminVisitsView";
+					if (u.getClass() == Administrator.class)
+						return "visitsView";
 					else
-						return "visitDashboardView";
+						return "homeView";
 				} else {
 					Date nextAppointment = ejb.nextAvailableAppointment(visit.getFamilyDoctor(), d);
 					String dateToPrint = SDF_DATE.format(nextAppointment);

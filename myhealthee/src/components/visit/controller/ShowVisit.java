@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import entity.imp.Administrator;
 import entity.imp.Visit;
 import utils.SessionUtils;
 
@@ -27,7 +28,10 @@ public class ShowVisit implements Serializable {
 	}
 
 	public String backToVisits() {
-		return SessionUtils.getContext().getViewRoot().getViewId();
+		if (SessionUtils.getUser() instanceof Administrator) {
+			return "visitsView";
+		}
+		return "homeView";
 	}
 
 	public Visit getVisit() {

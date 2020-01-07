@@ -27,9 +27,9 @@ public class Visit extends BaseEntity {
 	@Column(name = "DATE", nullable = false, length = 22)
 	private Date date;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "TIME", nullable = false, length = 22)
-	private Date time;
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Column(name = "TIME", nullable = false, length = 22)
+//	private Date time;
 
 	@Column(name = "OBSERVATIONS", length = 2000)
 	private String observations;
@@ -54,13 +54,13 @@ public class Visit extends BaseEntity {
 		this.date = date;
 	}
 
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
+//	public Date getTime() {
+//		return time;
+//	}
+//
+//	public void setTime(Date time) {
+//		this.time = time;
+//	}
 
 	public String getObservations() {
 		return observations;
