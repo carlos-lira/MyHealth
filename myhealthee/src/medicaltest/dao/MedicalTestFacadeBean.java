@@ -82,10 +82,11 @@ public class MedicalTestFacadeBean implements MedicalTestFacadeRemote {
 	}
 
 	// TODO
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Question> listAllPendingQuestions(long id) {
 		try {
-			return (List<Question>) em.createQuery("from Question q WHERE q.message = ?1").setParameter("1", id).getResultList();
+			return (List<Question>) em.createQuery("from Question q WHERE q.patient.familyDoctor.id = ?1").setParameter("1", id).getResultList();
 			
 		} catch (Exception e) {
 			logger.error(e.getMessage());
