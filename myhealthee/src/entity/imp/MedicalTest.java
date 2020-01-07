@@ -43,8 +43,8 @@ public class MedicalTest extends BaseEntity {
 	private String result;
 
 	@Lob
-	@Column(name = "HIGH_RES_IMAGE")
-	private byte[] highResImage;
+	@Column(name = "IMAGE_ID")
+	private Image image;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PATIENT_ID", nullable = false)
@@ -87,12 +87,12 @@ public class MedicalTest extends BaseEntity {
 		this.result = result;
 	}
 
-	public byte[] getHighResImage() {
-		return highResImage;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setHighResImage(byte[] highResImage) {
-		this.highResImage = highResImage;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public Patient getPatient() {

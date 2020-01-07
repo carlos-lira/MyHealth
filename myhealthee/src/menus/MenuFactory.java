@@ -25,6 +25,7 @@ public class MenuFactory {
 		MENUS.add(new Menu("Users", "fa-users", "usersView", Administrator.class));
 		MENUS.add(new Menu("Caps", "fa-hospital", "capsView", Administrator.class));
 		MENUS.add(new Menu("Medical specialities", "fa-notes-medical", "medicalSpecialitiesView", Administrator.class));
+		MENUS.add(new Menu("Medical Test", "fa-notes-medical", "medicalTestDashboardView", SpecialistDoctor.class, Patient.class, FamilyDoctor.class));
 	}
 
 	/**
