@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
