@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+
+<ui:define name="content">
+	Dashboard Pruebas Médicas<br/>
+	<br/>
+	<!-- Pages -->
+	<ui:repeat value="#{medicaltest.navPages}" var="item">
+		<h:link class="nav-link" outcome="#{item.url}">
+			<span> <h:outputText value="#{item.pageName}" /> </span>
+		</h:link>
+	</ui:repeat>
+
+ </ui:define>
+</ui:composition>
