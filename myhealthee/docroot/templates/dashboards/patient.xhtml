@@ -6,6 +6,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
+	<!-- Messages -->
+	<p class="mb-4">
+		<h:messages globalOnly="true" style="text-align: left;"
+			errorStyle="color:red;" infoStyle="color:blue;" />
+	</p>
+
 	<!-- Change family doctor -->
 	<div class="card shadow mb-4">
 		<a href="#changeFamilyDoctor" class="d-block card-header py-3"
@@ -16,13 +22,11 @@
 		</a>
 		<div id="changeFamilyDoctor" class="collapse show">
 			<div class="card-body">
-				Actual médico de familia actual: #{selectfamilydoctor.familyDoctor}
-				<br />
+				<span>Actual médico de familia actual:
+					#{selectfamilydoctor.familyDoctor}</span> <br />
 				<h:form>
-					<h:messages globalOnly="true" style="text-align: left;"
-						errorStyle="color:red;" infoStyle="color:blue;" />
+					<span>Nuevo médico de familia: </span>
 					<br />
-            Nuevo médico de familia: <br />
 					<h:selectOneMenu value="#{selectfamilydoctor.newFamilyDoctor}">
 						<f:selectItems
 							value="#{selectfamilydoctor.listAllFamilyDoctors()}" var="doctor"
@@ -34,6 +38,91 @@
 
 					<h:commandButton value="Seleccionar" type="submit"
 						action="#{selectfamilydoctor.updateFamilyDoctor}" />
+				</h:form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add visit -->
+	<div class="card shadow mb-4">
+		<a href="#addVisit" class="d-block card-header py-3"
+			data-toggle="collapse" role="button" aria-expanded="true"
+			aria-controls="collapseCardExample">
+			<h6 class="m-0 font-weight-bold text-primary">Visits</h6>
+		</a>
+		<div id="addVisit" class="collapse show">
+			<div class="card-body">
+				<!-- My visits -->
+				<h:form>
+					<h:dataTable value="#{listallvisits.listAllScheduledVisits()}"
+						var="item" cellpadding="5">
+						<f:facet name="header">
+							<h:outputText align="center" value="Mis Visitas" />
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="Doctor" />
+							</f:facet>
+							<p align="center">
+								<h:outputText
+									value="#{item.familyDoctor.name} #{item.familyDoctor.surnames}" />
+							</p>
+						</h:column>
+						<h:column align="center">
+							<f:facet name="header">
+								<h:outputText value="Dia" />
+							</f:facet>
+							<h:outputText value="#{item.date}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</h:column>
+						<h:column align="center">
+							<f:facet name="header">
+								<h:outputText value="Hora" />
+							</f:facet>
+							<h:outputText value="#{item.date}">
+								<f:convertDateTime type="time" timeStyle="short" />
+							</h:outputText>
+						</h:column>
+						<h:column align="center">
+							<h:commandLink value="Ver visita"
+								action="#{showvisit.showVisit(item)}" />
+						</h:column>
+						<h:column align="center">
+							<h:commandLink value="Modificar fecha y hora"
+								action="#{updatevisit.visitToUpdate(item)}" />
+						</h:column>
+						<h:column align="center">
+							<h:commandLink outcome="" value="Cancelar visita"
+								action="#{removevisit.removeVisit(item.id)}" />
+						</h:column>
+					</h:dataTable>
+				</h:form>
+
+				<!-- Add visit -->
+				<h:form>
+					<span>Fecha</span>
+					<br />
+					<h:inputText a:type="date" id="addDateInput"
+						value="#{addvisit.date}" required="true"
+						requiredMessage="Por favor introduzca una fecha.">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:inputText>
+					<br />
+					<h:message for="addDateInput" style="color:red" />
+					<br />
+					<span>Hora</span>
+					<br />
+					<h:inputText a:type="time" a:step="900" id="addTimeInput"
+						value="#{addvisit.time}" required="true"
+						requiredMessage="Por favor introduzca una hora.">
+						<f:convertDateTime pattern="HH:mm" />
+					</h:inputText>
+					<br />
+					<h:message for="addTimeInput" style="color:red" />
+					<br />
+					<h:commandButton value="Añadir" type="submit"
+						action="#{addvisit.addVisit}" />
 				</h:form>
 			</div>
 		</div>

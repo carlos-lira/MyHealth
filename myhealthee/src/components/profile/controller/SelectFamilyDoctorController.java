@@ -1,19 +1,21 @@
 package components.profile.controller;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
 import components.profile.dao.ProfileFacadeRemote;
 import entity.imp.FamilyDoctor;
 import entity.imp.Patient;
 import utils.Messages;
 import utils.SessionUtils;
-import java.io.Serializable;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 
 @Named("selectfamilydoctor")
-@SessionScoped
+@RequestScoped
 public class SelectFamilyDoctorController implements Serializable {
 	private static final long serialVersionUID = -7823366678781902314L;
 

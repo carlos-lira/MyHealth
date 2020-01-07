@@ -6,22 +6,29 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
+	<!-- Messages -->
+	<p class="mb-4">
+		<h:messages globalOnly="true" style="text-align: left;"
+			errorStyle="color:red;" infoStyle="color:blue;" />
+	</p>
+
 	<!-- Family doctor dashboard -->
 	<c:if test="#{role.isFamilyDoctor()}">
+		<!-- Select cap -->
 		<div class="card shadow mb-4">
 			<a href="#changeCap" class="d-block card-header py-3"
 				data-toggle="collapse" role="button" aria-expanded="true"
 				aria-controls="collapseCardExample">
-				<h6 class="m-0 font-weight-bold text-primary">Seleccionar centro de atención primaria</h6>
+				<h6 class="m-0 font-weight-bold text-primary">Seleccionar
+					centro de atención primaria</h6>
 			</a>
 			<div id="changeCap" class="collapse show">
 				<div class="card-body">
-					Actual centro de atención primaria: #{selectcap.cap} <br />
+					<span>Actual centro de atención primaria: #{selectcap.cap} </span>
+					<br />
 					<h:form>
-						<h:messages globalOnly="true" style="text-align: left;"
-							errorStyle="color:red;" infoStyle="color:blue;" />
+						<span>Nuevo centro de atención primaria: </span>
 						<br />
-            Nuevo centro de atención primaria: <br />
 						<h:selectOneMenu value="#{selectcap.newCap}">
 							<f:selectItems value="#{selectcap.listAllCaps()}" var="item"
 								itemValue="#{item.name}"
@@ -31,6 +38,70 @@
 						<br />
 						<h:commandButton value="Seleccionar" type="submit"
 							action="#{selectcap.updateCap}" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- All schedule visits -->
+		<div class="card shadow mb-4">
+			<a href="#allScheduleVisits" class="d-block card-header py-3"
+				data-toggle="collapse" role="button" aria-expanded="true"
+				aria-controls="collapseCardExample">
+				<h6 class="m-0 font-weight-bold text-primary">Schedule visits</h6>
+			</a>
+			<div id="allScheduleVisits" class="collapse show">
+				<div class="card-body">
+					<h:form>
+						<span>Select Date: </span>
+						<h:inputText a:type="date" id="dateselector"
+							value="#{listallvisits.date}" required="true">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:inputText>
+						<h:commandButton value="Consultar" type="submit" />
+						<br />
+						<h:message for="dateselector" style="color:red" />
+					</h:form>
+					<h:form id="scheduledvisitstable">
+						<h:dataTable value="#{listallvisits.listAllScheduledVisits()}"
+							var="item" cellpadding="5">
+							<f:facet name="header">
+								<h:outputText align="center" value="Mis Visitas" />
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Paciente" />
+								</f:facet>
+								<p align="center">
+									<h:outputText
+										value="#{item.patient.name} #{item.patient.surnames}" />
+								</p>
+							</h:column>
+							<h:column align="center">
+								<f:facet name="header">
+									<h:outputText value="Dia" />
+								</f:facet>
+								<h:outputText value="#{item.date}">
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</h:column>
+							<h:column align="center">
+								<f:facet name="header">
+									<h:outputText value="Hora" />
+								</f:facet>
+								<h:outputText value="#{item.date}">
+									<f:convertDateTime type="time" timeStyle="short" />
+								</h:outputText>
+							</h:column>
+							<h:column align="center">
+								<h:commandLink value="Ver visita"
+									action="#{showvisit.showVisit(item)}" />
+							</h:column>
+							<h:column align="center">
+								<h:commandLink value="Añadir Resultado"
+									action="#{updatevisit.visitToUpdate(item)}" />
+							</h:column>
+						</h:dataTable>
 					</h:form>
 				</div>
 			</div>
