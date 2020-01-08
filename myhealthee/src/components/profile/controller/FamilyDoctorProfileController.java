@@ -154,6 +154,7 @@ public class FamilyDoctorProfileController implements Serializable {
 		if (updatedUser == null) {
 			Messages.addErrorGlobalMessage("Error changing the family doctor");
 		} else {
+			SessionUtils.addUser(updatedUser);
 			doctor = updatedUser;
 		}
 		return null;

@@ -27,6 +27,7 @@ public final class QueryNames {
 	
 	// Specialist doctor query names
 	public static final String GET_ALL_SPECIALIST_DOCTORS = "getAllSpecialistDoctors";
+	public static final String GET_ALL_SPECIALIST_DOCTORS_BY_MEDICAL_SPECIALTY = "getAllSpecialistDoctorsByMedicalSpecialty";
 	
 	// Administrator query names
 	public static final String GET_ALL_ADMINISTRATORS = "getAllAdministrators";
@@ -38,4 +39,14 @@ public final class QueryNames {
 	// MedicalSpeciality query names
 	public static final String GET_ALL_MEDICAL_SPECIALITIES = "getAllMedicalSpecialities";
 	public static final String GET_MEDICAL_SPECIALITY_BY_NAME = "getMedicalSpecialityByName";
+	
+	// Medical tests
+	public static final String GET_ALL_MEDICAL_TESTS = "getAllMedicalTests";
+	public static final String GET_MEDICAL_TEST_BY_ID = "getMedicalTestById";
+	public static final String GET_ALL_MEDICAL_TESTS_BY_SPECIALIST_DOCTOR = "getAllMedicalTestsBySpecialistDoctor";
+	
+	// Questions query names
+	public static final String GET_ALL_QUESTIONS = "getAllQuestions";
+	public static final String GET_ALL_QUESTIONS_BY_STATUS = "getAllQuestionsByStatus";
+	public static final String GET_QUESTION_BY_ID = "getQuestionById";
 }

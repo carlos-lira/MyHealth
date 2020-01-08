@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<!-- Ask question -->
+	<div class="col-md-12 mb-2">
+		<h:form>
+			<h:commandLink
+				actionListener="#{patientQuestion.openModal(operation.create)}"
+				styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4">
+				<i class="fas fa-comment-dots fa-sm text-white-50" />
+				<span>Ask question</span>
+			</h:commandLink>
+		</h:form>
+	</div>
+
+	<!-- Pending questions -->
+	<div class="col-md-12 mb-4">
+		<div class="card shadow">
+			<a href="#pendingQuestions" class="d-block card-header py-3"
+				data-toggle="collapse">
+				<h6 class="m-0 font-weight-bold text-primary">Pending questions</h6>
+			</a>
+			<div id="pendingQuestions" class="collapse show">
+				<div class="card-body">
+					<table class="js-datatable table table-bordered">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Message</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Title</th>
+								<th>Message</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<ui:repeat var="item"
+								value="#{patientQuestion.listPendingQuestions}">
+								<tr>
+									<td><h:outputText value="#{item.title}" /></td>
+									<td><h:outputText value="#{item.message}" /></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- answered questions -->
+	<div class="col-md-12 mb-4">
+		<div class="card shadow">
+			<a href="#answeredQuestions" class="d-block card-header py-3"
+				data-toggle="collapse">
+				<h6 class="m-0 font-weight-bold text-primary">Answered
+					questions</h6>
+			</a>
+			<div id="answeredQuestions" class="collapse show">
+				<div class="card-body">
+					<table class="js-datatable table table-bordered">
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Message</th>
+								<th>Answer</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Title</th>
+								<th>Message</th>
+								<th>Answer</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<ui:repeat var="item"
+								value="#{patientQuestion.listAnsweredQuestions}">
+								<tr>
+									<td><h:outputText value="#{item.title}" /></td>
+									<td><h:outputText value="#{item.message}" /></td>
+									<td><h:outputText value="#{item.response.message}" /></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<c:if test="#{operation.hasOperation(patientQuestion.mode)}">
+		<div class="modal fade" id="crudModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title">Ask question</h5>
+						</div>
+						<div class="modal-body">
+							<div class="form-group row">
+								<div class="col-sm-12 mb-4">
+									<h:inputText class="form-control" id="add_question-title"
+										a:placeholder="Title"
+										value="#{patientQuestion.question.title}"
+										requiredMessage="The title field is required." required="true" />
+									<div class="invalid-feedback d-block">
+										<h:message for="add_question-title" />
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<h:inputTextarea class="form-control" id="add_question-message"
+										a:placeholder="Message"
+										value="#{patientQuestion.question.message}"
+										requiredMessage="The message field is required."
+										required="true" />
+									<div class="invalid-feedback d-block">
+										<h:message for="add_question-message" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{patientQuestion.closeModal}" immediate="true" />
+							<h:commandButton value="Ask" class="btn btn-primary"
+								action="#{patientQuestion.askQuestion}" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</c:if>
+</ui:composition>

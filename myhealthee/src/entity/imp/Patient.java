@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,11 +32,7 @@ public class Patient extends Person {
 	@JoinColumn(name = "FAMILY_DOCTOR_ID")
 	private FamilyDoctor familyDoctor;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "SPECIALIST_DOCTOR_ID")
-	private List<SpecialistDoctor> specialistDoctors;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "PATIENT_ID")
 	private List<MedicalTest> medicalTests;
 
@@ -56,14 +51,6 @@ public class Patient extends Person {
 
 	public void setFamilyDoctor(FamilyDoctor familyDoctor) {
 		this.familyDoctor = familyDoctor;
-	}
-
-	public List<SpecialistDoctor> getSpecialistDoctors() {
-		return specialistDoctors;
-	}
-
-	public void setSpecialistDoctors(List<SpecialistDoctor> specialistDoctors) {
-		this.specialistDoctors = specialistDoctors;
 	}
 
 	public List<MedicalTest> getMedicalTests() {

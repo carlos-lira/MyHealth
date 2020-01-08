@@ -6,5 +6,5 @@ package entity.enums;
  * @author adlo
  */
 public enum TestType {
-	MAGNETIC_RESONANCE_IMAGING, CTSCAN, BLOOD_TEST
+	MAGNETIC_RESONANCE_IMAGING, CTSCAN, BLOOD_TEST;
 }

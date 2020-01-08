@@ -6,6 +6,7 @@ import javax.ejb.Remote;
 
 import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
+import entity.imp.MedicalSpeciality;
 import entity.imp.Patient;
 import entity.imp.PrimaryHealthCareCenter;
 import entity.imp.SpecialistDoctor;
@@ -57,6 +58,15 @@ public interface ProfileFacadeRemote {
 	 *         database doesn't have any row.
 	 */
 	public Collection<SpecialistDoctor> listAllSpecialistDoctors();
+	
+	/**
+	 * Change the medical specialty of a specialist doctor.
+	 * 
+	 * @param id the specialist doctor id.
+	 * @param medicalSpecialty the new medical specialty of the doctor.
+	 * @return the updated user, null otherwise.
+	 */
+	public SpecialistDoctor changeMedicalSpecialty(String id, MedicalSpeciality medicalSpecialty); 
 
 	// ADMINISTRATOR
 	/**

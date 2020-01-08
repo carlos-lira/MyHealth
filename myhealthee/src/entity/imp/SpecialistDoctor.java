@@ -23,8 +23,9 @@ import utils.QueryNames;
  */
 @Entity
 @Table(name = "SPECIALIST_DOCTOR")
-@NamedQueries({
-	@NamedQuery(name = QueryNames.GET_ALL_SPECIALIST_DOCTORS, query = "FROM SpecialistDoctor u")
+@NamedQueries({ 
+	@NamedQuery(name = QueryNames.GET_ALL_SPECIALIST_DOCTORS, query = "FROM SpecialistDoctor u"),
+	@NamedQuery(name = QueryNames.GET_ALL_SPECIALIST_DOCTORS_BY_MEDICAL_SPECIALTY, query = "FROM SpecialistDoctor u WHERE u.medicalSpeciality.name = :medicalSpeciality") 
 })
 public class SpecialistDoctor extends Doctor {
 	private static final long serialVersionUID = -7014944904910704221L;

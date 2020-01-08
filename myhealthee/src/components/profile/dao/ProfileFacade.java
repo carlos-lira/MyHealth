@@ -17,6 +17,7 @@ import org.jboss.resteasy.logging.impl.Log4jLogger;
 import entity.User;
 import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
+import entity.imp.MedicalSpeciality;
 import entity.imp.Patient;
 import entity.imp.PrimaryHealthCareCenter;
 import entity.imp.SpecialistDoctor;
@@ -108,6 +109,23 @@ public class ProfileFacade implements ProfileFacadeRemote {
 			logger.error(e.getMessage());
 		}
 		return new ArrayList<Administrator>();
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public SpecialistDoctor changeMedicalSpecialty(String id, MedicalSpeciality medicalSpecialty) {
+		try {
+			SpecialistDoctor doctor = (SpecialistDoctor) this.getUser(id);
+			if (doctor != null) {
+				doctor.setMedicalSpeciality(medicalSpecialty);
+				em.merge(doctor);
+				em.flush();
+				return doctor;
+			}
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return null;
 	}
 	
 	// Private Methods

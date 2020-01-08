@@ -46,14 +46,12 @@
 									<tr>
 										<td>
 											<div class="d-flex justify-content-center">
-												<h:commandLink
-													action="#{showvisit.showVisit(item)}"
+												<h:commandLink action="#{showvisit.showVisit(item)}"
 													styleClass="btn btn-sm btn-default shadow-sm mx-2"
 													title="Show">
 													<i class="fas fa-eye fa-sm fa-fw"></i>
 												</h:commandLink>
-												<h:commandLink
-													action="#{updatevisit.visitToUpdate(item)}"
+												<h:commandLink action="#{updatevisit.visitToUpdate(item)}"
 													styleClass="btn btn-sm btn-info shadow-sm mx-2"
 													title="Update">
 													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
@@ -61,11 +59,17 @@
 											</div>
 										</td>
 										<td><h:outputText value="#{item.familyDoctor.id}" /></td>
-										<td><h:outputText value="#{item.familyDoctor.name} #{item.familyDoctor.surnames}" /></td>
+										<td><h:outputText
+												value="#{item.familyDoctor.name} #{item.familyDoctor.surnames}" /></td>
 										<td><h:outputText value="#{item.patient.id}" /></td>
-										<td><h:outputText value="#{item.patient.name} #{item.patient.surnames}" /></td>
-										<td><h:outputText value="#{item.date}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText></td>
-										<td><h:outputText value="#{item.date}"><f:convertDateTime type="time" timeStyle="short" /></h:outputText></td>
+										<td><h:outputText
+												value="#{item.patient.name} #{item.patient.surnames}" /></td>
+										<td><h:outputText value="#{item.date}">
+												<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+											</h:outputText></td>
+										<td><h:outputText value="#{item.date}">
+												<f:convertDateTime type="time" timeStyle="short" />
+											</h:outputText></td>
 									</tr>
 								</ui:repeat>
 							</tbody>
@@ -74,5 +78,14 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable();
+				});
+			})(jQuery)
+		</script>
 	</ui:define>
 </ui:composition>

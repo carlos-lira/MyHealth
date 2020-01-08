@@ -24,7 +24,7 @@ import utils.QueryNames;
 @Table(name = "FAMILY_DOCTOR")
 @NamedQueries({
 	@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS, query = "FROM FamilyDoctor u"),
-	@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP, query = "SELECT DISTINCT(d) FROM FamilyDoctor d JOIN FETCH d.patients WHERE d.primaryHealthcareCenter =:cap") 
+	@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP, query = "SELECT DISTINCT(d) FROM FamilyDoctor d JOIN FETCH d.patients WHERE d.primaryHealthcareCenter = :cap") 
 })
 public class FamilyDoctor extends Doctor {
 	private static final long serialVersionUID = 6910880586339922197L;
@@ -37,7 +37,7 @@ public class FamilyDoctor extends Doctor {
 	@JoinColumn(name = "FAMILY_DOCTOR_ID")
 	private List<Visit> visits;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "FAMILY_DOCTOR_ID")
 	private List<Patient> patients;
 

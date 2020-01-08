@@ -266,6 +266,10 @@
 														title="Select cap">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
+													<h:panelGroup
+														rendered="#{familyDoctorProfile.doctor.primaryHealthcareCenter.name == item.name}">
+														<span class="badge badge-info">Actual</span>
+													</h:panelGroup>
 												</div>
 											</td>
 											<td><h:outputText value="#{item.name}" /></td>
