@@ -8,11 +8,12 @@ import utils.SessionUtils;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named("updatefamilydoctorprofile")
-@SessionScoped
+@RequestScoped
 public class UpdateFamilyDoctorProfileController implements Serializable {
 	private static final long serialVersionUID = -5628159165028747010L;
 

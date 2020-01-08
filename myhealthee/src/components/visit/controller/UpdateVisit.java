@@ -90,7 +90,7 @@ public class UpdateVisit implements Serializable {
 		try {
 			// System.out.println("id:" +id);
 			ejb.addResultToVisit(id, result);
-			return "allScheduledVisitsView";
+			return "homeView";
 		} catch (Exception e) {
 			Messages.addErrorGlobalMessage("A ocurrido un error insertando el resultado.");
 			return null;
