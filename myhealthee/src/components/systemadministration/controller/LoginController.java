@@ -7,6 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import components.systemadministration.dao.SystemAdministrationFacadeRemote;
+import configuration.ApplicationInitializer;
 import entity.User;
 import utils.Messages;
 import utils.SessionUtils;
@@ -60,7 +61,17 @@ public class LoginController implements Serializable {
 	 * Reset Password Action.
 	 */
 	public String resetPassword() {
-		Messages.addWarnGlobalMessage("Unable to send emails, smtp service not configured.");
+		if (ApplicationInitializer.SMTP_HOST == null || ApplicationInitializer.SMTP_HOST.equals("")) {
+			Messages.addWarnGlobalMessage("Unable to send emails, smtp service not available.");
+			return null;
+		}
+		// Try to send the email
+		User u = ejb.getUser(this.resetEmail);
+		if (u != null) {
+//			MailData data = new MailData("Recover passoword", "...", u.getEmail());
+//			SmtpService mailService = new SmtpService();
+//			mailService.sendEmail(data);
+		}
 		return null;
 	}
 

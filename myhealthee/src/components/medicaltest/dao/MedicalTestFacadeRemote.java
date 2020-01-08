@@ -1,6 +1,5 @@
 package components.medicaltest.dao;
 
-import java.io.File;
 import java.util.Collection;
 
 import javax.ejb.Remote;
