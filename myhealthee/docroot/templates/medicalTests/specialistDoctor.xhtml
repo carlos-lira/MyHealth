@@ -165,14 +165,13 @@
 											</div>
 										</c:if>
 										<c:if
-											test="#{images.convertImageAsBase64(specialistDoctorMedicalTest.medicalTest.highResImage) != null}">
+											test="#{specialistDoctorMedicalTest.highResImageBase64 != null}">
 											<div class="col-sm-12 mt-4">
 												<div>Image:</div>
 												<img class="img-fluid"
-													src="#{images.convertImageAsBase64(specialistDoctorMedicalTest.medicalTest.highResImage)}" />
+													src="#{specialistDoctorMedicalTest.highResImageBase64}" />
 												<div>
-													<a
-														href="#{images.convertImageAsBase64(specialistDoctorMedicalTest.medicalTest.highResImage)}"
+													<a href="#{specialistDoctorMedicalTest.highResImageBase64}"
 														class="btn btn-success btn-sm" download="highResImage.png">
 														<span>Download</span>
 													</a>

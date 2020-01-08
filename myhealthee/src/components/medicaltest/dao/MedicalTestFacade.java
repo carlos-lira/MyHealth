@@ -1,6 +1,7 @@
 package components.medicaltest.dao;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -274,6 +275,20 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 			logger.error(e.getMessage());
 		}
 		return new ArrayList<SpecialistDoctor>();
+	}
+	
+	@Override
+	public String loadHighResImageBase64(long id) {
+		try {
+			MedicalTest medicalTest = em.find(MedicalTest.class, id);
+			byte[] imageBytes = medicalTest.getHighResImage();
+			if (imageBytes != null && imageBytes.length > 0) {
+				return "data:image/png;base64," + Base64.getEncoder().encodeToString(imageBytes);
+			}
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return null;
 	}
 
 	// Private Methods
