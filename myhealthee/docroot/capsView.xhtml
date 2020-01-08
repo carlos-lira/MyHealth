@@ -121,7 +121,7 @@
 								<c:otherwise>
 									<div class="form-group">
 										<h:inputText class="form-control"
-											disabled="#{operation.isRead(cap.mode)}" id="name"
+											disabled="#{operation.isDisabled(cap.mode)}" id="name"
 											a:placeholder="Name" value="#{cap.cap.name}"
 											requiredMessage="A name is required." required="true" />
 										<div class="invalid-feedback d-block">

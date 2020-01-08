@@ -116,7 +116,7 @@
 								<c:otherwise>
 									<div class="form-group">
 										<h:inputText class="form-control"
-											disabled="#{operation.isRead(medicalspec.mode)}"
+											disabled="#{operation.isDisabled(medicalspec.mode)}"
 											id="name" a:placeholder="Name"
 											value="#{medicalspec.medicalSpeciality.name}"
 											requiredMessage="A name is required." required="true" />
