@@ -6,9 +6,7 @@ import javax.ejb.Remote;
 
 import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
-import entity.imp.MedicalSpeciality;
 import entity.imp.Patient;
-import entity.imp.PrimaryHealthCareCenter;
 import entity.imp.SpecialistDoctor;
 
 /**
@@ -31,10 +29,10 @@ public interface ProfileFacadeRemote {
 	 * Change the family doctor of a patient.
 	 * 
 	 * @param id        the patient id.
-	 * @param newDoctor the new family doctor of the patient.
+	 * @param familyDoctorId the if of the new family doctor of the patient.
 	 * @return the updated user, null otherwise.
 	 */
-	public Patient changeFamilyDoctor(String id, FamilyDoctor newDoctor);
+	public Patient changeFamilyDoctor(String id, String familyDoctorId);
 
 	// FAMILY DOCTOR
 	/**
@@ -47,10 +45,10 @@ public interface ProfileFacadeRemote {
 	 * Change the cap of a family doctor.
 	 * 
 	 * @param id  the family doctor id.
-	 * @param cap the new cap of the family doctor.
+	 * @param capId the id of the new cap of the family doctor.
 	 * @return the updated user, null otherwise.
 	 */
-	public FamilyDoctor changePrimaryHealthcareCenter(String id, PrimaryHealthCareCenter cap);
+	public FamilyDoctor changePrimaryHealthcareCenter(String id, long capId);
 
 	// SPECIALIST DOCTOR
 	/**
@@ -63,10 +61,10 @@ public interface ProfileFacadeRemote {
 	 * Change the medical specialty of a specialist doctor.
 	 * 
 	 * @param id the specialist doctor id.
-	 * @param medicalSpecialty the new medical specialty of the doctor.
+	 * @param medicalSpecialtyId the if of the new medical specialty of the doctor.
 	 * @return the updated user, null otherwise.
 	 */
-	public SpecialistDoctor changeMedicalSpecialty(String id, MedicalSpeciality medicalSpecialty); 
+	public SpecialistDoctor changeMedicalSpecialty(String id, long medicalSpecialtyId); 
 
 	// ADMINISTRATOR
 	/**

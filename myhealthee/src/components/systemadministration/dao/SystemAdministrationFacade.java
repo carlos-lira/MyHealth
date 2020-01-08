@@ -188,6 +188,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 		try {
 			PrimaryHealthCareCenter cap = this.getCAP(name);
 			if (cap != null) {
+				cap.removeAllFamilyDoctors();
 				em.remove(cap);
 				em.flush();
 			}
@@ -268,6 +269,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 		try {
 			MedicalSpeciality ms = this.getMedicalSpecialty(name);
 			if (ms != null) {
+				ms.removeAllSpecialistDoctors();
 				em.remove(ms);
 				em.flush();
 			}

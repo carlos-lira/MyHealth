@@ -47,7 +47,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 		this.doctor = new SpecialistDoctor();
 		this.listAllSpecialistDoctors();
 	}
-	
+
 	/**
 	 * @return the profile view page.
 	 */
@@ -69,7 +69,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 		this.doctor = doctor;
 		return null;
 	}
-	
+
 	public String openChangeMedicalSpecialtyModal(SpecialistDoctor doctor) {
 		this.changeMedicalSpecialtyModalOpen = true;
 		this.doctor = doctor;
@@ -87,6 +87,8 @@ public class SpecialistDoctorProfileController implements Serializable {
 		String repeatPassword = doctor.getRepeatPassword();
 		if (!StringUtils.isSameString(password, repeatPassword)) {
 			Messages.addWarnGlobalMessage("The passwords need to be equals");
+			this.clear();
+			return null;
 		}
 		if (!ejbSystemAdministration.addUser(doctor)) {
 			Messages.addErrorGlobalMessage("Error adding the specialist doctor");
@@ -102,6 +104,8 @@ public class SpecialistDoctorProfileController implements Serializable {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
 				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				this.clear();
+				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
@@ -127,6 +131,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
 				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
@@ -134,21 +139,19 @@ public class SpecialistDoctorProfileController implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public String changeMedicalSpecialty(MedicalSpeciality medicalSpecialty) {
-		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty);
+		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty.getId());
 		if (updatedUser == null) {
 			Messages.addErrorGlobalMessage("Error changing the family doctor");
-		} else {
-			doctor = updatedUser;
 		}
 		this.clear();
-		this.listAllMedicalSpecialties();
+		this.listAllSpecialistDoctors();
 		return null;
 	}
-	
+
 	public String changeMedicalSpecialtyProfile(MedicalSpeciality medicalSpecialty) {
-		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty);
+		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty.getId());
 		if (updatedUser == null) {
 			Messages.addErrorGlobalMessage("Error changing the medical specialty");
 		} else {
@@ -157,7 +160,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 		}
 		return null;
 	}
-	
+
 	// Private methods
 	private void clear() {
 		this.mode = Operation.NO_OPERATION;
@@ -168,7 +171,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 	private void listAllSpecialistDoctors() {
 		this.listSpecialistDoctors = (List<SpecialistDoctor>) ejb.listAllSpecialistDoctors();
 	}
-	
+
 	private void listAllMedicalSpecialties() {
 		this.listMedicalSpecialties = (List<MedicalSpeciality>) ejbSystemAdministration.listAllMedicalSpecialities();
 	}

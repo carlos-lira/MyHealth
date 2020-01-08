@@ -412,14 +412,14 @@
 											<td>
 												<div class="d-flex justify-content-center">
 													<h:commandLink
-														actionListener="#{specialistDoctorProfile.changeMedicalSpecialty(item)}"
-														rendered="#{specialistDoctorProfile.doctor.medicalSpeciality.name != item.name and specialistDoctorProfile.doctor.medicalSpeciality.description != item.description}"
+														actionListener="#{specialistDoctorProfile.changeMedicalSpecialtyProfile(item)}"
+														rendered="#{!(specialistDoctorProfile.doctor.medicalSpeciality.equals(item))}"
 														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
 														title="Select doctor">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
 													<h:panelGroup
-														rendered="#{specialistDoctorProfile.doctor.medicalSpeciality.name == item.name and specialistDoctorProfile.doctor.medicalSpeciality.description == item.description}">
+														rendered="#{(specialistDoctorProfile.doctor.medicalSpeciality.equals(item))}">
 														<span class="badge badge-info">Actual</span>
 													</h:panelGroup>
 												</div>

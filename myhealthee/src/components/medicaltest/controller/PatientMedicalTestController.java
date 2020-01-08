@@ -37,7 +37,6 @@ public class PatientMedicalTestController implements Serializable {
 	private Operation mode;
 	private Patient patient;
 	private MedicalTest medicalTest;
-	private MedicalSpeciality medicalSpeciality;
 	private List<MedicalTest> listMedicalTests;
 	private List<MedicalSpeciality> listMedicalSpecialty;
 	private List<SpecialistDoctor> listSpecialistDoctors;
@@ -65,13 +64,11 @@ public class PatientMedicalTestController implements Serializable {
 	private void clear() {
 		this.mode = Operation.NO_OPERATION;
 		this.medicalTest = null;
-		this.medicalSpeciality = null;
 	}
 
-	public void searchSpecialistDoctor() {
-		this.listSpecialistDoctors = (List<SpecialistDoctor>) ejb
-				.findSpecialistByMedicalSpecialty(medicalSpeciality.getName());
-		this.medicalSpeciality = null;
+	public String searchSpecialistDoctor(MedicalSpeciality medicalSpeciality) {
+		this.listSpecialistDoctors = (List<SpecialistDoctor>) ejb.findSpecialistByMedicalSpecialty(medicalSpeciality);
+		return null;
 	}
 
 	private void listAllMedicalSpecialties() {
@@ -91,14 +88,6 @@ public class PatientMedicalTestController implements Serializable {
 		return medicalTest;
 	}
 
-	public MedicalSpeciality getMedicalSpeciality() {
-		return medicalSpeciality;
-	}
-
-	public void setMedicalSpeciality(MedicalSpeciality medicalSpeciality) {
-		this.medicalSpeciality = medicalSpeciality;
-	}
-
 	public List<MedicalTest> getListMedicalTests() {
 		return listMedicalTests;
 	}
@@ -110,5 +99,4 @@ public class PatientMedicalTestController implements Serializable {
 	public List<SpecialistDoctor> getListSpecialistDoctors() {
 		return listSpecialistDoctors;
 	}
-
 }

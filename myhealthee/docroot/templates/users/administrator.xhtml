@@ -160,8 +160,6 @@
 							</c:choose>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{administratorProfile.closeModal}" immediate="true" />
 							<c:if test="#{operation.isCreate(administratorProfile.mode)}">
 								<h:commandButton value="Add" class="btn btn-primary"
 									action="#{administratorProfile.addAdministrator}" />
@@ -174,6 +172,8 @@
 								<h:commandButton value="Delete" class="btn btn-danger"
 									action="#{administratorProfile.deleteAdministrator}" />
 							</c:if>
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{administratorProfile.closeModal}" immediate="true" />
 						</div>
 					</h:form>
 				</div>

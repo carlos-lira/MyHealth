@@ -89,6 +89,8 @@ public class FamilyDoctorProfileController implements Serializable {
 		String repeatPassword = doctor.getRepeatPassword();
 		if (!StringUtils.isSameString(password, repeatPassword)) {
 			Messages.addWarnGlobalMessage("The passwords need to be equals");
+			this.clear();
+			return null;
 		}
 		if (!ejbSystemAdministration.addUser(doctor)) {
 			Messages.addErrorGlobalMessage("Error adding the family doctor");
@@ -104,6 +106,8 @@ public class FamilyDoctorProfileController implements Serializable {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
 				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				this.clear();
+				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
@@ -129,6 +133,7 @@ public class FamilyDoctorProfileController implements Serializable {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
 				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
@@ -138,11 +143,9 @@ public class FamilyDoctorProfileController implements Serializable {
 	}
 
 	public String changeCap(PrimaryHealthCareCenter cap) {
-		FamilyDoctor updatedUser = ejb.changePrimaryHealthcareCenter(doctor.getUsername(), cap);
+		FamilyDoctor updatedUser = ejb.changePrimaryHealthcareCenter(doctor.getUsername(), cap.getId());
 		if (updatedUser == null) {
 			Messages.addErrorGlobalMessage("Error changing the family doctor");
-		} else {
-			doctor = updatedUser;
 		}
 		this.clear();
 		this.listAllFamilyDoctors();
@@ -150,7 +153,7 @@ public class FamilyDoctorProfileController implements Serializable {
 	}
 	
 	public String changeCapProfile(PrimaryHealthCareCenter cap) {
-		FamilyDoctor updatedUser = ejb.changePrimaryHealthcareCenter(doctor.getUsername(), cap);
+		FamilyDoctor updatedUser = ejb.changePrimaryHealthcareCenter(doctor.getUsername(), cap.getId());
 		if (updatedUser == null) {
 			Messages.addErrorGlobalMessage("Error changing the family doctor");
 		} else {

@@ -44,6 +44,67 @@ public class Patient extends Person {
 	@JoinColumn(name = "PATIENT_ID")
 	private List<Question> questions;
 
+	// Sync methods
+	/**
+	 * Add medical test
+	 * 
+	 * @param medicalTest the medical test
+	 */
+	public void addMedicalTest(MedicalTest medicalTest) {
+		this.medicalTests.add(medicalTest);
+		medicalTest.setPatient(this);
+	}
+	
+	/**
+	 * Remove medical test
+	 * 
+	 * @param medicalTest the medical test
+	 */
+	public void removeMedicalTest(MedicalTest medicalTest) {
+		medicalTest.setPatient(null);
+		this.medicalTests.remove(medicalTest);
+	}
+	
+	/**
+	 * Add visit.
+	 * 
+	 * @param visit the visit
+	 */
+	public void addVisit(Visit visit) {
+		this.visits.add(visit);
+		visit.setPatient(this);
+	}
+	
+	/**
+	 * Remove visit.
+	 * 
+	 * @param visit the visit.
+	 */
+	public void removeVisit(Visit visit) {
+		visit.setPatient(null);
+		this.visits.remove(visit);
+	}
+	
+	/**
+	 * Add question.
+	 * 
+	 * @param question the question,
+	 */
+	public void addQuestion(Question question) {
+		this.questions.add(question);
+		question.setPatient(this);
+	}
+	
+	/**
+	 * Remove question.
+	 * 
+	 * @param question the question.
+	 */
+	public void removeQuestion(Question question) {
+		question.setPatient(null);
+		this.questions.remove(question);
+	}
+	
 	// Getters & Setters
 	public FamilyDoctor getFamilyDoctor() {
 		return familyDoctor;

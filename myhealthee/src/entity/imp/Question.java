@@ -49,7 +49,7 @@ public class Question extends BaseEntity {
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "RESPONSE_ID")
 	private Response response;
-
+	
 	// Getters & Setters
 	public String getTitle() {
 		return title;

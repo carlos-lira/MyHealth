@@ -49,12 +49,13 @@ public class ProfileFacade implements ProfileFacadeRemote {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Patient changeFamilyDoctor(String id, FamilyDoctor newDoctor) {
+	public Patient changeFamilyDoctor(String id, String familyDoctorId) {
 		try {
 			Patient patient = (Patient) this.getUser(id);
-			if (patient != null) {
-				patient.setFamilyDoctor(newDoctor);
-				em.merge(patient);
+			FamilyDoctor familyDoctor = (FamilyDoctor) this.getUser(familyDoctorId);
+			if (patient != null && familyDoctor != null) {
+				familyDoctor.addPatient(patient);
+				em.merge(familyDoctor);
 				em.flush();
 				return patient;
 			}
@@ -76,14 +77,15 @@ public class ProfileFacade implements ProfileFacadeRemote {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public FamilyDoctor changePrimaryHealthcareCenter(String id, PrimaryHealthCareCenter cap) {
+	public FamilyDoctor changePrimaryHealthcareCenter(String id, long capId) {
 		try {
-			FamilyDoctor doctor = (FamilyDoctor) this.getUser(id);
-			if (doctor != null) {
-				doctor.setPrimaryHealthcareCenter(cap);
-				em.merge(doctor);
+			FamilyDoctor familyDoctor = (FamilyDoctor) this.getUser(id);
+			PrimaryHealthCareCenter cap = em.find(PrimaryHealthCareCenter.class, capId);
+			if (familyDoctor != null && cap != null) {
+				cap.addFamilyDoctor(familyDoctor);
+				em.merge(cap);
 				em.flush();
-				return doctor;
+				return familyDoctor;
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
@@ -113,14 +115,15 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public SpecialistDoctor changeMedicalSpecialty(String id, MedicalSpeciality medicalSpecialty) {
+	public SpecialistDoctor changeMedicalSpecialty(String id, long medicalSpecialtyId) {
 		try {
-			SpecialistDoctor doctor = (SpecialistDoctor) this.getUser(id);
-			if (doctor != null) {
-				doctor.setMedicalSpeciality(medicalSpecialty);
-				em.merge(doctor);
+			SpecialistDoctor specialistDoctor = (SpecialistDoctor) this.getUser(id);
+			MedicalSpeciality medicalSpecialty = em.find(MedicalSpeciality.class, medicalSpecialtyId);
+			if (specialistDoctor != null && medicalSpecialty != null) {
+				medicalSpecialty.addSpecialistDoctor(specialistDoctor);
+				em.merge(medicalSpecialty);
 				em.flush();
-				return doctor;
+				return specialistDoctor;
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());

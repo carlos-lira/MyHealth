@@ -69,27 +69,18 @@
 				</div>
 
 				<!-- Find specialty by medical specialty -->
-				<div class="mt-3">
-					<!-- TODO -->
-					<h6>Search specialist doctor by medical specialty</h6>
-
-					<div class="form-group row">
+				<div class="mt-4">
+					<h5>Search specialist doctor by medical specialty</h5>
+					<div class="form-group row mt-3">
 						<div class="col-sm-12">
 							<h:form>
 								<div class="input-group">
-
-									<h:selectOneMenu id="searchSpecialistDoctor"
-										styleClass="form-control" onclick="submit()"
-										value="#{patientMedicalTest.medicalSpeciality}">
-										<f:selectItems
-											value="#{patientMedicalTest.listMedicalSpecialty}" var="item"
-											itemLabel="#{item.name}" itemValue="#{item}" />
-									</h:selectOneMenu>
-									<div class="input-group-prepend">
-										<h:outputLabel class="input-group-text"
-											for="searchSpecialistDoctor">Search</h:outputLabel>
-									</div>
-
+									<ui:repeat var="item"
+										value="#{patientMedicalTest.listMedicalSpecialty}">
+										<h:commandButton value="#{item.name}" type="submit"
+											class="btn btn-info mx-2"
+											action="#{patientMedicalTest.searchSpecialistDoctor(item)}" />
+									</ui:repeat>
 								</div>
 							</h:form>
 						</div>

@@ -1,7 +1,6 @@
 package components.medicaltest.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import javax.inject.Named;
 import components.medicaltest.dao.MedicalTestFacadeRemote;
 import entity.enums.QuestionStatus;
 import entity.imp.FamilyDoctor;
-import entity.imp.Patient;
 import entity.imp.Question;
 import services.crud.Operation;
 import utils.SessionUtils;
@@ -72,12 +70,7 @@ public class FamilyDoctorQuestionController implements Serializable {
 	}
 
 	private void listAllPendingQuestions() {
-		this.listPendingQuestions = new ArrayList<Question>();
-		for (int i = 0; i < this.doctor.getPatients().size(); i++) {
-			Patient p = this.doctor.getPatients().get(i);
-			List<Question> questions = (List<Question>) ejb.listAllQuestions(p.getUsername(), QuestionStatus.PENDING);
-			listPendingQuestions.addAll(questions);
-		}
+		this.listPendingQuestions = (List<Question>) ejb.listAllQuestionsFromPatientsOfFamilyDoctor(this.doctor.getUsername(), QuestionStatus.PENDING);
 	}
 
 	// Getters & Setters

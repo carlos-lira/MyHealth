@@ -206,8 +206,6 @@
 							</c:choose>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{patientProfile.closeModal}" immediate="true" />
 							<c:if test="#{operation.isCreate(patientProfile.mode)}">
 								<h:commandButton value="Add" class="btn btn-primary"
 									action="#{patientProfile.addPatient}" />
@@ -220,6 +218,8 @@
 								<h:commandButton value="Delete" class="btn btn-danger"
 									action="#{patientProfile.deletePatient}" />
 							</c:if>
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{patientProfile.closeModal}" immediate="true" />
 						</div>
 					</h:form>
 				</div>

@@ -1,7 +1,6 @@
 package components.medicaltest.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import javax.inject.Named;
 import components.medicaltest.dao.MedicalTestFacadeRemote;
 import entity.imp.FamilyDoctor;
 import entity.imp.MedicalTest;
-import entity.imp.Patient;
 import services.crud.Operation;
 import utils.SessionUtils;
 
@@ -28,7 +26,7 @@ public class FamilyDoctorMedicalTestController implements Serializable {
 
 	@EJB
 	private MedicalTestFacadeRemote ejb;
-	
+
 	/* Fields */
 	private Operation mode;
 	private FamilyDoctor doctor;
@@ -58,15 +56,10 @@ public class FamilyDoctorMedicalTestController implements Serializable {
 		this.mode = Operation.NO_OPERATION;
 		this.medicalTest = null;
 	}
-	
+
 	private void getAllMedicalTests() {
-		this.listMedicalTests = new ArrayList<MedicalTest>();
-		for (Patient p : this.doctor.getPatients()) {
-			List<MedicalTest> l = p.getMedicalTests();
-			if (l != null) {
-				this.listMedicalTests.addAll(l);
-			}
-		}
+		this.listMedicalTests = (List<MedicalTest>) ejb
+				.listAllMedicalTestsPatientByFamilyDoctor(this.doctor.getUsername());
 	}
 
 	// Getters & Setters

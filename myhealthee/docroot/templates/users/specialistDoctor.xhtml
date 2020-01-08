@@ -209,8 +209,6 @@
 							</c:choose>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{specialistDoctorProfile.closeModal}" immediate="true" />
 							<c:if test="#{operation.isCreate(specialistDoctorProfile.mode)}">
 								<h:commandButton value="Add" class="btn btn-primary"
 									action="#{specialistDoctorProfile.addSpecialistDoctor}" />
@@ -223,6 +221,8 @@
 								<h:commandButton value="Delete" class="btn btn-danger"
 									action="#{specialistDoctorProfile.deleteSpecialistDoctor}" />
 							</c:if>
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{specialistDoctorProfile.closeModal}" immediate="true" />
 						</div>
 					</h:form>
 				</div>
@@ -263,14 +263,14 @@
 											<td>
 												<div class="d-flex justify-content-center">
 													<h:commandLink
-														actionListener="#{specialistDoctorProfile.changeMedicalSpecialty(item)}"
+														actionListener="#{(specialistDoctorProfile.changeMedicalSpecialty(item))}"
 														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
-														rendered="#{specialistDoctorProfile.doctor.medicalSpeciality.name != item.name and specialistDoctorProfile.doctor.medicalSpeciality.description != item.description}"
+														rendered="#{!(specialistDoctorProfile.doctor.medicalSpeciality.equals(item))}"
 														title="Select Medical specialty">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
 													<h:panelGroup
-														rendered="#{specialistDoctorProfile.doctor.medicalSpeciality.name == item.name and specialistDoctorProfile.doctor.medicalSpeciality.description == item.description}">
+														rendered="#{(specialistDoctorProfile.doctor.medicalSpeciality.equals(item))}">
 														<span class="badge badge-info">Actual</span>
 													</h:panelGroup>
 												</div>

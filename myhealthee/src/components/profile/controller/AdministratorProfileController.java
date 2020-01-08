@@ -76,6 +76,8 @@ public class AdministratorProfileController implements Serializable {
 		String repeatPassword = this.administrator.getRepeatPassword();
 		if (!StringUtils.isSameString(password, repeatPassword)) {
 			Messages.addWarnGlobalMessage("The passwords need to be equals");
+			this.clear();
+			return null;
 		}
 		if (!ejbSystemAdministration.addUser(this.administrator)) {
 			Messages.addErrorGlobalMessage("Error adding the administrator");
@@ -91,6 +93,8 @@ public class AdministratorProfileController implements Serializable {
 			String repeatPassword = this.administrator.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
 				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				this.clear();
+				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(this.administrator)) {
@@ -116,6 +120,7 @@ public class AdministratorProfileController implements Serializable {
 			String repeatPassword = this.administrator.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
 				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(this.administrator)) {

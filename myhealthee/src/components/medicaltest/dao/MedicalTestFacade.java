@@ -2,6 +2,8 @@ package components.medicaltest.dao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -16,6 +18,8 @@ import org.jboss.resteasy.logging.impl.Log4jLogger;
 
 import entity.User;
 import entity.enums.QuestionStatus;
+import entity.imp.FamilyDoctor;
+import entity.imp.MedicalSpeciality;
 import entity.imp.MedicalTest;
 import entity.imp.Patient;
 import entity.imp.Question;
@@ -61,6 +65,26 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 	}
 
 	@Override
+	public Collection<Question> listAllQuestionsFromPatientsOfFamilyDoctor(String id, QuestionStatus status) {
+		try {
+			List<Question> list = new ArrayList<Question>();
+			FamilyDoctor doctor = (FamilyDoctor) this.getUser(id);
+			if (doctor != null) {
+				Iterator<Patient> it = doctor.getPatients().iterator();
+				while (it.hasNext()) {
+					Patient p = it.next();
+					List<Question> questions = (List<Question>) this.listAllQuestions(p.getUsername(), status);
+					list.addAll(questions);
+				}
+			}
+			return list;
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return new ArrayList<Question>();
+	}
+
+	@Override
 	public Question getQuestion(long id) {
 		try {
 			return (Question) em.createNamedQuery(QueryNames.GET_QUESTION_BY_ID).setParameter("id", id)
@@ -77,12 +101,13 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 		try {
 			Patient patient = (Patient) this.getUser(id);
 			if (patient != null) {
-				Question q = new Question();
-				q.setTitle(title);
-				q.setMessage(message);
-				q.setStatus(QuestionStatus.PENDING);
-				q.setPatient(patient);
-				em.persist(q);
+				Question question = new Question();
+				question.setTitle(title);
+				question.setMessage(message);
+				question.setStatus(QuestionStatus.PENDING);
+				question.setPatient(patient);
+				patient.addQuestion(question);
+				em.persist(patient);
 				em.flush();
 			}
 		} catch (PersistenceException e) {
@@ -112,9 +137,10 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void removeQuestion(long id) {
 		try {
-			Question q = this.getQuestion(id);
-			if (q != null) {
-				em.remove(q);
+			Question question = this.getQuestion(id);
+			if (question != null) {
+				question.getPatient().removeQuestion(question);
+				em.remove(question);
 				em.flush();
 			}
 		} catch (PersistenceException e) {
@@ -147,6 +173,26 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 	}
 
 	@Override
+	public Collection<MedicalTest> listAllMedicalTestsPatientByFamilyDoctor(String id) {
+		try {
+			List<MedicalTest> list = new ArrayList<MedicalTest>();
+			FamilyDoctor doctor = (FamilyDoctor) this.getUser(id);
+			if (doctor != null) {
+				for (Patient p : doctor.getPatients()) {
+					List<MedicalTest> l = p.getMedicalTests();
+					if (l != null) {
+						list.addAll(l);
+					}
+				}
+			}
+			return list;
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return new ArrayList<MedicalTest>();
+	}
+
+	@Override
 	public MedicalTest getMedicalTest(long id) {
 		try {
 			return (MedicalTest) em.createNamedQuery(QueryNames.GET_MEDICAL_TEST_BY_ID).setParameter("id", id)
@@ -161,13 +207,11 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void addMedicalTest(String id, MedicalTest medicalTest) {
 		try {
-			// Test the date and time
-			// TODO
 			// Add the medical test
 			Patient patient = (Patient) this.getUser(id);
-			if (patient != null) {
-				medicalTest.setPatient(patient);
-				em.persist(medicalTest);
+			if (patient != null && medicalTest != null) {
+				patient.addMedicalTest(medicalTest);
+				em.merge(patient);
 				em.flush();
 			}
 		} catch (PersistenceException e) {
@@ -181,6 +225,8 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 		try {
 			MedicalTest medicalTest = this.getMedicalTest(id);
 			if (medicalTest != null) {
+				medicalTest.getPatient().removeMedicalTest(medicalTest);
+				medicalTest.getSpecialistDoctor().removeMedicalTest(medicalTest);
 				em.remove(medicalTest);
 				em.flush();
 			}
@@ -220,10 +266,10 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 	}
 
 	@Override
-	public Collection<SpecialistDoctor> findSpecialistByMedicalSpecialty(String name) {
+	public Collection<SpecialistDoctor> findSpecialistByMedicalSpecialty(MedicalSpeciality medicalSpecialty) {
 		try {
 			return em.createNamedQuery(QueryNames.GET_ALL_SPECIALIST_DOCTORS_BY_MEDICAL_SPECIALTY)
-					.setParameter("medicalSpeciality", name).getResultList();
+						.setParameter("medicalSpeciality", medicalSpecialty).getResultList();
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}

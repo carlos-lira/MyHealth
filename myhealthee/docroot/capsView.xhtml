@@ -141,8 +141,6 @@
 							</c:choose>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{cap.closeModal}" immediate="true" />
 							<c:if test="#{operation.isCreate(cap.mode)}">
 								<h:commandButton value="Add" class="btn btn-primary"
 									action="#{cap.addCAP}" />
@@ -155,6 +153,8 @@
 								<h:commandButton value="Delete" class="btn btn-danger"
 									action="#{cap.deleteCAP}" />
 							</c:if>
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{cap.closeModal}" immediate="true" />
 						</div>
 					</h:form>
 				</div>

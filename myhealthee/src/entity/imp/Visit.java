@@ -44,7 +44,7 @@ public class Visit extends BaseEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PATIENT_ID", nullable = false)
 	private Patient patient;
-
+	
 	// Getters & Setters
 	public Date getDate() {
 		return date;

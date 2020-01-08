@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.ejb.Remote;
 
 import entity.enums.QuestionStatus;
+import entity.imp.MedicalSpeciality;
 import entity.imp.MedicalTest;
 import entity.imp.Question;
 import entity.imp.SpecialistDoctor;
@@ -33,6 +34,16 @@ public interface MedicalTestFacadeRemote {
 	 */
 	public Collection<Question> listAllQuestions(String id, QuestionStatus status);
 
+	/**
+	 * Get all the questions from the patients of a family doctor.
+	 * 
+	 * @param id the family doctor id.
+	 * @param status the status of the questions.
+	 * @return  a list with all the pending questions, or an empty list if doesn't
+	 *         exist any.
+	 */
+	public Collection<Question> listAllQuestionsFromPatientsOfFamilyDoctor(String id, QuestionStatus status);
+	
 	/**
 	 * Get a question by id.
 	 * 
@@ -73,12 +84,22 @@ public interface MedicalTestFacadeRemote {
 	public Collection<MedicalTest> listAllMedicalTests();
 
 	/**
+	 * List all the medical tests from a specialist doctor.
 	 * 
 	 * @param id the specialist doctor identifier.
 	 * @return a list with all the medical test associated to a specialist doctor,
 	 *         or an empty list if doesn't exist any.
 	 */
 	public Collection<MedicalTest> listAllMedicalTestsBySpecialistDoctor(String id);
+	
+	/**
+	 * List all the medical tests from the patients of a family doctor
+	 * 
+	 * @param id the family doctor id.
+	 * @return a list with all the medical test associated to a patients of a familyDoctor,
+	 *         or an empty list if doesn't exist any.
+	 */
+	public Collection<MedicalTest> listAllMedicalTestsPatientByFamilyDoctor(String id);
 
 	/**
 	 * Get a medical test by id.
@@ -124,9 +145,9 @@ public interface MedicalTestFacadeRemote {
 	/**
 	 * Find a specialist doctor y medical specialty name
 	 * 
-	 * @param name the name of the medical specialty
+	 * @param medicalSpecialty the medical specialty
 	 * @return a list with all the specialist doctor that have a medical specialty,
 	 *         or an empty list if doesn't exist any.
 	 */
-	public Collection<SpecialistDoctor> findSpecialistByMedicalSpecialty(String name);
+	public Collection<SpecialistDoctor> findSpecialistByMedicalSpecialty(MedicalSpeciality medicalSpecialty);
 }
