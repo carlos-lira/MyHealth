@@ -54,14 +54,14 @@ public interface SystemAdministrationFacadeRemote {
 	 * @return true if the user is add correctly, false otherwise.
 	 */
 	public boolean addUser(User user);
-
+	
 	/**
-	 * Remove user from the system.
+	 * Update a user from the system.
 	 * 
-	 * @param user the User to be removed.
-	 * @return true if the user is removed correctly, false otherwise.
+	 * @param user the User to be updated.
+	 * @return true if the user is update correctly, false otherwise.
 	 */
-	public boolean removeUser(User user);
+	public boolean updateUser(User user);
 
 	/**
 	 * Remove user by id.

@@ -24,7 +24,7 @@ import utils.QueryNames;
 @Entity
 @Table(name = "PATIENT")
 @NamedQueries({ 
-	@NamedQuery(name = QueryNames.GET_ALL_PATIENTS, query = "FROM Patient u"),
+	@NamedQuery(name = QueryNames.GET_ALL_PATIENTS, query = "FROM Patient u")
 })
 public class Patient extends Person {
 	private static final long serialVersionUID = 5119359086731145181L;
@@ -88,5 +88,5 @@ public class Patient extends Person {
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
-	}	
+	}
 }

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<!-- Table -->
+	<div class="col-md-12 mb-4">
+		<div class="card shadow">
+			<a href="#administratorCard" class="d-block card-header py-3"
+				data-toggle="collapse">
+				<h6 class="m-0 font-weight-bold text-primary">Administrators</h6>
+			</a>
+			<div id="administratorCard" class="collapse show">
+				<div class="card-body">
+					<h:form>
+						<h:commandLink
+							actionListener="#{administratorProfile.openModal(operation.create)}"
+							styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4">
+							<i class="fas fa-plus fa-sm text-white-50"></i>
+							<span>Add Administrator</span>
+						</h:commandLink>
+						<table class="js-datatable table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 10%;">Operations</th>
+									<th>Username</th>
+									<th>Email</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Operations</th>
+									<th>Username</th>
+									<th>Email</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item"
+									value="#{administratorProfile.listAdministrators}">
+									<ui:fragment rendered="#{user.username != item.username}">
+										<tr>
+											<td>
+												<div class="d-flex justify-content-center">
+													<h:commandLink
+														actionListener="#{administratorProfile.openModal(operation.read, item)}"
+														styleClass="btn btn-sm btn-default shadow-sm mx-2"
+														title="Show">
+														<i class="fas fa-eye fa-sm fa-fw"></i>
+													</h:commandLink>
+													<h:commandLink
+														actionListener="#{administratorProfile.openModal(operation.update, item)}"
+														styleClass="btn btn-sm btn-info shadow-sm mx-2"
+														title="Update">
+														<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+													</h:commandLink>
+													<h:commandLink
+														actionListener="#{administratorProfile.openModal(operation.delete, item)}"
+														styleClass="btn btn-sm btn-danger shadow-sm mx-2"
+														title="Delete">
+														<i class="fas fa-trash-alt fa-sm fa-fw"></i>
+													</h:commandLink>
+												</div>
+											</td>
+											<td><h:outputText value="#{item.username}" /></td>
+											<td><h:outputText value="#{item.email}" /></td>
+										</tr>
+									</ui:fragment>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Crud Modal -->
+	<c:if test="#{operation.hasOperation(administratorProfile.mode)}">
+		<div class="modal fade" id="crudModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title">
+								<c:if test="#{operation.isCreate(administratorProfile.mode)}">
+									<h:outputText value="Add Administrator" />
+								</c:if>
+								<c:if test="#{operation.isRead(administratorProfile.mode)}">
+									<h:outputText value="Show Administrator" />
+								</c:if>
+								<c:if test="#{operation.isUpdate(administratorProfile.mode)}">
+									<h:outputText value="Update Administrator" />
+								</c:if>
+								<c:if test="#{operation.isDelete(administratorProfile.mode)}">
+									<h:outputText value="Delete Administrator" />
+								</c:if>
+							</h5>
+						</div>
+						<div class="modal-body">
+							<h:messages globalOnly="true" style="text-align: left;"
+								errorStyle="color:red;" infoStyle="color:blue;" />
+							<c:choose>
+								<c:when test="#{operation.isDelete(administratorProfile.mode)}">
+									<div class="form-group">
+										<h6 class="font-weight-bold">Are you sure?</h6>
+										<p>You won't be able to revert this!</p>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-sm-0">
+											<h:inputText class="form-control"
+												disabled="#{operation.isDisabled(administratorProfile.mode)}"
+												id="register_administrator-username"
+												a:placeholder="Username"
+												value="#{administratorProfile.administrator.username}"
+												requiredMessage="The username field is required."
+												required="true" />
+											<div class="invalid-feedback d-block">
+												<h:message for="register_administrator-username" />
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<h:inputText class="form-control"
+												disabled="#{operation.isRead(administratorProfile.mode)}"
+												id="register_administrator-email" a:placeholder="Email"
+												value="#{administratorProfile.administrator.email}"
+												requiredMessage="The email field is required."
+												required="true" />
+											<div class="invalid-feedback d-block">
+												<h:message for="register_administrator-email" />
+											</div>
+										</div>
+									</div>
+									<c:if
+										test="#{operation.isCreate(administratorProfile.mode) or operation.isUpdate(administratorProfile.mode)}">
+										<div class="form-group row">
+											<div class="col-sm-6 mb-sm-0">
+												<h:inputSecret class="form-control"
+													id="register_administrator-password"
+													a:placeholder="Password"
+													value="#{administratorProfile.administrator.password}"
+													requiredMessage="The password field is required." />
+												<div class="invalid-feedback d-block">
+													<h:message for="register_administrator-password" />
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<h:inputSecret class="form-control"
+													a:placeholder="Repeat Password"
+													value="#{administratorProfile.administrator.repeatPassword}" />
+											</div>
+										</div>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{administratorProfile.closeModal}" immediate="true" />
+							<c:if test="#{operation.isCreate(administratorProfile.mode)}">
+								<h:commandButton value="Add" class="btn btn-primary"
+									action="#{administratorProfile.addAdministrator}" />
+							</c:if>
+							<c:if test="#{operation.isUpdate(administratorProfile.mode)}">
+								<h:commandButton value="Update" class="btn btn-primary"
+									action="#{administratorProfile.updateAdministrator}" />
+							</c:if>
+							<c:if test="#{operation.isDelete(administratorProfile.mode)}">
+								<h:commandButton value="Delete" class="btn btn-danger"
+									action="#{administratorProfile.deleteAdministrator}" />
+							</c:if>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</c:if>
+
+</ui:composition>

@@ -43,6 +43,7 @@ public class CAPController implements Serializable {
 	// ACTIONS
 	public String openModal(Operation operation) {
 		this.mode = operation;
+		this.cap = new PrimaryHealthCareCenter();
 		return null;
 	}
 
@@ -93,7 +94,7 @@ public class CAPController implements Serializable {
 	private void clear() {
 		this.mode = Operation.NO_OPERATION;
 		this.familyDoctorsByCapModalOpen = false;
-		this.cap = new PrimaryHealthCareCenter();
+		this.cap = null;
 	}
 
 	private void listCAPs() {

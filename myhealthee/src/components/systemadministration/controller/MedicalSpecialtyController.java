@@ -40,6 +40,7 @@ public class MedicalSpecialtyController implements Serializable {
 	// ACTIONS
 	public String openModal(Operation operation) {
 		this.mode = operation;
+		this.medicalSpeciality = new MedicalSpeciality();
 		return null;
 	}
 
@@ -83,7 +84,7 @@ public class MedicalSpecialtyController implements Serializable {
 	// PRIVATE METHODS
 	private void clear() {
 		this.mode = Operation.NO_OPERATION;
-		this.medicalSpeciality = new MedicalSpeciality();
+		this.medicalSpeciality = null;
 	}
 
 	private void listMedicalSpecialities() {

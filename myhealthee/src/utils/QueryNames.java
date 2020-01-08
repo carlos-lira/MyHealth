@@ -18,11 +18,18 @@ public final class QueryNames {
 	public static final String GET_ALL_USERS = "getAllUsers";
 	public static final String GET_USER = "getUser";
 	
-	// Patient quieries
+	// Patient query names
 	public static final String GET_ALL_PATIENTS = "getAllPatients";
 	
 	// Family doctor queries
+	public static final String GET_ALL_FAMILY_DOCTORS = "getAllFamilyDoctors";
 	public static final String GET_ALL_FAMILY_DOCTORS_BY_CAP = "getAllFamilyDoctorsByCap";
+	
+	// Specialist doctor query names
+	public static final String GET_ALL_SPECIALIST_DOCTORS = "getAllSpecialistDoctors";
+	
+	// Administrator query names
+	public static final String GET_ALL_ADMINISTRATORS = "getAllAdministrators";
 	
 	// PrimaryHealthCareCenter query names
 	public static final String GET_ALL_PRIMARY_HELTHCARE_CENTERS = "getAllPrimaryHealthCareCenters";

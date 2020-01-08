@@ -33,7 +33,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 
 	private static final Logger logger = Log4jLogger.getLogger(SystemAdministrationFacade.class);
 	private static final HashAlgorithm algorithm = HashAlgorithm.MD5;
-	
+
 	@PersistenceContext(name = "myhealthee")
 	private EntityManager em;
 
@@ -62,7 +62,7 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 		}
 		return new ArrayList<User>();
 	}
-	
+
 	@Override
 	public User getUser(String id) {
 		try {
@@ -91,11 +91,20 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public boolean removeUser(User user) {
+	public boolean updateUser(User user) {
 		try {
-			em.remove(user);
-			em.flush();
-			return true;
+			User u = this.getUser(user.getUsername());
+			if (u != null) {
+				String rawPassword = user.getPassword();
+				if (rawPassword != null && !rawPassword.equals("")) {
+					user.setPassword(Cypher.createHashedPassword(algorithm, rawPassword));
+				} else {
+					user.setPassword(u.getPassword());
+				}
+				em.merge(user);
+				em.flush();
+				return true;
+			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}
@@ -105,7 +114,17 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean removeUser(String id) {
-		return this.removeUser(this.getUser(id));
+		try {
+			User user = this.getUser(id);
+			if (user != null) {
+				em.remove(user);
+				em.flush();
+				return true;
+			}
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return false;
 	}
 
 	@Override
@@ -180,7 +199,8 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 	@Override
 	public List<FamilyDoctor> listAllFamilyDoctorsByCAP(PrimaryHealthCareCenter cap) {
 		try {
-			return em.createNamedQuery(QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP).setParameter("cap", cap).getResultList();
+			return em.createNamedQuery(QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP).setParameter("cap", cap)
+					.getResultList();
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}

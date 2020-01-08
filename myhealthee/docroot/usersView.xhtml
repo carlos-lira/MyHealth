@@ -8,19 +8,47 @@
 	template="/templates/dashboard.xhtml">
 
 	<ui:define name="content">
-		<!-- Register patient link -->
-		<h:link class="nav-link" outcome="registerPatientView">
-			<h:outputText value="Registrar paciente" />
-		</h:link>
+		<!-- Title page -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">Users</h1>
+		</div>
+		
+		<!-- Messages -->
+		<p class="mb-4">
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;" />
+		</p>
 
-		<!-- Register family doctor -->
-		<h:link class="nav-link" outcome="registerFamilyDoctorView">
-			<h:outputText value="Registrar médico de familia" />
-		</h:link>
+		<div class="row">
+			<!-- Patient users -->
+			<ui:include src="/templates/users/patient.xhtml" />
 
-		<!-- Register specialist doctor -->
-		<h:link class="nav-link" outcome="registerSpecialistDoctorView">
-			<h:outputText value="Registrar médico especialista" />
-		</h:link>
+			<!-- Family doctors users -->
+			<ui:include src="/templates/users/familyDoctor.xhtml" />
+
+			<!-- Specialist doctor users -->
+			<ui:include src="/templates/users/specialistDoctor.xhtml" />
+
+			<!-- Administrators users -->
+			<ui:include src="/templates/users/administrator.xhtml" />
+		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable({
+						"columnDefs": [
+							{ "orderable": false, "targets": 0 }
+						],
+						"order": [[ 1, "asc" ]]
+					});
+					
+					// Open modal if has operation
+					$('#crudModal').modal('show');
+				});
+			})(jQuery)
+		</script>
 	</ui:define>
+
 </ui:composition>
