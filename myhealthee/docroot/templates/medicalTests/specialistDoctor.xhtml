@@ -191,9 +191,6 @@
 							</c:choose>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{specialistDoctorMedicalTest.closeModal}"
-								immediate="true" />
 							<c:if
 								test="#{operation.isUpdate(specialistDoctorMedicalTest.mode)}">
 								<h:commandButton value="Update" class="btn btn-primary"
@@ -204,6 +201,9 @@
 								<h:commandButton value="Delete" class="btn btn-danger"
 									action="#{specialistDoctorMedicalTest.deleteMedicalTest}" />
 							</c:if>
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{specialistDoctorMedicalTest.closeModal}"
+								immediate="true" />
 						</div>
 					</h:form>
 				</div>

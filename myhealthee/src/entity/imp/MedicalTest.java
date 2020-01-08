@@ -55,11 +55,11 @@ public class MedicalTest extends BaseEntity {
 	private byte[] highResImage;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PATIENT_ID", nullable = false)
+	@JoinColumn(name = "PATIENT_ID")
 	private Patient patient;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "SPECIALIST_DOCTOR_ID", nullable = false)
+	@JoinColumn(name = "SPECIALIST_DOCTOR_ID")
 	private SpecialistDoctor specialistDoctor;
 
 	// Getters & Setters

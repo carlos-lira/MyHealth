@@ -160,12 +160,12 @@
 							</c:choose>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{administratorMedicalTest.closeModal}" immediate="true" />
 							<c:if test="#{operation.isDelete(administratorMedicalTest.mode)}">
 								<h:commandButton value="Delete" class="btn btn-danger"
 									action="#{administratorMedicalTest.deleteMedicalTest}" />
 							</c:if>
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{administratorMedicalTest.closeModal}" immediate="true" />
 						</div>
 					</h:form>
 				</div>
