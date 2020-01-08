@@ -17,7 +17,7 @@
 		<c:if test="#{role.isAdministrator()}">
 			<ui:include src="/templates/dashboards/administrator.xhtml" />
 		</c:if>
-		
+
 		<!-- Patient dashboard -->
 		<c:if test="#{role.isPatient()}">
 			<ui:include src="/templates/dashboards/patient.xhtml" />
@@ -27,5 +27,23 @@
 		<c:if test="#{role.isDoctor()}">
 			<ui:include src="/templates/dashboards/doctor.xhtml" />
 		</c:if>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable({
+						"columnDefs" : [ {
+							"orderable" : false,
+							"targets" : 0
+						} ],
+						"order" : [ [ 1, "asc" ] ]
+					});
+
+					// Open modal if has operation
+					$('#crudModal').modal('show');
+				});
+			})(jQuery)
+		</script>
 	</ui:define>
 </ui:composition>

@@ -10,12 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import entity.BaseEntity;
 import entity.enums.TestType;
+import utils.QueryNames;
 
 /**
  * Medical Test entity.
@@ -24,6 +27,11 @@ import entity.enums.TestType;
  */
 @Entity
 @Table(name = "MEDICAL_TEST")
+@NamedQueries({ 
+	@NamedQuery(name = QueryNames.GET_ALL_MEDICAL_TESTS, query = "FROM MedicalTest mt"),
+	@NamedQuery(name = QueryNames.GET_MEDICAL_TEST_BY_ID, query = "FROM MedicalTest mt WHERE mt.id = :id"),
+	@NamedQuery(name = QueryNames.GET_ALL_MEDICAL_TESTS_BY_SPECIALIST_DOCTOR, query = "FROM MedicalTest mt WHERE mt.specialistDoctor = :specialistDoctor") 
+})
 public class MedicalTest extends BaseEntity {
 	private static final long serialVersionUID = -3286906592775417950L;
 
@@ -39,7 +47,7 @@ public class MedicalTest extends BaseEntity {
 	@Column(name = "TEST_TYPE", nullable = false)
 	private TestType testType;
 
-	@Column(name = "RESULT", length = 50)
+	@Column(name = "RESULT", nullable = false, length = 50)
 	private String result;
 
 	@Lob

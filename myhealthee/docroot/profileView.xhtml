@@ -173,6 +173,10 @@
 														title="Select doctor">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
+													<h:panelGroup
+														rendered="#{patientProfile.patient.familyDoctor.username == item.username}">
+														<span class="badge badge-info">Actual</span>
+													</h:panelGroup>
 												</div>
 											</td>
 											<td><h:outputText value="#{item.name}" /></td>
@@ -292,6 +296,10 @@
 														title="Select cap">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
+													<h:panelGroup
+														rendered="#{familyDoctorProfile.doctor.primaryHealthcareCenter.name == item.name}">
+														<span class="badge badge-info">Actual</span>
+													</h:panelGroup>
 												</div>
 											</td>
 											<td><h:outputText value="#{item.name}" /></td>
@@ -378,6 +386,51 @@
 						</div>
 						<h:commandButton value="Update" class="btn btn-primary"
 							action="#{specialistDoctorProfile.updateProfile}" />
+
+						<!-- Change medical specialty -->
+						<div class="mt-5">
+							<h5 class="mb-3">Change Medical specialty</h5>
+							<table class="js-datatable table table-bordered">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>description</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>description</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<ui:repeat var="item"
+										value="#{specialistDoctorProfile.listMedicalSpecialties}">
+										<tr>
+											<td>
+												<div class="d-flex justify-content-center">
+													<h:commandLink
+														actionListener="#{specialistDoctorProfile.changeMedicalSpecialty(item)}"
+														rendered="#{specialistDoctorProfile.doctor.medicalSpeciality.name != item.name and specialistDoctorProfile.doctor.medicalSpeciality.description != item.description}"
+														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
+														title="Select doctor">
+														<i class="fas fa-mouse-pointer" />
+													</h:commandLink>
+													<h:panelGroup
+														rendered="#{specialistDoctorProfile.doctor.medicalSpeciality.name == item.name and specialistDoctorProfile.doctor.medicalSpeciality.description == item.description}">
+														<span class="badge badge-info">Actual</span>
+													</h:panelGroup>
+												</div>
+											</td>
+											<td><h:outputText value="#{item.name}" /></td>
+											<td><h:outputText value="#{item.description}" /></td>
+										</tr>
+									</ui:repeat>
+								</tbody>
+							</table>
+						</div>
 					</h:form>
 				</c:if>
 

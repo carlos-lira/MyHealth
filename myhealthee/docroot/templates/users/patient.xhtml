@@ -52,25 +52,25 @@
 													actionListener="#{patientProfile.openModal(operation.read, item)}"
 													styleClass="btn btn-sm btn-default shadow-sm mx-2"
 													title="Show">
-													<i class="fas fa-eye fa-sm fa-fw"></i>
+													<i class="fas fa-eye fa-sm fa-fw" />
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{patientProfile.openModal(operation.update, item)}"
 													styleClass="btn btn-sm btn-info shadow-sm mx-2"
 													title="Update">
-													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+													<i class="fas fa-pencil-alt fa-sm fa-fw" />
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{patientProfile.openModal(operation.delete, item)}"
 													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
 													title="Delete">
-													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
+													<i class="fas fa-trash-alt fa-sm fa-fw" />
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{patientProfile.openChangeFamilyDoctorModal(item)}"
 													styleClass="btn btn-sm btn-success shadow-sm mx-2"
 													title="Change family doctor">
-													<i class="fas fa-user-md fa-sm fa-fw"></i>
+													<i class="fas fa-user-md fa-sm fa-fw" />
 												</h:commandLink>
 											</div>
 										</td>
@@ -270,6 +270,10 @@
 														title="Select doctor">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
+													<h:panelGroup
+														rendered="#{patientProfile.patient.familyDoctor.username == item.username}">
+														<span class="badge badge-info">Actual</span>
+													</h:panelGroup>
 												</div>
 											</td>
 											<td><h:outputText value="#{item.name}" /></td>

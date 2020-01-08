@@ -8,11 +8,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import entity.BaseEntity;
 import entity.enums.QuestionStatus;
+import utils.QueryNames;
 
 /**
  * Question entity.
@@ -21,6 +24,11 @@ import entity.enums.QuestionStatus;
  */
 @Entity
 @Table(name = "QUESTION")
+@NamedQueries({ 
+	@NamedQuery(name = QueryNames.GET_ALL_QUESTIONS, query = "FROM Question q"),
+	@NamedQuery(name = QueryNames.GET_ALL_QUESTIONS_BY_STATUS, query = "FROM Question q WHERE q.status = :status AND q.patient = :patient"),
+	@NamedQuery(name = QueryNames.GET_QUESTION_BY_ID, query = "FROM Question q WHERE q.id = :id") 
+})
 public class Question extends BaseEntity {
 	private static final long serialVersionUID = -1369102340964131110L;
 
@@ -39,7 +47,7 @@ public class Question extends BaseEntity {
 	private Patient patient;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "QUESTION_ID")
+	@JoinColumn(name = "RESPONSE_ID")
 	private Response response;
 
 	// Getters & Setters

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<div class="col-md-12 mb-4">
+		<div class="card shadow">
+			<div class="d-block card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Pending questions</h6>
+			</div>
+			<div class="card-body">
+				<table class="js-datatable table table-bordered">
+					<thead>
+						<tr>
+							<th style="width: 10%;">Operations</th>
+							<th>Title</th>
+							<th>Message</th>
+							<th>Patient</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th style="width: 10%;">Operations</th>
+							<th>Title</th>
+							<th>Message</th>
+							<th>Patient</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<ui:repeat var="item"
+							value="#{familyDoctorQuestion.listPendingQuestions}">
+							<tr>
+								<td><h:form>
+										<div class="d-flex justify-content-center">
+											<h:commandLink
+												actionListener="#{familyDoctorQuestion.openModal(operation.update, item)}"
+												styleClass="btn btn-sm btn-default shadow-sm mx-2"
+												title="Answer">
+												<i class="fas fa-mouse-pointer fa-sm fa-fw" />
+											</h:commandLink>
+										</div>
+									</h:form></td>
+								<td><h:outputText value="#{item.title}" /></td>
+								<td><h:outputText value="#{item.message}" /></td>
+								<td><span><h:outputText value="#{item.patient.name}" /></span>
+									<span><h:outputText value="#{item.patient.surnames}" /></span>
+								</td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Crud Modal -->
+	<c:if test="#{operation.hasOperation(familyDoctorQuestion.mode)}">
+		<div class="modal fade" id="crudModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title">Answer question</h5>
+						</div>
+						<div class="modal-body">
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<h:inputTextarea class="form-control" id="add_response-message"
+										a:placeholder="Response"
+										value="#{familyDoctorQuestion.response}"
+										requiredMessage="The Response field is required."
+										required="true" />
+									<div class="invalid-feedback d-block">
+										<h:message for="add_response-message" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="Close" class="btn btn-secondary"
+								action="#{familyDoctorQuestion.closeModal}" immediate="true" />
+							<h:commandButton value="Add" class="btn btn-primary"
+								action="#{familyDoctorQuestion.answerQuestion}" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</c:if>
+
+</ui:composition>

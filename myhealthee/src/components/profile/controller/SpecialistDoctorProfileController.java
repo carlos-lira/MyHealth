@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 import components.profile.dao.ProfileFacadeRemote;
 import components.systemadministration.dao.SystemAdministrationFacadeRemote;
-import entity.Doctor;
+import entity.imp.MedicalSpeciality;
 import entity.imp.SpecialistDoctor;
 import services.crud.Operation;
 import utils.Messages;
@@ -36,8 +36,10 @@ public class SpecialistDoctorProfileController implements Serializable {
 
 	/* Fields */
 	private Operation mode;
+	private boolean changeMedicalSpecialtyModalOpen;
 	private SpecialistDoctor doctor;
 	private List<SpecialistDoctor> listSpecialistDoctors;
+	private List<MedicalSpeciality> listMedicalSpecialties;
 
 	@PostConstruct
 	public void init() {
@@ -51,6 +53,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 	 */
 	public String redirectProfile() {
 		this.doctor = (SpecialistDoctor) SessionUtils.getUser();
+		this.listAllMedicalSpecialties();
 		return "profileView";
 	}
 
@@ -64,6 +67,13 @@ public class SpecialistDoctorProfileController implements Serializable {
 	public String openModal(Operation operation, SpecialistDoctor doctor) {
 		this.mode = operation;
 		this.doctor = doctor;
+		return null;
+	}
+	
+	public String openChangeMedicalSpecialtyModal(SpecialistDoctor doctor) {
+		this.changeMedicalSpecialtyModalOpen = true;
+		this.doctor = doctor;
+		this.listAllMedicalSpecialties();
 		return null;
 	}
 
@@ -125,14 +135,42 @@ public class SpecialistDoctorProfileController implements Serializable {
 		return null;
 	}
 	
+	public String changeMedicalSpecialty(MedicalSpeciality medicalSpecialty) {
+		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty);
+		if (updatedUser == null) {
+			Messages.addErrorGlobalMessage("Error changing the family doctor");
+		} else {
+			doctor = updatedUser;
+		}
+		this.clear();
+		this.listAllMedicalSpecialties();
+		return null;
+	}
+	
+	public String changeMedicalSpecialtyProfile(MedicalSpeciality medicalSpecialty) {
+		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty);
+		if (updatedUser == null) {
+			Messages.addErrorGlobalMessage("Error changing the medical specialty");
+		} else {
+			SessionUtils.addUser(updatedUser);
+			doctor = updatedUser;
+		}
+		return null;
+	}
+	
 	// Private methods
 	private void clear() {
 		this.mode = Operation.NO_OPERATION;
+		this.changeMedicalSpecialtyModalOpen = false;
 		this.doctor = null;
 	}
 
 	private void listAllSpecialistDoctors() {
 		this.listSpecialistDoctors = (List<SpecialistDoctor>) ejb.listAllSpecialistDoctors();
+	}
+	
+	private void listAllMedicalSpecialties() {
+		this.listMedicalSpecialties = (List<MedicalSpeciality>) ejbSystemAdministration.listAllMedicalSpecialities();
 	}
 
 	// Getters & Setters
@@ -140,11 +178,19 @@ public class SpecialistDoctorProfileController implements Serializable {
 		return mode;
 	}
 
-	public Doctor getDoctor() {
+	public boolean isChangeMedicalSpecialtyModalOpen() {
+		return changeMedicalSpecialtyModalOpen;
+	}
+
+	public SpecialistDoctor getDoctor() {
 		return doctor;
 	}
 
 	public List<SpecialistDoctor> getListSpecialistDoctors() {
 		return listSpecialistDoctors;
+	}
+
+	public List<MedicalSpeciality> getListMedicalSpecialties() {
+		return listMedicalSpecialties;
 	}
 }
