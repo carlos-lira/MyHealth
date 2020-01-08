@@ -141,6 +141,14 @@ public interface MedicalTestFacadeRemote {
 	 */
 	public void removeImage(long id);
 
+	/**
+	 * Load lob as a base64 string.
+	 * 
+	 * @param id the id of the medical test.
+	 * @return the image in base 64, null otherwise.
+	 */
+	public String loadHighResImageBase64(long id);
+	
 	// FIND
 	/**
 	 * Find a specialist doctor y medical specialty name

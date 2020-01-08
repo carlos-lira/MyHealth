@@ -45,6 +45,7 @@ public class SpecialistDoctorMedicalTestController implements Serializable {
 	private MedicalTest medicalTest;
 	private Patient patient;
 	private Part highResImage;
+	private String highResImageBase64;
 	private List<Patient> listPatients;
 	private List<MedicalTest> listMedicalTests;
 	private List<TestType> listMedicalTestTypes;
@@ -69,6 +70,7 @@ public class SpecialistDoctorMedicalTestController implements Serializable {
 		this.mode = operation;
 		this.medicalTest = medicalTest;
 		this.highResImage = null;
+		this.loadHighResImageBase64();
 		return null;
 	}
 
@@ -152,6 +154,10 @@ public class SpecialistDoctorMedicalTestController implements Serializable {
 			this.listMedicalTestTypes.add(tt);
 		}
 	}
+	
+	private void loadHighResImageBase64() {
+		this.highResImageBase64 = ejb.loadHighResImageBase64(this.medicalTest.getId());
+	}
 
 	// Getters & Setters
 	public Operation getMode() {
@@ -172,6 +178,10 @@ public class SpecialistDoctorMedicalTestController implements Serializable {
 
 	public void setHighResImage(Part highResImage) {
 		this.highResImage = highResImage;
+	}
+	
+	public String getHighResImageBase64() {
+		return highResImageBase64;
 	}
 
 	public List<Patient> getListPatients() {
