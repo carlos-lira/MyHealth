@@ -8,10 +8,13 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import entity.Doctor;
+import utils.QueryNames;
 
 /**
  * Specialist doctor entity.
@@ -20,6 +23,9 @@ import entity.Doctor;
  */
 @Entity
 @Table(name = "SPECIALIST_DOCTOR")
+@NamedQueries({
+	@NamedQuery(name = QueryNames.GET_ALL_SPECIALIST_DOCTORS, query = "FROM SpecialistDoctor u")
+})
 public class SpecialistDoctor extends Doctor {
 	private static final long serialVersionUID = -7014944904910704221L;
 

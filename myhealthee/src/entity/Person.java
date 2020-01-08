@@ -27,13 +27,10 @@ public class Person extends User {
 	 * @param p the person to copy the fields.
 	 */
 	public void copy(Person p) {
+		super.copy(p);
 		this.setNif(p.getNif());
 		this.setName(p.getName());
 		this.setSurnames(p.getSurnames());
-		this.setUsername(p.getUsername());
-		this.setEmail(p.getEmail());
-		this.setPassword(p.getPassword());
-		this.setRepeatPassword(p.getRepeatPassword());
 	}
 	
 	// Getters & Setters

@@ -23,7 +23,8 @@ import utils.QueryNames;
 @Entity
 @Table(name = "FAMILY_DOCTOR")
 @NamedQueries({
-		@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP, query = "FROM FamilyDoctor d JOIN FETCH d.patients WHERE d.primaryHealthcareCenter = :cap") 
+	@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS, query = "FROM FamilyDoctor u"),
+	@NamedQuery(name = QueryNames.GET_ALL_FAMILY_DOCTORS_BY_CAP, query = "SELECT DISTINCT(d) FROM FamilyDoctor d JOIN FETCH d.patients WHERE d.primaryHealthcareCenter =:cap") 
 })
 public class FamilyDoctor extends Doctor {
 	private static final long serialVersionUID = 6910880586339922197L;

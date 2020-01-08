@@ -116,7 +116,7 @@
 								<c:otherwise>
 									<div class="form-group">
 										<h:inputText class="form-control"
-											disabled="#{operation.isDisabled(medicalspec.mode)}"
+											disabled="#{operation.isRead(medicalspec.mode)}"
 											id="name" a:placeholder="Name"
 											value="#{medicalspec.medicalSpeciality.name}"
 											requiredMessage="A name is required." required="true" />
@@ -150,7 +150,7 @@
 									action="#{medicalspec.updateMedicalSpeciality}" />
 							</c:if>
 							<c:if test="#{operation.isDelete(medicalspec.mode)}">
-								<h:commandButton value="Delete" class="btn btn-primary"
+								<h:commandButton value="Delete" class="btn btn-danger"
 									action="#{medicalspec.deleteMedicalSpeciality}" />
 							</c:if>
 						</div>

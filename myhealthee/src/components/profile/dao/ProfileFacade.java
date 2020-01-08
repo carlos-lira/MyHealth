@@ -1,221 +1,123 @@
 package components.profile.dao;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import entity.User;
-import entity.imp.*;
+
 import org.jboss.resteasy.logging.Logger;
 import org.jboss.resteasy.logging.impl.Log4jLogger;
-import security.Cypher;
-import security.HashAlgorithm;
-import java.util.List;
+
+import entity.User;
+import entity.imp.Administrator;
+import entity.imp.FamilyDoctor;
+import entity.imp.Patient;
+import entity.imp.PrimaryHealthCareCenter;
+import entity.imp.SpecialistDoctor;
+import utils.QueryNames;
 
 /**
  * Profile EJB.
  * 
  * @author apeleteiro
+ * @author adlo
  */
 @Stateless
 public class ProfileFacade implements ProfileFacadeRemote {
 
 	private static final Logger logger = Log4jLogger.getLogger(ProfileFacade.class);
-	private static final HashAlgorithm algorithm = HashAlgorithm.MD5;
-	
+
 	@PersistenceContext(name = "myhealthee")
 	private EntityManager em;
 
 	@Override
-	public boolean changeFamilyDoctor(String id, FamilyDoctor newDoctor) {
+	public Collection<Patient> listAllPatients() {
+		try {
+			return em.createNamedQuery(QueryNames.GET_ALL_PATIENTS).getResultList();
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return new ArrayList<Patient>();
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Patient changeFamilyDoctor(String id, FamilyDoctor newDoctor) {
 		try {
 			Patient patient = (Patient) this.getUser(id);
 			if (patient != null) {
 				patient.setFamilyDoctor(newDoctor);
 				em.merge(patient);
 				em.flush();
+				return patient;
 			}
 		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean registerPatient(String id, String nif, String name, String surnames, String password, String username, String email) {
-		try {
-			Patient patient = new Patient();
-			patient.setNif(nif);
-			patient.setName(name);
-			patient.setSurnames(surnames);
-			patient.setPassword(Cypher.createHashedPassword(algorithm, password));
-			patient.setUsername(username);
-			patient.setEmail(email);
-			em.persist(patient);
-			em.flush();
-			return true;
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-		}
-		return false;
-	}
-
-	@Override
-	public boolean registerSpecialistDoctor(String id, String nif, String name, String surnames, String password, String username, String email, MedicalSpeciality speciality) {
-		try {
-			logger.info(email);
-			SpecialistDoctor specialistDoctor = new SpecialistDoctor();
-			specialistDoctor.setNif(nif);
-			specialistDoctor.setName(name);
-			specialistDoctor.setSurnames(surnames);
-			specialistDoctor.setPassword(Cypher.createHashedPassword(algorithm, password));
-			specialistDoctor.setUsername(username);
-			specialistDoctor.setEmail(email);
-			specialistDoctor.setMedicalSpeciality(speciality);
-			em.persist(specialistDoctor);
-			em.flush();
-			return true;
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-		}
-		return false;
-	}
-
-	@Override
-	public boolean registerFamilyDoctor(String id, String nif, String name, String surnames, String password, String username, String email, PrimaryHealthCareCenter cap) {
-		try {
-			logger.info(email);
-			FamilyDoctor familyDoctor = new FamilyDoctor();
-			familyDoctor.setNif(nif);
-			familyDoctor.setName(name);
-			familyDoctor.setSurnames(surnames);
-			familyDoctor.setPassword(Cypher.createHashedPassword(algorithm, password));
-			familyDoctor.setUsername(username);
-			familyDoctor.setEmail(email);
-			familyDoctor.setPrimaryHealthcareCenter(cap);
-			em.persist(familyDoctor);
-			em.flush();
-			return true;
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-		}
-		return false;
-	}
-
-	@Override
-	public boolean updatePatientData(String id, String nif, String name, String surnames, String password, String email) {
-		try {
-			Patient patient = (Patient) this.getUser(email);
-			if (patient != null) {
-				patient.setNif(nif);
-				patient.setName(name);
-				patient.setSurnames(surnames);
-				patient.setPassword(Cypher.createHashedPassword(algorithm, password));
-				patient.setEmail(email);
-				em.merge(patient);
-				em.flush();
-			}
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean updateSpecialistDoctorData(String id, String nif, String name, String surnames, String password, String email, MedicalSpeciality speciality) {
-		try {
-			SpecialistDoctor specialistDoctor = (SpecialistDoctor) this.getUser(email);
-			if (specialistDoctor != null) {
-				specialistDoctor.setNif(nif);
-				specialistDoctor.setName(name);
-				specialistDoctor.setSurnames(surnames);
-				specialistDoctor.setPassword(Cypher.createHashedPassword(algorithm, password));
-				specialistDoctor.setEmail(email);
-				specialistDoctor.setMedicalSpeciality(speciality);
-				em.merge(specialistDoctor);
-				em.flush();
-			}
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean updateFamilyDoctorData(String id, String nif, String name, String surnames, String password, String email, PrimaryHealthCareCenter cap) {
-		try {
-			FamilyDoctor familyDoctor = (FamilyDoctor) this.getUser(email);
-			if (familyDoctor != null) {
-				familyDoctor.setNif(nif);
-				familyDoctor.setName(name);
-				familyDoctor.setSurnames(surnames);
-				familyDoctor.setPassword(Cypher.createHashedPassword(algorithm, password));
-				familyDoctor.setEmail(email);
-				familyDoctor.setPrimaryHealthcareCenter(cap);
-				em.merge(familyDoctor);
-				em.flush();
-			}
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public boolean changePrimaryHealthCareCenter(String id, PrimaryHealthCareCenter newCenter) {
-		try {
-			FamilyDoctor familyDoctor = (FamilyDoctor) this.getUser(id);
-			if (familyDoctor != null) {
-				familyDoctor.setPrimaryHealthcareCenter(newCenter);
-				em.merge(familyDoctor);
-				em.flush();
-			}
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public User getUser(String email) {
-		try {
-			return (User) em.createQuery("from User WHERE email = ?1").setParameter(1, email).getSingleResult();
-		} catch (NoResultException e) {
 			logger.error(e.getMessage());
 		}
 		return null;
 	}
 
-	public PrimaryHealthCareCenter getCap(String name) {
+	@Override
+	public Collection<FamilyDoctor> listAllFamilyDoctors() {
 		try {
-			return (PrimaryHealthCareCenter) em.createQuery("from PrimaryHealthCareCenter WHERE name = ?1").setParameter(1, name).getSingleResult();
-		} catch (NoResultException e) {
+			return em.createNamedQuery(QueryNames.GET_ALL_FAMILY_DOCTORS).getResultList();
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return new ArrayList<FamilyDoctor>();
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public FamilyDoctor changePrimaryHealthcareCenter(String id, PrimaryHealthCareCenter cap) {
+		try {
+			FamilyDoctor doctor = (FamilyDoctor) this.getUser(id);
+			if (doctor != null) {
+				doctor.setPrimaryHealthcareCenter(cap);
+				em.merge(doctor);
+				em.flush();
+				return doctor;
+			}
+		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
 		}
 		return null;
 	}
 
-	public List<FamilyDoctor> listAllFamilyDoctors() {
+	@Override
+	public Collection<SpecialistDoctor> listAllSpecialistDoctors() {
 		try {
-			return em.createQuery("from FamilyDoctor ORDER BY id ASC").getResultList();
+			return em.createNamedQuery(QueryNames.GET_ALL_SPECIALIST_DOCTORS).getResultList();
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
 		}
-		catch (Exception e) {
-			return null;
-		}
+		return new ArrayList<SpecialistDoctor>();
 	}
 
-	public List<PrimaryHealthCareCenter> listAllCaps() {
+	@Override
+	public Collection<Administrator> listAllAdministrators() {
 		try {
-			return em.createQuery("from PrimaryHealthCareCenter ORDER BY id ASC").getResultList();
+			return em.createNamedQuery(QueryNames.GET_ALL_ADMINISTRATORS).getResultList();
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
 		}
-		catch (Exception e) {
-			return null;
+		return new ArrayList<Administrator>();
+	}
+	
+	// Private Methods
+	private User getUser(String id) {
+		try {
+			return (User) em.createNamedQuery(QueryNames.GET_USER).setParameter("email", id)
+					.setParameter("username", id).getSingleResult();
+		} catch (NoResultException e) {
+			logger.error(e.getMessage());
 		}
+		return null;
 	}
 }

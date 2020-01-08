@@ -24,7 +24,6 @@ import utils.QueryNames;
 })
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity {
-
 	private static final long serialVersionUID = -766782089323139033L;
 
 	@Column(name = "USERNAME", length = 200, nullable = true, unique = true)
@@ -38,6 +37,19 @@ public class User extends BaseEntity {
 
 	@Transient
 	private String repeatPassword;
+
+	// Methods
+	/**
+	 * Copy the fields of a user.
+	 * 
+	 * @param u the user to copy the fields.
+	 */
+	public void copy(User u) {
+		this.setUsername(u.getUsername());
+		this.setEmail(u.getEmail());
+		this.setPassword(u.getPassword());
+		this.setRepeatPassword(u.getRepeatPassword());
+	}
 
 	// Getters & Setters
 	public String getUsername() {

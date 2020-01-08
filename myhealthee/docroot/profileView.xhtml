@@ -19,270 +19,384 @@
 				errorStyle="color:red;" infoStyle="color:blue;" />
 		</p>
 
-		<!-- Administrator profile -->
-		<c:if test="#{role.isAdministrator()}">
-			<!-- TODO -->
-		</c:if>
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<!-- Administrator profile -->
+				<c:if test="#{role.isAdministrator()}">
+					<h:form>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputText class="form-control" disabled="true"
+									id="register_administrator-username" a:placeholder="Username"
+									value="#{administratorProfile.administrator.username}"
+									requiredMessage="The username field is required."
+									required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_administrator-username" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputText class="form-control"
+									id="register_administrator-email" a:placeholder="Email"
+									value="#{administratorProfile.administrator.email}"
+									requiredMessage="The email field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_administrator-email" />
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputSecret class="form-control"
+									id="register_administrator-password" a:placeholder="Password"
+									value="#{administratorProfile.administrator.password}"
+									requiredMessage="The password field is required." />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_administrator-password" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputSecret class="form-control"
+									a:placeholder="Repeat Password"
+									value="#{administratorProfile.administrator.repeatPassword}" />
+							</div>
+						</div>
+						<h:commandButton value="Update" class="btn btn-primary"
+							action="#{administratorProfile.updateProfile}" />
+					</h:form>
+				</c:if>
 
-		<!-- Patient profile -->
-		<c:if test="#{role.isPatient()}">
-			<h:form class="user pt-3">
-				<div class="form-group row">
-					<div class="col-sm-4 mb-3 mb-sm-0">
-						<h:outputLabel for="register_patient-nif">NIF:</h:outputLabel>
-						<h:inputText id="register_patient-nif"
-							value="#{updatepatientprofile.patient.nif}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Nif" requiredMessage="The nif field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_patient-nif" />
+				<!-- Patient profile -->
+				<c:if test="#{role.isPatient()}">
+					<h:form class="user pt-3">
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputText class="form-control" id="register_patient-nif"
+									a:placeholder="Nif" value="#{patientProfile.patient.nif}"
+									requiredMessage="The nif field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_patient-nif" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputText class="form-control" id="register_patient-name"
+									a:placeholder="Name" value="#{patientProfile.patient.name}"
+									requiredMessage="The name field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_patient-name" />
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-4 mb-3 mb-sm-0">
-						<h:outputLabel for="register_patient-name">Name:</h:outputLabel>
-						<h:inputText id="register_patient-name"
-							value="#{updatepatientprofile.patient.name}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Name"
-							requiredMessage="The name field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_patient-name" />
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<h:inputText class="form-control" id="register_patient-surnames"
+									a:placeholder="Surnames"
+									value="#{patientProfile.patient.surnames}"
+									requiredMessage="The surnames field is required."
+									required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_patient-surnames" />
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-4">
-						<h:outputLabel for="register_patient-surnames">Surnames:</h:outputLabel>
-						<h:inputText id="register_patient-surnames"
-							value="#{updatepatientprofile.patient.surnames}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Surnames"
-							requiredMessage="The surnames field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_patient-surnames" />
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputText class="form-control" disabled="true"
+									id="register_patient-username" a:placeholder="Username"
+									value="#{patientProfile.patient.username}"
+									requiredMessage="The username field is required."
+									required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_patient-username" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputText class="form-control" id="register_patient-email"
+									a:placeholder="Email" value="#{patientProfile.patient.email}"
+									requiredMessage="The email field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_patient-email" />
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<h:outputLabel for="register_patient-username">Username:</h:outputLabel>
-						<h:inputText id="register_patient-username"
-							value="#{updatepatientprofile.patient.username}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Username"
-							requiredMessage="The username field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_patient-username" />
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputSecret class="form-control"
+									id="register_patient-password" a:placeholder="Password"
+									value="#{patientProfile.patient.password}"
+									requiredMessage="The password field is required." />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_patient-password" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputSecret class="form-control"
+									a:placeholder="Repeat Password"
+									value="#{patientProfile.patient.repeatPassword}" />
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<h:outputLabel for="register_patient-email">Email:</h:outputLabel>
-						<h:inputText id="register_patient-email"
-							value="#{updatepatientprofile.patient.email}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Email"
-							requiredMessage="The email field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_patient-email" />
-						</div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<h:outputLabel for="register_patient-password">Password:</h:outputLabel>
-						<h:inputSecret id="register_patient-password"
-							value="#{updatepatientprofile.patient.password}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Password"
-							requiredMessage="The password field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_patient-password" />
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<h:outputLabel for="register_patient-repeat-password">Repeat Password:</h:outputLabel>
-						<h:inputSecret id="register_patient-repeat-password"
-							value="#{updatepatientprofile.patient.repeatPassword}"
-							class="form-control form-control-user"
-							a:placeholder="Repeat Password" />
-					</div>
-				</div>
-				<h:commandButton value="Update Patient Profile"
-					class="btn btn-primary btn-user btn-block"
-					action="#{updatepatientprofile.updatePatientData}" />
-			</h:form>
-		</c:if>
+						<h:commandButton value="Update" class="btn btn-primary"
+							action="#{patientProfile.updateProfile}" />
 
-		<!-- Family doctor profile -->
-		<c:if test="#{role.isFamilyDoctor()}">
-			<h:form class="user pt-3">
-				<div class="form-group row">
-					<div class="col-sm-4 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-nif">NIF:</h:outputLabel>
-						<h:inputText id="register_doctor-nif"
-							value="#{updatefamilydoctorprofile.familyDoctor.nif}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="NIF" requiredMessage="The nif field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-nif" />
+						<!-- Change family doctor -->
+						<div class="mt-5">
+							<h5 class="mb-3">Change Family doctor</h5>
+							<table class="js-datatable table table-bordered">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>Surnames</th>
+										<th>Cap name</th>
+										<th>Cap location</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>Surnames</th>
+										<th>Cap name</th>
+										<th>Cap location</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<ui:repeat var="item"
+										value="#{patientProfile.listFamilyDoctors}">
+										<tr>
+											<td>
+												<div class="d-flex justify-content-center">
+													<h:commandLink
+														actionListener="#{patientProfile.changeFamilyDoctorProfile(item)}"
+														rendered="#{patientProfile.patient.familyDoctor.username != item.username}"
+														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
+														title="Select doctor">
+														<i class="fas fa-mouse-pointer" />
+													</h:commandLink>
+												</div>
+											</td>
+											<td><h:outputText value="#{item.name}" /></td>
+											<td><h:outputText value="#{item.surnames}" /></td>
+											<td><h:outputText
+													value="#{item.primaryHealthcareCenter.name}" /></td>
+											<td><h:outputText
+													value="#{item.primaryHealthcareCenter.location}" /></td>
+										</tr>
+									</ui:repeat>
+								</tbody>
+							</table>
 						</div>
-					</div>
-					<div class="col-sm-4 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-name">Name:</h:outputLabel>
-						<h:inputText id="register_doctor-name"
-							value="#{updatefamilydoctorprofile.familyDoctor.name}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Name"
-							requiredMessage="The name field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-name" />
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<h:outputLabel for="register_doctor-surnames">Surnames:</h:outputLabel>
-						<h:inputText id="register_doctor-surnames"
-							value="#{updatefamilydoctorprofile.familyDoctor.surnames}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Surnames"
-							requiredMessage="The surnames field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-surnames" />
-						</div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-username">Username:</h:outputLabel>
-						<h:inputText id="register_doctor-username"
-							value="#{updatefamilydoctorprofile.familyDoctor.username}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Username"
-							requiredMessage="The username field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-username" />
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<h:outputLabel for="register_doctor-email">Email:</h:outputLabel>
-						<h:inputText id="register_doctor-email"
-							value="#{updatefamilydoctorprofile.familyDoctor.email}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Email"
-							requiredMessage="The email field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-email" />
-						</div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-password">Password:</h:outputLabel>
-						<h:inputSecret id="register_doctor-password"
-							value="#{updatefamilydoctorprofile.familyDoctor.password}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Password"
-							requiredMessage="The password field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-password" />
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<h:outputLabel for="register_doctor-repeat-password">Repeat Password:</h:outputLabel>
-						<h:inputSecret id="register_doctor-repeat-password"
-							value="#{updatefamilydoctorprofile.familyDoctor.repeatPassword}"
-							class="form-control form-control-user"
-							a:placeholder="Repeat Password" />
-					</div>
-				</div>
-				<h:commandButton value="Update Family Doctor Profile"
-					class="btn btn-primary btn-user btn-block"
-					action="#{updatefamilydoctorprofile.updateFamilyDoctorData}" />
-			</h:form>
-		</c:if>
+					</h:form>
+				</c:if>
 
-		<!-- Specialist doctor profile -->
-		<c:if test="#{role.isSpecialistDoctor()}">
-			<h:form class="user pt-3">
-				<div class="form-group row">
-					<div class="col-sm-4 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-nif">NIF:</h:outputLabel>
-						<h:inputText id="register_doctor-nif"
-							value="#{updatespecialistdoctorprofile.specialistDoctor.nif}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Nif" requiredMessage="The nif field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-nif" />
+				<!-- Family doctor profile -->
+				<c:if test="#{role.isFamilyDoctor()}">
+					<h:form class="user pt-3">
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputText class="form-control" id="register_doctor-nif"
+									a:placeholder="Nif" value="#{familyDoctorProfile.doctor.nif}"
+									requiredMessage="The nif field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-nif" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputText class="form-control" id="register_doctor-name"
+									a:placeholder="Name" value="#{familyDoctorProfile.doctor.name}"
+									requiredMessage="The name field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-name" />
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-4 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-name">Name:</h:outputLabel>
-						<h:inputText id="register_doctor-name"
-							value="#{updatespecialistdoctorprofile.specialistDoctor.name}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Name"
-							requiredMessage="The name field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-name" />
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<h:inputText class="form-control" id="register_doctor-surnames"
+									a:placeholder="Surnames"
+									value="#{familyDoctorProfile.doctor.surnames}"
+									requiredMessage="The surnames field is required."
+									required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-surnames" />
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-4">
-						<h:outputLabel for="register_doctor-surnames">Surnames:</h:outputLabel>
-						<h:inputText id="register_doctor-surnames"
-							value="#{updatespecialistdoctorprofile.specialistDoctor.surnames}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Surnames"
-							requiredMessage="The surnames field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-surnames" />
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputText class="form-control" disabled="true"
+									id="register_doctor-username" a:placeholder="Username"
+									value="#{familyDoctorProfile.doctor.username}"
+									requiredMessage="The username field is required."
+									required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-username" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputText class="form-control" id="register_doctor-email"
+									a:placeholder="Email"
+									value="#{familyDoctorProfile.doctor.email}"
+									requiredMessage="The email field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-email" />
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-username">Username:</h:outputLabel>
-						<h:inputText id="register_doctor-username"
-							value="#{updatespecialistdoctorprofile.specialistDoctor.username}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Username"
-							requiredMessage="The username field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-username" />
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputSecret class="form-control"
+									id="register_doctor-password" a:placeholder="Password"
+									value="#{familyDoctorProfile.doctor.password}"
+									requiredMessage="The password field is required." />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-password" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputSecret class="form-control"
+									a:placeholder="Repeat Password"
+									value="#{familyDoctorProfile.doctor.repeatPassword}" />
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<h:outputLabel for="register_doctor-email">Email:</h:outputLabel>
-						<h:inputText id="register_doctor-email"
-							value="#{updatespecialistdoctorprofile.specialistDoctor.email}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Email"
-							requiredMessage="The email field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-email" />
+						<h:commandButton value="Update" class="btn btn-primary"
+							action="#{familyDoctorProfile.updateProfile}" />
+
+						<!-- Change cap -->
+						<div class="mt-5">
+							<h5 class="mb-3">Change CAP</h5>
+							<table class="js-datatable table table-bordered">
+								<thead>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>Location</th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th></th>
+										<th>Name</th>
+										<th>Location</th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<ui:repeat var="item" value="#{familyDoctorProfile.listCAPs}">
+										<tr>
+											<td>
+												<div class="d-flex justify-content-center">
+													<h:commandLink
+														actionListener="#{familyDoctorProfile.changeCapProfile(item)}"
+														rendered="#{familyDoctorProfile.doctor.primaryHealthcareCenter.name != item.name}"
+														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
+														title="Select cap">
+														<i class="fas fa-mouse-pointer" />
+													</h:commandLink>
+												</div>
+											</td>
+											<td><h:outputText value="#{item.name}" /></td>
+											<td><h:outputText value="#{item.location}" /></td>
+										</tr>
+									</ui:repeat>
+								</tbody>
+							</table>
 						</div>
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-6 mb-3 mb-sm-0">
-						<h:outputLabel for="register_doctor-password">Password:</h:outputLabel>
-						<h:inputSecret id="register_doctor-password"
-							value="#{updatespecialistdoctorprofile.specialistDoctor.password}"
-							class="form-control form-control-user" required="true"
-							a:placeholder="Password"
-							requiredMessage="The password field is required." />
-						<div class="invalid-feedback d-block">
-							<h:message for="register_doctor-password" />
+					</h:form>
+				</c:if>
+
+				<!-- Specialist doctor profile -->
+				<c:if test="#{role.isSpecialistDoctor()}">
+					<h:form class="user pt-3">
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputText class="form-control" id="register_doctor-nif"
+									a:placeholder="Nif"
+									value="#{specialistDoctorProfile.doctor.nif}"
+									requiredMessage="The nif field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-nif" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputText class="form-control" id="register_doctor-name"
+									a:placeholder="Name"
+									value="#{specialistDoctorProfile.doctor.name}"
+									requiredMessage="The name field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-name" />
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-6">
-						<h:outputLabel for="register_doctor-repeat-password">Repeat Password:</h:outputLabel>
-						<h:inputSecret id="register_doctor-repeat-password"
-							value="#{updatespecialistdoctorprofile.specialistDoctor.repeatPassword}"
-							class="form-control form-control-user"
-							a:placeholder="Repeat Password" />
-					</div>
-				</div>
-				<h:commandButton value="Update Specialist Doctor Profile"
-					class="btn btn-primary btn-user btn-block"
-					action="#{updatespecialistdoctorprofile.updateSpecialistDoctorData}" />
-			</h:form>
-		</c:if>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<h:inputText class="form-control" id="register_doctor-surnames"
+									a:placeholder="Surnames"
+									value="#{specialistDoctorProfile.doctor.surnames}"
+									requiredMessage="The surnames field is required."
+									required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-surnames" />
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputText class="form-control" disabled="true"
+									id="register_doctor-username" a:placeholder="Username"
+									value="#{specialistDoctorProfile.doctor.username}"
+									requiredMessage="The username field is required."
+									required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-username" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputText class="form-control" id="register_doctor-email"
+									a:placeholder="Email"
+									value="#{specialistDoctorProfile.doctor.email}"
+									requiredMessage="The email field is required." required="true" />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-email" />
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6 mb-sm-0">
+								<h:inputSecret class="form-control"
+									id="register_doctor-password" a:placeholder="Password"
+									value="#{specialistDoctorProfile.doctor.password}"
+									requiredMessage="The password field is required." />
+								<div class="invalid-feedback d-block">
+									<h:message for="register_doctor-password" />
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h:inputSecret class="form-control"
+									a:placeholder="Repeat Password"
+									value="#{specialistDoctorProfile.doctor.repeatPassword}" />
+							</div>
+						</div>
+						<h:commandButton value="Update" class="btn btn-primary"
+							action="#{specialistDoctorProfile.updateProfile}" />
+					</h:form>
+				</c:if>
+
+			</div>
+		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable({
+						"columnDefs" : [ {
+							"orderable" : false,
+							"targets" : 0
+						} ],
+						"order" : [ [ 1, "asc" ] ]
+					});
+				});
+			})(jQuery)
+		</script>
 	</ui:define>
 </ui:composition>
