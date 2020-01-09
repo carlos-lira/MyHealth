@@ -2,13 +2,13 @@ package entity.imp;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -50,7 +50,7 @@ public class MedicalTest extends BaseEntity {
 	@Column(name = "RESULT", nullable = false, length = 50)
 	private String result;
 
-	@Lob
+	@Basic(fetch = FetchType.LAZY)
 	@Column(name = "HIGH_RES_IMAGE")
 	private byte[] highResImage;
 
