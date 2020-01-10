@@ -3,7 +3,7 @@
   <module>
     <web>
       <web-uri>MyHealth.war</web-uri>
-      <context-root>/myhealth</context-root>
+      <context-root>/myhealthee</context-root>
     </web>
   </module>
   <module>
