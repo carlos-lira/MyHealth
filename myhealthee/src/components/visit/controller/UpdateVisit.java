@@ -17,27 +17,36 @@ import entity.User;
 import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
 import entity.imp.Visit;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 
+/**
+ * Show visit managed bean.
+ * 
+ * @author clira
+ * @author adlo
+ */
 @Named("updatevisit")
 @SessionScoped
 public class UpdateVisit implements Serializable {
-
 	private static final long serialVersionUID = 4084705021270669517L;
+
+	/* Constants */
+	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd/MM/yyyy");
+	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("h:mm aa");
 
 	@EJB
 	private VisitFacadeRemote ejb;
 
+	/* Fields */
 	private Visit visit;
 	private long id;
 	private Date newDate;
 	private Date newTime;
 	private String result;
 
-	private static final SimpleDateFormat SDF_DATE = new SimpleDateFormat("dd/MM/yyyy");
-	private static final SimpleDateFormat SDF_TIME = new SimpleDateFormat("h:mm aa");
-
+	// ACTIONS
 	public String visitToUpdate(Visit visit) {
 		this.visit = visit;
 		this.id = visit.getId();
@@ -46,10 +55,11 @@ public class UpdateVisit implements Serializable {
 		this.result = visit.getResult();
 
 		User u = SessionUtils.getUser();
-		if (u.getClass() == FamilyDoctor.class)
+		if (u instanceof FamilyDoctor) {
 			return "visitUpdateResultView";
-		else
+		} else {
 			return "visitUpdateView";
+		}
 	}
 
 	public String updateVisitTime() {
@@ -58,45 +68,42 @@ public class UpdateVisit implements Serializable {
 
 		try {
 			if (visitPriorToCurrentTime(d)) {
-				Messages.addErrorGlobalMessage(
-						"La visita que desea reservar ya ha pasado. Por favor introduzca una fecha posterior.");
+				Messages.addErrorGlobalMessage(I18n.translate("visit.error.000001"));
 				return null;
 			} else {
 				if (ejb.visitAvailable(id, d)) {
 					ejb.updateVisit(visit.getId(), d);
-
-					if (u.getClass() == Administrator.class)
+					if (u instanceof Administrator) {
 						return "visitsView";
-					else
+					} else {
 						return "homeView";
+					}
 				} else {
 					Date nextAppointment = ejb.nextAvailableAppointment(visit.getFamilyDoctor(), d);
 					String dateToPrint = SDF_DATE.format(nextAppointment);
 					String hourToPrint = SDF_TIME.format(nextAppointment);
-					Messages.addInfoGlobalMessage("El doctor " + visit.getFamilyDoctor().getSurnames()
-							+ " no tiene visita disponible a esa hora.");
-					Messages.addInfoGlobalMessage(
-							"La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
+					Messages.addInfoGlobalMessage(I18n.translate("visit.info.000001", visit.getFamilyDoctor().getSurnames()));
+					Messages.addInfoGlobalMessage(I18n.translate("visit.info.000002", hourToPrint, dateToPrint));
 					return null; // timeslot unavailable
 				}
 			}
 		} catch (Exception e) {
-			Messages.addErrorGlobalMessage("A ocurrido un error modificando la hora.");
+			Messages.addErrorGlobalMessage(I18n.translate("visit.error.000003"));
 			return null;
 		}
 	}
 
 	public String updateVisitResult() {
 		try {
-			// System.out.println("id:" +id);
 			ejb.addResultToVisit(id, result);
 			return "homeView";
 		} catch (Exception e) {
-			Messages.addErrorGlobalMessage("A ocurrido un error insertando el resultado.");
+			Messages.addErrorGlobalMessage(I18n.translate("visit.error.000004"));
 			return null;
 		}
 	}
 
+	// Private Methods
 	private Date concatDateTime() {
 		LocalDate d = newDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalTime t = newTime.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
@@ -110,6 +117,7 @@ public class UpdateVisit implements Serializable {
 		return ((d.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()).compareTo(LocalDateTime.now()) < 0);
 	}
 
+	// Getters & Setters
 	public Visit getVisit() {
 		return visit;
 	}

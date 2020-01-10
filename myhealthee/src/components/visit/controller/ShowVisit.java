@@ -9,22 +9,27 @@ import entity.imp.Administrator;
 import entity.imp.Visit;
 import utils.SessionUtils;
 
+/**
+ * Show visit managed bean.
+ * 
+ * @author clira
+ * @author adlo
+ */
 @Named("showvisit")
 @SessionScoped
 public class ShowVisit implements Serializable {
-
 	private static final long serialVersionUID = 6972663073709391508L;
 
+	/* Fields */
 	private Visit visit = new Visit();
 
+	// ACTIONS
 	public String showVisit(Visit visit) {
-		try {
+		if (visit != null) {
 			this.visit = visit;
 			return "visitView";
-		} catch (Exception e) {
-			// System.out.println("Error");
-			return null;
 		}
+		return null;
 	}
 
 	public String backToVisits() {
@@ -34,6 +39,7 @@ public class ShowVisit implements Serializable {
 		return "homeView";
 	}
 
+	// Getters & Setters
 	public Visit getVisit() {
 		return visit;
 	}

@@ -9,7 +9,8 @@
 	<!-- Messages -->
 	<p class="mb-4">
 		<h:messages globalOnly="true" style="text-align: left;"
-			errorStyle="color:red;" infoStyle="color:blue;" />
+			errorStyle="color:red;" infoStyle="color:blue;"
+			warnStyle="color: #ffc107;" />
 	</p>
 
 	<!-- Family doctor dashboard -->
@@ -19,18 +20,21 @@
 			<a href="#allScheduleVisits" class="d-block card-header py-3"
 				data-toggle="collapse" role="button" aria-expanded="true"
 				aria-controls="collapseCardExample">
-				<h6 class="m-0 font-weight-bold text-primary">Visitas
-					programadas</h6>
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText value="#{msg['dashboard.doctor.scheduled']}" />
+				</h6>
 			</a>
 			<div id="allScheduleVisits" class="collapse show">
 				<div class="card-body">
 					<h:form>
-						<span>Seleccionar Fecha: </span>
+						<span><h:outputText
+								value="#{msg['dashboard.doctor.selectdate']}" />: </span>
 						<h:inputText a:type="date" id="dateselector"
 							value="#{listallvisits.date}" required="true">
 							<f:convertDateTime pattern="yyyy-MM-dd" />
 						</h:inputText>
-						<h:commandButton value="Consultar" type="submit" />
+						<h:commandButton value="#{msg['dashboard.doctor.btn.see']}"
+							type="submit" />
 						<br />
 						<br />
 						<h:message for="dateselector" style="color:red" />
@@ -42,18 +46,20 @@
 								<table class="js-datatable table table-bordered">
 									<thead>
 										<tr>
-											<th style="width: 10%;">Operaciones</th>
-											<th>Patient</th>
-											<th>Dia</th>
-											<th>Hora</th>
+											<th style="width: 10%;"><h:outputText
+													value="#{msg['operations']}" /></th>
+											<th><h:outputText value="#{msg['patient']}" /></th>
+											<th><h:outputText value="#{msg['date']}" /></th>
+											<th><h:outputText value="#{msg['time']}" /></th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th style="width: 10%;">Operaciones</th>
-											<th>Patient</th>
-											<th>Dia</th>
-											<th>Hora</th>
+											<th style="width: 10%;"><h:outputText
+													value="#{msg['operations']}" /></th>
+											<th><h:outputText value="#{msg['patient']}" /></th>
+											<th><h:outputText value="#{msg['date']}" /></th>
+											<th><h:outputText value="#{msg['time']}" /></th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -100,7 +106,10 @@
 			<a href="#addMedicalTest" class="d-block card-header py-3"
 				data-toggle="collapse" role="button" aria-expanded="true"
 				aria-controls="collapseCardExample">
-				<h6 class="m-0 font-weight-bold text-primary">Open medical test</h6>
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText
+						value="#{msg['dashboard.doctor.medicaltest.update.title']}" />
+				</h6>
 			</a>
 			<div id="addMedicalTest" class="collapse show">
 				<div class="card-body">
@@ -108,18 +117,21 @@
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operations</th>
-									<th>Patient name</th>
-									<th>Patient username</th>
-									<th>Num. of medical tests</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
+									<th><h:outputText
+											value="#{msg['dashboard.doctor.num.medicaltests']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Operations</th>
-									<th>Patient name</th>
-									<th>Patient username</th>
-									<th>Num. of medical tests</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
+									<th><h:outputText
+											value="#{msg['dashboard.doctor.num.medicaltests']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -131,7 +143,7 @@
 												<h:commandLink
 													actionListener="#{specialistDoctorMedicalTest.openModal(operation.create, item)}"
 													styleClass="btn btn-sm btn-success shadow-sm mx-2"
-													title="Add medical test">
+													title="#{msg['dashboard.doctor.add.medicaltest']}">
 													<i class="fas fa-plus fa-sm fa-fw"></i>
 												</h:commandLink>
 											</div>
@@ -158,7 +170,10 @@
 					<div class="modal-content">
 						<h:form>
 							<div class="modal-header">
-								<h5 class="modal-title">Open Medical Test</h5>
+								<h5 class="modal-title">
+									<h:outputText
+										value="#{msg['dashboard.doctor.modal.medicaltest.update.title']}" />
+								</h5>
 							</div>
 							<div class="modal-body">
 								<div class="form-group row">
@@ -166,7 +181,8 @@
 										<h:inputText class="form-control" a:type="date"
 											id="add-medicalTest-date" a:placeholder="Date"
 											value="#{specialistDoctorMedicalTest.medicalTest.date}"
-											requiredMessage="The date field is required." required="true">
+											requiredMessage="#{msg['dashboard.doctor.modal.medicaltest.required.date']}"
+											required="true">
 											<f:convertDateTime pattern="yyyy-MM-dd" />
 										</h:inputText>
 										<div class="invalid-feedback d-block">
@@ -177,7 +193,7 @@
 										<h:inputText class="form-control" a:type="time" a:step="900"
 											id="add-medicalTest-time" a:placeholder="Time"
 											value="#{specialistDoctorMedicalTest.medicalTest.time}"
-											requiredMessage="The date field time is required."
+											requiredMessage="#{msg['dashboard.doctor.modal.medicaltest.required.time']}"
 											required="true">
 											<f:convertDateTime pattern="HH:mm" />
 										</h:inputText>
@@ -198,21 +214,25 @@
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-12">
-										<h:inputText class="form-control"
-											id="add-medicalTest-result" a:placeholder="Result"
+										<h:inputText class="form-control" id="add-medicalTest-result"
+											a:placeholder="Result"
 											value="#{specialistDoctorMedicalTest.medicalTest.result}"
-											requiredMessage="The result field is required."
+											requiredMessage="#{msg['dashboard.doctor.modal.medicaltest.required.result']}"
 											required="true" />
 										<div class="invalid-feedback d-block">
 											<h:message for="add-medicalTest-result" />
-										</div>	
+										</div>
 									</div>
 								</div>
 							</div>
 							<div class="modal-footer">
-								<h:commandButton value="Add" class="btn btn-primary"
+								<h:commandButton
+									value="#{msg['dashboard.doctor.modal.medicaltest.btn.add']}"
+									class="btn btn-primary"
 									action="#{specialistDoctorMedicalTest.addMedicalTest}" />
-								<h:commandButton value="Close" class="btn btn-secondary"
+								<h:commandButton
+									value="#{msg['dashboard.doctor.modal.medicaltest.btn.close']}"
+									class="btn btn-secondary"
 									action="#{specialistDoctorMedicalTest.closeModal}"
 									immediate="true" />
 							</div>

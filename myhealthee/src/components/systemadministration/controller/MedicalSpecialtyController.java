@@ -8,8 +8,10 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import components.medicaltest.dao.MedicalTestFacadeRemote;
 import components.systemadministration.dao.SystemAdministrationFacadeRemote;
 import entity.imp.MedicalSpeciality;
+import entity.imp.SpecialistDoctor;
 import services.crud.Operation;
 
 /**
@@ -25,10 +27,15 @@ public class MedicalSpecialtyController implements Serializable {
 	@EJB
 	private SystemAdministrationFacadeRemote ejb;
 
+	@EJB
+	private MedicalTestFacadeRemote ejbMedicalTest;
+
 	/* Fields */
 	private Operation mode;
+	private boolean specialistDoctorsByMedicalSpecialtyModalOpen;
 	private MedicalSpeciality medicalSpeciality;
 	private List<MedicalSpeciality> listMedicalSpecialty;
+	private List<SpecialistDoctor> listSpecialistDoctorByMedicalSpecialty;
 
 	@PostConstruct
 	public void init() {
@@ -47,6 +54,12 @@ public class MedicalSpecialtyController implements Serializable {
 	public String openModal(Operation operation, MedicalSpeciality medicalSpeciality) {
 		this.mode = operation;
 		this.medicalSpeciality = medicalSpeciality;
+		return null;
+	}
+
+	public String openSpecialistDoctorsByMedicalSpecialtyModal(MedicalSpeciality medicalSpeciality) {
+		this.specialistDoctorsByMedicalSpecialtyModalOpen = true;
+		this.listSpecialistDoctorsByMedicalSpeciality(medicalSpeciality);
 		return null;
 	}
 
@@ -84,6 +97,7 @@ public class MedicalSpecialtyController implements Serializable {
 	// PRIVATE METHODS
 	private void clear() {
 		this.mode = Operation.NO_OPERATION;
+		this.specialistDoctorsByMedicalSpecialtyModalOpen = false;
 		this.medicalSpeciality = null;
 	}
 
@@ -91,9 +105,18 @@ public class MedicalSpecialtyController implements Serializable {
 		this.listMedicalSpecialty = (List<MedicalSpeciality>) ejb.listAllMedicalSpecialities();
 	}
 
+	private void listSpecialistDoctorsByMedicalSpeciality(MedicalSpeciality medicalSpeciality) {
+		this.listSpecialistDoctorByMedicalSpecialty = (List<SpecialistDoctor>) ejbMedicalTest
+				.findSpecialistByMedicalSpecialty(medicalSpeciality);
+	}
+
 	// Getters & Setters
 	public Operation getMode() {
 		return mode;
+	}
+
+	public boolean isSpecialistDoctorsByMedicalSpecialtyModalOpen() {
+		return specialistDoctorsByMedicalSpecialtyModalOpen;
 	}
 
 	public MedicalSpeciality getMedicalSpeciality() {
@@ -102,5 +125,9 @@ public class MedicalSpecialtyController implements Serializable {
 
 	public List<MedicalSpeciality> getListMedicalSpecialty() {
 		return listMedicalSpecialty;
+	}
+
+	public List<SpecialistDoctor> getListSpecialistDoctorByMedicalSpecialty() {
+		return listSpecialistDoctorByMedicalSpecialty;
 	}
 }

@@ -53,7 +53,7 @@ public class CAPController implements Serializable {
 		return null;
 	}
 	
-	public String openFamilyDoctorModal(PrimaryHealthCareCenter cap) {
+	public String openFamilyDoctorByCapModal(PrimaryHealthCareCenter cap) {
 		this.familyDoctorsByCapModalOpen = true;
 		this.listFamilyDoctorsByCap(cap);
 		return null;

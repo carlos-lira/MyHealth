@@ -21,6 +21,8 @@ import entity.imp.MedicalSpeciality;
 import entity.imp.Patient;
 import entity.imp.PrimaryHealthCareCenter;
 import entity.imp.SpecialistDoctor;
+import services.i18n.I18n;
+import utils.Messages;
 import utils.QueryNames;
 
 /**
@@ -58,9 +60,12 @@ public class ProfileFacade implements ProfileFacadeRemote {
 				em.merge(familyDoctor);
 				em.flush();
 				return patient;
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000023"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 		return null;
 	}
@@ -86,9 +91,12 @@ public class ProfileFacade implements ProfileFacadeRemote {
 				em.merge(cap);
 				em.flush();
 				return familyDoctor;
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000027"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 		return null;
 	}
@@ -104,16 +112,6 @@ public class ProfileFacade implements ProfileFacadeRemote {
 	}
 
 	@Override
-	public Collection<Administrator> listAllAdministrators() {
-		try {
-			return em.createNamedQuery(QueryNames.GET_ALL_ADMINISTRATORS).getResultList();
-		} catch (PersistenceException e) {
-			logger.error(e.getMessage());
-		}
-		return new ArrayList<Administrator>();
-	}
-	
-	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public SpecialistDoctor changeMedicalSpecialty(String id, long medicalSpecialtyId) {
 		try {
@@ -124,11 +122,24 @@ public class ProfileFacade implements ProfileFacadeRemote {
 				em.merge(medicalSpecialty);
 				em.flush();
 				return specialistDoctor;
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000058"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 		return null;
+	}
+	
+	@Override
+	public Collection<Administrator> listAllAdministrators() {
+		try {
+			return em.createNamedQuery(QueryNames.GET_ALL_ADMINISTRATORS).getResultList();
+		} catch (PersistenceException e) {
+			logger.error(e.getMessage());
+		}
+		return new ArrayList<Administrator>();
 	}
 	
 	// Private Methods

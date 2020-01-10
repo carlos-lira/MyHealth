@@ -11,7 +11,9 @@
 		<div class="card shadow">
 			<a href="#patientsCard" class="d-block card-header py-3"
 				data-toggle="collapse">
-				<h6 class="m-0 font-weight-bold text-primary">Patients</h6>
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText value="#{msg['users.patients']}" />
+				</h6>
 			</a>
 			<div id="patientsCard" class="collapse show">
 				<div class="card-body">
@@ -20,27 +22,28 @@
 							actionListener="#{patientProfile.openModal(operation.create)}"
 							styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4">
 							<i class="fas fa-plus fa-sm text-white-50"></i>
-							<span>Add Patient</span>
+							<span><h:outputText value="#{msg['users.patients.add']}" /></span>
 						</h:commandLink>
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operations</th>
-									<th>Username</th>
-									<th>Email</th>
-									<th>NIF</th>
-									<th>Name</th>
-									<th>Surnames</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['username']}" /></th>
+									<th><h:outputText value="#{msg['email']}" /></th>
+									<th><h:outputText value="#{msg['nif']}" /></th>
+									<th><h:outputText value="#{msg['name']}" /></th>
+									<th><h:outputText value="#{msg['surnames']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Operations</th>
-									<th>Username</th>
-									<th>Email</th>
-									<th>NIF</th>
-									<th>Name</th>
-									<th>Surnames</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['username']}" /></th>
+									<th><h:outputText value="#{msg['email']}" /></th>
+									<th><h:outputText value="#{msg['nif']}" /></th>
+									<th><h:outputText value="#{msg['name']}" /></th>
+									<th><h:outputText value="#{msg['surnames']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -51,25 +54,25 @@
 												<h:commandLink
 													actionListener="#{patientProfile.openModal(operation.read, item)}"
 													styleClass="btn btn-sm btn-default shadow-sm mx-2"
-													title="Show">
+													title="#{msg['users.patients.modal.read.tilte']}">
 													<i class="fas fa-eye fa-sm fa-fw" />
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{patientProfile.openModal(operation.update, item)}"
 													styleClass="btn btn-sm btn-info shadow-sm mx-2"
-													title="Update">
+													title="#{msg['users.patients.modal.update.tilte']}">
 													<i class="fas fa-pencil-alt fa-sm fa-fw" />
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{patientProfile.openModal(operation.delete, item)}"
 													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
-													title="Delete">
+													title="#{msg['users.patients.modal.delete.tilte']}">
 													<i class="fas fa-trash-alt fa-sm fa-fw" />
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{patientProfile.openChangeFamilyDoctorModal(item)}"
 													styleClass="btn btn-sm btn-success shadow-sm mx-2"
-													title="Change family doctor">
+													title="#{msg['users.patients.modal.change.tilte']}">
 													<i class="fas fa-user-md fa-sm fa-fw" />
 												</h:commandLink>
 											</div>
@@ -99,16 +102,19 @@
 						<div class="modal-header">
 							<h5 class="modal-title">
 								<c:if test="#{operation.isCreate(patientProfile.mode)}">
-									<h:outputText value="Add Patient" />
+									<h:outputText
+										value="#{msg['users.patients.modal.create.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isRead(patientProfile.mode)}">
-									<h:outputText value="Show Patient" />
+									<h:outputText value="#{msg['users.patients.modal.read.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isUpdate(patientProfile.mode)}">
-									<h:outputText value="Update Patient" />
+									<h:outputText
+										value="#{msg['users.patients.modal.update.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isDelete(patientProfile.mode)}">
-									<h:outputText value="Delete Patient" />
+									<h:outputText
+										value="#{msg['users.patients.modal.delete.tilte']}" />
 								</c:if>
 							</h5>
 						</div>
@@ -118,8 +124,12 @@
 							<c:choose>
 								<c:when test="#{operation.isDelete(patientProfile.mode)}">
 									<div class="form-group">
-										<h6 class="font-weight-bold">Are you sure?</h6>
-										<p>You won't be able to revert this!</p>
+										<h6 class="font-weight-bold">
+											<h:outputText value="#{msg['modal.delete.message']}" />
+										</h6>
+										<p>
+											<h:outputText value="#{msg['modal.delete.message2']}" />
+										</p>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -127,9 +137,11 @@
 										<div class="col-sm-6 mb-sm-0">
 											<h:inputText class="form-control"
 												disabled="#{operation.isRead(patientProfile.mode)}"
-												id="register_patient-nif" a:placeholder="Nif"
+												id="register_patient-nif"
 												value="#{patientProfile.patient.nif}"
-												requiredMessage="The nif field is required." required="true" />
+												a:placeholder="#{msg['profile.placeholder.nif']}"
+												requiredMessage="#{msg['profile.required.nif']}"
+												required="true" />
 											<div class="invalid-feedback d-block">
 												<h:message for="register_patient-nif" />
 											</div>
@@ -137,9 +149,10 @@
 										<div class="col-sm-6">
 											<h:inputText class="form-control"
 												disabled="#{operation.isRead(patientProfile.mode)}"
-												id="register_patient-name" a:placeholder="Name"
+												id="register_patient-name"
 												value="#{patientProfile.patient.name}"
-												requiredMessage="The name field is required."
+												a:placeholder="#{msg['profile.placeholder.name']}"
+												requiredMessage="#{msg['profile.required.name']}"
 												required="true" />
 											<div class="invalid-feedback d-block">
 												<h:message for="register_patient-name" />
@@ -150,9 +163,10 @@
 										<div class="col-sm-12">
 											<h:inputText class="form-control"
 												disabled="#{operation.isRead(patientProfile.mode)}"
-												id="register_patient-surnames" a:placeholder="Surnames"
+												id="register_patient-surnames"
 												value="#{patientProfile.patient.surnames}"
-												requiredMessage="The surnames field is required."
+												a:placeholder="#{msg['profile.placeholder.surnames']}"
+												requiredMessage="#{msg['profile.required.surnames']}"
 												required="true" />
 											<div class="invalid-feedback d-block">
 												<h:message for="register_patient-surnames" />
@@ -163,9 +177,10 @@
 										<div class="col-sm-6 mb-sm-0">
 											<h:inputText class="form-control"
 												disabled="#{operation.isDisabled(patientProfile.mode)}"
-												id="register_patient-username" a:placeholder="Username"
+												id="register_patient-username"
 												value="#{patientProfile.patient.username}"
-												requiredMessage="The username field is required."
+												a:placeholder="#{msg['profile.placeholder.username']}"
+												requiredMessage="#{msg['profile.required.username']}"
 												required="true" />
 											<div class="invalid-feedback d-block">
 												<h:message for="register_patient-username" />
@@ -174,9 +189,10 @@
 										<div class="col-sm-6">
 											<h:inputText class="form-control"
 												disabled="#{operation.isRead(patientProfile.mode)}"
-												id="register_patient-email" a:placeholder="Email"
+												id="register_patient-email"
 												value="#{patientProfile.patient.email}"
-												requiredMessage="The email field is required."
+												a:placeholder="#{msg['profile.placeholder.email']}"
+												requiredMessage="#{msg['profile.required.email']}"
 												required="true" />
 											<div class="invalid-feedback d-block">
 												<h:message for="register_patient-email" />
@@ -188,16 +204,17 @@
 										<div class="form-group row">
 											<div class="col-sm-6 mb-sm-0">
 												<h:inputSecret class="form-control"
-													id="register_patient-password" a:placeholder="Password"
+													id="register_patient-password"
 													value="#{patientProfile.patient.password}"
-													requiredMessage="The password field is required." />
+													a:placeholder="#{msg['profile.placeholder.password']}"
+													requiredMessage="#{msg['profile.required.password']}" />
 												<div class="invalid-feedback d-block">
 													<h:message for="register_patient-password" />
 												</div>
 											</div>
 											<div class="col-sm-6">
 												<h:inputSecret class="form-control"
-													a:placeholder="Repeat Password"
+													a:placeholder="#{msg['profile.placeholder.rpassword']}"
 													value="#{patientProfile.patient.repeatPassword}" />
 											</div>
 										</div>
@@ -207,19 +224,21 @@
 						</div>
 						<div class="modal-footer">
 							<c:if test="#{operation.isCreate(patientProfile.mode)}">
-								<h:commandButton value="Add" class="btn btn-primary"
+								<h:commandButton value="#{msg['add']}" class="btn btn-primary"
 									action="#{patientProfile.addPatient}" />
 							</c:if>
 							<c:if test="#{operation.isUpdate(patientProfile.mode)}">
-								<h:commandButton value="Update" class="btn btn-primary"
+								<h:commandButton value="#{msg['update']}"
+									class="btn btn-primary"
 									action="#{patientProfile.updatePatient}" />
 							</c:if>
 							<c:if test="#{operation.isDelete(patientProfile.mode)}">
-								<h:commandButton value="Delete" class="btn btn-danger"
+								<h:commandButton value="#{msg['delete']}" class="btn btn-danger"
 									action="#{patientProfile.deletePatient}" />
 							</c:if>
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{patientProfile.closeModal}" immediate="true" />
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary" action="#{patientProfile.closeModal}"
+								immediate="true" />
 						</div>
 					</h:form>
 				</div>
@@ -235,26 +254,29 @@
 				<div class="modal-content">
 					<h:form>
 						<div class="modal-header">
-							<h5 class="modal-title">Change family doctor</h5>
+							<h5 class="modal-title">
+								<h:outputText
+									value="#{msg['users.patients.modal.change.tilte']}" />
+							</h5>
 						</div>
 						<div class="modal-body">
 							<table class="js-datatable table table-bordered">
 								<thead>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>Surnames</th>
-										<th>Cap name</th>
-										<th>Cap location</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['surnames']}" /></th>
+										<th><h:outputText value="#{msg['cap.name']}" /></th>
+										<th><h:outputText value="#{msg['cap.location']}" /></th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>Surnames</th>
-										<th>Cap name</th>
-										<th>Cap location</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['surnames']}" /></th>
+										<th><h:outputText value="#{msg['cap.name']}" /></th>
+										<th><h:outputText value="#{msg['cap.location']}" /></th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -267,12 +289,13 @@
 														actionListener="#{patientProfile.changeFamilyDoctor(item)}"
 														rendered="#{patientProfile.patient.familyDoctor.username != item.username}"
 														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
-														title="Select doctor">
+														title="#{msg['users.patients.modal.select.tilte']}">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
 													<h:panelGroup
 														rendered="#{patientProfile.patient.familyDoctor.username == item.username}">
-														<span class="badge badge-info">Actual</span>
+														<span class="badge badge-info"><h:outputText
+																value="#{msg['actual']}" /></span>
 													</h:panelGroup>
 												</div>
 											</td>
@@ -288,8 +311,9 @@
 							</table>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{patientProfile.closeModal}" immediate="true" />
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary" action="#{patientProfile.closeModal}"
+								immediate="true" />
 
 						</div>
 					</h:form>

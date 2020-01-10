@@ -9,5 +9,5 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class Doctor extends Person {
-	
+
 }

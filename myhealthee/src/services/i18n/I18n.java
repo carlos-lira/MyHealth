@@ -13,6 +13,8 @@ import utils.SessionUtils;
  */
 public final class I18n {
 
+	private static final String BUNDLE_NAME = "/META-INF/resources/myhealth";
+	
 	/**
 	 * Hide constructor
 	 */
@@ -28,8 +30,12 @@ public final class I18n {
 	 */
 	public static String translate(String key, String... parameters) {
 		try {
+			String bundleName = SessionUtils.getMessageBundle();
+			if (bundleName == null) {
+				bundleName = BUNDLE_NAME;
+			}
 			Locale correntLocale = SessionUtils.getLocale();
-			ResourceBundle resourceBundle = ResourceBundle.getBundle(SessionUtils.getMessageBundle(), correntLocale);
+			ResourceBundle resourceBundle = ResourceBundle.getBundle(bundleName, correntLocale);
 			String message = resourceBundle.getString(key);
 			return replaceParameters(message, parameters);
 		} catch (MissingResourceException e) {

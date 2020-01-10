@@ -9,24 +9,27 @@
 	<div class="col-md-12 mb-4">
 		<div class="card shadow">
 			<div class="d-block card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">Pending questions</h6>
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText value="#{msg['questions.pending']}" />
+				</h6>
 			</div>
 			<div class="card-body">
 				<table class="js-datatable table table-bordered">
 					<thead>
 						<tr>
-							<th style="width: 10%;">Operations</th>
-							<th>Title</th>
-							<th>Message</th>
-							<th>Patient</th>
+							<th style="width: 10%;"><h:outputText
+									value="#{msg['operations']}" /></th>
+							<th><h:outputText value="#{msg['title']}" /></th>
+							<th><h:outputText value="#{msg['message']}" /></th>
+							<th><h:outputText value="#{msg['patient']}" /></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<th style="width: 10%;">Operations</th>
-							<th>Title</th>
-							<th>Message</th>
-							<th>Patient</th>
+							<th><h:outputText value="#{msg['operations']}" /></th>
+							<th><h:outputText value="#{msg['title']}" /></th>
+							<th><h:outputText value="#{msg['message']}" /></th>
+							<th><h:outputText value="#{msg['patient']}" /></th>
 						</tr>
 					</tfoot>
 					<tbody>
@@ -38,7 +41,7 @@
 											<h:commandLink
 												actionListener="#{familyDoctorQuestion.openModal(operation.update, item)}"
 												styleClass="btn btn-sm btn-default shadow-sm mx-2"
-												title="Answer">
+												title="#{msg['questions.answer.modal.title']}">
 												<i class="fas fa-mouse-pointer fa-sm fa-fw" />
 											</h:commandLink>
 										</div>
@@ -64,15 +67,17 @@
 				<div class="modal-content">
 					<h:form>
 						<div class="modal-header">
-							<h5 class="modal-title">Answer question</h5>
+							<h5 class="modal-title">
+								<h:outputText value="#{msg['questions.answer.modal.title']}" />
+							</h5>
 						</div>
 						<div class="modal-body">
 							<div class="form-group row">
 								<div class="col-sm-12">
 									<h:inputTextarea class="form-control" id="add_response-message"
-										a:placeholder="Response"
 										value="#{familyDoctorQuestion.response}"
-										requiredMessage="The Response field is required."
+										a:placeholder="#{msg['questions.placeholder.response']}"
+										requiredMessage="#{msg['questions.required.response']}"
 										required="true" />
 									<div class="invalid-feedback d-block">
 										<h:message for="add_response-message" />
@@ -81,9 +86,10 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Add" class="btn btn-primary"
+							<h:commandButton value="#{msg['add']}" class="btn btn-primary"
 								action="#{familyDoctorQuestion.answerQuestion}" />
-							<h:commandButton value="Close" class="btn btn-secondary"
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary"
 								action="#{familyDoctorQuestion.closeModal}" immediate="true" />
 						</div>
 					</h:form>

@@ -11,39 +11,39 @@
 			<h:messages globalOnly="true" style="text-align: left;"
 				errorStyle="color:red;" infoStyle="color:blue;" />
 			<h:inputHidden value="#{updatevisit.id}" type="text" />
-			<span>Doctor</span>
+			<span><h:outputText value="#{msg['doctor']}" /></span>
 			<br />
 			<h:outputText
 				value="#{updatevisit.visit.familyDoctor.name} #{updatevisit.visit.familyDoctor.surnames}"
 				type="text" readonly="true" />
 			<br />
 			<br />
-			<span>Fecha</span>
+			<span><h:outputText value="#{msg['date']}" /></span>
 			<br />
 			<h:outputText value="#{updatevisit.visit.date}">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:outputText>
 			<br />
 			<br />
-			<span>Hora</span>
+			<span><h:outputText value="#{msg['time']}" /></span>
 			<br />
 			<h:outputText value="#{updatevisit.visit.date}">
 				<f:convertDateTime pattern="HH:mm" />
 			</h:outputText>
 			<br />
 			<br />
-			<span>Observaciones</span>
+			<span><h:outputText value="#{msg['observations']}" /></span>
 			<br />
 			<h:outputText value="#{updatevisit.visit.observations}"
 				readonly="true" />
 			<br />
 			<br />
-			<span>Resultados</span>
+			<span><h:outputText value="#{msg['result']}" /></span>
 			<br />
 			<h:inputTextarea value="#{updatevisit.result}" />
 			<br />
 			<br />
-			<h:commandButton value="Actualizar Resultado" type="submit"
+			<h:commandButton value="#{msg['visits.update.result']}" type="submit"
 				action="#{updatevisit.updateVisitResult}" />
 		</h:form>
 	</ui:define>

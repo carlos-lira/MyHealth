@@ -10,8 +10,8 @@
 				<h:inputText id="register_administrator-username"
 					value="#{register.administrator.username}"
 					class="form-control form-control-user" required="true"
-					a:placeholder="Username"
-					requiredMessage="The username field is required." />
+					a:placeholder="#{msg['register.placeholder.username']}"
+					requiredMessage="#{msg['register.required.username']}" />
 				<div class="invalid-feedback d-block">
 					<h:message for="register_administrator-username" />
 				</div>
@@ -20,8 +20,8 @@
 				<h:inputText id="register_administrator-email"
 					value="#{register.administrator.email}"
 					class="form-control form-control-user" required="true"
-					a:placeholder="Email"
-					requiredMessage="The email field is required." />
+					a:placeholder="#{msg['register.placeholder.email']}"
+					requiredMessage="#{msg['register.required.email']}" />
 				<div class="invalid-feedback d-block">
 					<h:message for="register_administrator-email" />
 				</div>
@@ -32,8 +32,8 @@
 				<h:inputSecret id="register_administrator-password"
 					value="#{register.administrator.password}"
 					class="form-control form-control-user" required="true"
-					a:placeholder="Password"
-					requiredMessage="The password field is required." />
+					a:placeholder="#{msg['register.placeholder.password']}"
+					requiredMessage="#{msg['register.required.password']}" />
 				<div class="invalid-feedback d-block">
 					<h:message for="register_administrator-password" />
 				</div>
@@ -41,10 +41,10 @@
 			<div class="col-sm-6">
 				<h:inputSecret value="#{register.administrator.repeatPassword}"
 					class="form-control form-control-user"
-					a:placeholder="Repeat Password" />
+					a:placeholder="#{msg['register.placeholder.rpassword']}" />
 			</div>
 		</div>
-		<h:commandButton value="Register Administrator Account"
+		<h:commandButton value="#{msg['register.btn.administrator']}"
 			class="btn btn-primary btn-user btn-block"
 			action="#{register.registerAdministrator}" />
 	</h:form>

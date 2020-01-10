@@ -14,6 +14,7 @@ import entity.Doctor;
 import entity.imp.FamilyDoctor;
 import entity.imp.PrimaryHealthCareCenter;
 import services.crud.Operation;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 import utils.StringUtils;
@@ -88,12 +89,12 @@ public class FamilyDoctorProfileController implements Serializable {
 		String password = doctor.getPassword();
 		String repeatPassword = doctor.getRepeatPassword();
 		if (!StringUtils.isSameString(password, repeatPassword)) {
-			Messages.addWarnGlobalMessage("The passwords need to be equals");
+			Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 			this.clear();
 			return null;
 		}
 		if (!ejbSystemAdministration.addUser(doctor)) {
-			Messages.addErrorGlobalMessage("Error adding the family doctor");
+			Messages.addErrorGlobalMessage(I18n.translate("profile.error.000021"));
 		}
 		this.clear();
 		this.listAllFamilyDoctors();
@@ -105,13 +106,13 @@ public class FamilyDoctorProfileController implements Serializable {
 		if (password != null && !password.equals("")) {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
-				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 				this.clear();
 				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
-			Messages.addErrorGlobalMessage("Error updating the family doctor");
+			Messages.addErrorGlobalMessage(I18n.translate("profile.error.000022"));
 		}
 		this.clear();
 		this.listAllFamilyDoctors();
@@ -120,7 +121,7 @@ public class FamilyDoctorProfileController implements Serializable {
 
 	public String deleteFamilyDoctor() {
 		if (!ejbSystemAdministration.removeUser(this.doctor.getUsername())) {
-			Messages.addErrorGlobalMessage("Error deleting the family doctor");
+			Messages.addErrorGlobalMessage(I18n.translate("profile.error.000023"));
 		}
 		this.clear();
 		this.listAllFamilyDoctors();
@@ -132,12 +133,12 @@ public class FamilyDoctorProfileController implements Serializable {
 		if (password != null && !password.equals("")) {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
-				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
-			Messages.addErrorGlobalMessage("Error updating the family doctor");
+			Messages.addErrorGlobalMessage(I18n.translate("profile.error.000022"));
 		}
 		return null;
 	}
@@ -145,7 +146,7 @@ public class FamilyDoctorProfileController implements Serializable {
 	public String changeCap(PrimaryHealthCareCenter cap) {
 		FamilyDoctor updatedUser = ejb.changePrimaryHealthcareCenter(doctor.getUsername(), cap.getId());
 		if (updatedUser == null) {
-			Messages.addErrorGlobalMessage("Error changing the family doctor");
+			Messages.addErrorGlobalMessage(I18n.translate("profile.error.000024"));
 		}
 		this.clear();
 		this.listAllFamilyDoctors();
@@ -155,7 +156,7 @@ public class FamilyDoctorProfileController implements Serializable {
 	public String changeCapProfile(PrimaryHealthCareCenter cap) {
 		FamilyDoctor updatedUser = ejb.changePrimaryHealthcareCenter(doctor.getUsername(), cap.getId());
 		if (updatedUser == null) {
-			Messages.addErrorGlobalMessage("Error changing the family doctor");
+			Messages.addErrorGlobalMessage(I18n.translate("profile.error.000024"));
 		} else {
 			SessionUtils.addUser(updatedUser);
 			doctor = updatedUser;

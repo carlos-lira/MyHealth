@@ -11,45 +11,45 @@
 			<h:messages globalOnly="true" style="text-align: left;"
 				errorStyle="color:red;" infoStyle="color:blue;" />
 			<h:inputHidden value="#{updatevisit.id}" type="text" />
-			<span>Doctor</span>
+			<span><h:outputText value="#{msg['doctor']}" /></span>
 			<br />
 			<h:outputText
 				value="#{updatevisit.visit.familyDoctor.name} #{updatevisit.visit.familyDoctor.surnames}"
 				type="text" readonly="true" />
 			<br />
 			<br />
-			<span>Fecha</span>
+			<span><h:outputText value="#{msg['date']}" /></span>
 			<br />
 			<h:inputText a:type="date" id="updateDateInput"
 				value="#{updatevisit.newDate}" required="true"
-				requiredMessage="Por favor introduzca una fecha.">
+				requiredMessage="#{msg['visits.required.date']}">
 				<f:convertDateTime pattern="yyyy-MM-dd" />
 			</h:inputText>
 			<br />
 			<h:message for="updateDateInput" style="color:red" />
 			<br />
-			<span>Hora</span>
+			<span><h:outputText value="#{msg['time']}" /></span>
 			<br />
 			<h:inputText a:type="time" a:step="900" id="updateTimeInput"
 				value="#{updatevisit.newTime}" required="true"
-				requiredMessage="Por favor introduzca una hora.">
+				requiredMessage="#{msg['visits.required.time']}">
 				<f:convertDateTime pattern="HH:mm" />
 			</h:inputText>
 			<br />
 			<h:message for="updateTimeInput" style="color:red" />
 			<br />
-			<span>Observaciones</span>
+			<span><h:outputText value="#{msg['observations']}" /></span>
 			<br />
 			<h:outputText value="#{updatevisit.visit.observations}"
 				readonly="true" />
 			<br />
 			<br />
-			<span>Resultados</span>
+			<span><h:outputText value="#{msg['result']}" /></span>
 			<br />
 			<h:outputText value="#{updatevisit.visit.result}" />
 			<br />
 			<br />
-			<h:commandButton value="Actualizar Fecha" type="submit"
+			<h:commandButton value="#{msg['visits.update.date']}" type="submit"
 				action="#{updatevisit.updateVisitTime}" />
 		</h:form>
 	</ui:define>

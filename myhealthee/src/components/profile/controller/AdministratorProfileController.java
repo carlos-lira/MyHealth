@@ -12,6 +12,7 @@ import components.profile.dao.ProfileFacadeRemote;
 import components.systemadministration.dao.SystemAdministrationFacadeRemote;
 import entity.imp.Administrator;
 import services.crud.Operation;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 import utils.StringUtils;
@@ -75,12 +76,12 @@ public class AdministratorProfileController implements Serializable {
 		String password = this.administrator.getPassword();
 		String repeatPassword = this.administrator.getRepeatPassword();
 		if (!StringUtils.isSameString(password, repeatPassword)) {
-			Messages.addWarnGlobalMessage("The passwords need to be equals");
+			Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 			this.clear();
 			return null;
 		}
 		if (!ejbSystemAdministration.addUser(this.administrator)) {
-			Messages.addErrorGlobalMessage("Error adding the administrator");
+			Messages.addErrorGlobalMessage(I18n.translate("profile.error.000001"));
 		}
 		this.clear();
 		this.listAllAdministrators();
@@ -92,13 +93,13 @@ public class AdministratorProfileController implements Serializable {
 		if (password != null && !password.equals("")) {
 			String repeatPassword = this.administrator.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
-				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 				this.clear();
 				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(this.administrator)) {
-			Messages.addErrorGlobalMessage("Error updating the administrator");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000002"));
 		}
 		this.clear();
 		this.listAllAdministrators();
@@ -107,7 +108,7 @@ public class AdministratorProfileController implements Serializable {
 
 	public String deleteAdministrator() {
 		if (!ejbSystemAdministration.removeUser(this.administrator.getUsername())) {
-			Messages.addErrorGlobalMessage("Error deleting the administrator");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000003"));
 		}
 		this.clear();
 		this.listAllAdministrators();
@@ -119,12 +120,12 @@ public class AdministratorProfileController implements Serializable {
 		if (password != null && !password.equals("")) {
 			String repeatPassword = this.administrator.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
-				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(this.administrator)) {
-			Messages.addErrorGlobalMessage("Error updating the administrator");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000002"));
 		}
 		return null;
 	}
