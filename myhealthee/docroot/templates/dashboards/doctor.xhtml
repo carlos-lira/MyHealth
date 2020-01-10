@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<!-- Messages -->
+	<p class="mb-4">
+		<h:messages globalOnly="true" style="text-align: left;"
+			errorStyle="color:red;" infoStyle="color:blue;"
+			warnStyle="color: #ffc107;" />
+	</p>
+
+	<!-- Family doctor dashboard -->
+	<c:if test="#{role.isFamilyDoctor()}">
+		<!-- All schedule visits -->
+		<div class="card shadow mb-4">
+			<a href="#allScheduleVisits" class="d-block card-header py-3"
+				data-toggle="collapse" role="button" aria-expanded="true"
+				aria-controls="collapseCardExample">
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText value="#{msg['dashboard.doctor.scheduled']}" />
+				</h6>
+			</a>
+			<div id="allScheduleVisits" class="collapse show">
+				<div class="card-body">
+					<h:form>
+						<span><h:outputText
+								value="#{msg['dashboard.doctor.selectdate']}" />: </span>
+						<h:inputText a:type="date" id="dateselector"
+							value="#{listallvisits.date}" required="true">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:inputText>
+						<h:commandButton value="#{msg['dashboard.doctor.btn.see']}"
+							type="submit" />
+						<br />
+						<br />
+						<h:message for="dateselector" style="color:red" />
+					</h:form>
+					<!-- Table -->
+					<div class="mb-4">
+						<div class="table-responsive" style="padding: 0 .75rem;">
+							<h:form>
+								<table class="js-datatable table table-bordered">
+									<thead>
+										<tr>
+											<th style="width: 10%;"><h:outputText
+													value="#{msg['operations']}" /></th>
+											<th><h:outputText value="#{msg['patient']}" /></th>
+											<th><h:outputText value="#{msg['date']}" /></th>
+											<th><h:outputText value="#{msg['time']}" /></th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th style="width: 10%;"><h:outputText
+													value="#{msg['operations']}" /></th>
+											<th><h:outputText value="#{msg['patient']}" /></th>
+											<th><h:outputText value="#{msg['date']}" /></th>
+											<th><h:outputText value="#{msg['time']}" /></th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<ui:repeat var="item"
+											value="#{listallvisits.listAllScheduledVisits()}">
+											<tr>
+												<td>
+													<div class="d-flex justify-content-center">
+														<h:commandLink action="#{showvisit.showVisit(item)}"
+															styleClass="btn btn-sm btn-default shadow-sm mx-2"
+															title="Show">
+															<i class="fas fa-eye fa-sm fa-fw"></i>
+														</h:commandLink>
+														<h:commandLink action="#{updatevisit.visitToUpdate(item)}"
+															styleClass="btn btn-sm btn-info shadow-sm mx-2"
+															title="Update">
+															<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+														</h:commandLink>
+													</div>
+												</td>
+												<td><h:outputText
+														value="#{item.patient.name} #{item.patient.surnames}" /></td>
+												<td><h:outputText value="#{item.date}">
+														<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+													</h:outputText></td>
+												<td><h:outputText value="#{item.date}">
+														<f:convertDateTime type="time" timeStyle="short" />
+													</h:outputText></td>
+											</tr>
+										</ui:repeat>
+									</tbody>
+								</table>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:if>
+
+	<!-- Specialist doctor dashboard -->
+	<c:if test="#{role.isSpecialistDoctor()}">
+		<div class="card shadow mb-4">
+			<a href="#addMedicalTest" class="d-block card-header py-3"
+				data-toggle="collapse" role="button" aria-expanded="true"
+				aria-controls="collapseCardExample">
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText
+						value="#{msg['dashboard.doctor.medicaltest.update.title']}" />
+				</h6>
+			</a>
+			<div id="addMedicalTest" class="collapse show">
+				<div class="card-body">
+					<h:form>
+						<table class="js-datatable table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
+									<th><h:outputText
+											value="#{msg['dashboard.doctor.num.medicaltests']}" /></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
+									<th><h:outputText
+											value="#{msg['dashboard.doctor.num.medicaltests']}" /></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item"
+									value="#{specialistDoctorMedicalTest.listPatients}">
+									<tr>
+										<td>
+											<div class="d-flex justify-content-center">
+												<h:commandLink
+													actionListener="#{specialistDoctorMedicalTest.openModal(operation.create, item)}"
+													styleClass="btn btn-sm btn-success shadow-sm mx-2"
+													title="#{msg['dashboard.doctor.add.medicaltest']}">
+													<i class="fas fa-plus fa-sm fa-fw"></i>
+												</h:commandLink>
+											</div>
+										</td>
+										<td><h:outputText value="#{item.name}" /></td>
+										<td><h:outputText value="#{item.surnames}" /></td>
+										<td><h:outputText
+												value="#{item.medicalTests != null ? item.medicalTests.size() : 0}" /></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<c:if
+			test="#{operation.hasOperation(specialistDoctorMedicalTest.mode)}">
+			<div class="modal fade" id="crudModal" tabindex="-1"
+				data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<h:form>
+							<div class="modal-header">
+								<h5 class="modal-title">
+									<h:outputText
+										value="#{msg['dashboard.doctor.modal.medicaltest.update.title']}" />
+								</h5>
+							</div>
+							<div class="modal-body">
+								<div class="form-group row">
+									<div class="col-sm-6 mb-sm-0">
+										<h:inputText class="form-control" a:type="date"
+											id="add-medicalTest-date" a:placeholder="Date"
+											value="#{specialistDoctorMedicalTest.medicalTest.date}"
+											requiredMessage="#{msg['dashboard.doctor.modal.medicaltest.required.date']}"
+											required="true">
+											<f:convertDateTime pattern="yyyy-MM-dd" />
+										</h:inputText>
+										<div class="invalid-feedback d-block">
+											<h:message for="add-medicalTest-date" />
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<h:inputText class="form-control" a:type="time" a:step="900"
+											id="add-medicalTest-time" a:placeholder="Time"
+											value="#{specialistDoctorMedicalTest.medicalTest.time}"
+											requiredMessage="#{msg['dashboard.doctor.modal.medicaltest.required.time']}"
+											required="true">
+											<f:convertDateTime pattern="HH:mm" />
+										</h:inputText>
+										<div class="invalid-feedback d-block">
+											<h:message for="add-medicalTest-time" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<h:selectOneMenu styleClass="form-control"
+											value="#{specialistDoctorMedicalTest.medicalTest.testType}">
+											<f:selectItems
+												value="#{specialistDoctorMedicalTest.listMedicalTestTypes}"
+												var="item" itemLabel="#{item}" itemValue="#{item}" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-12">
+										<h:inputText class="form-control" id="add-medicalTest-result"
+											a:placeholder="Result"
+											value="#{specialistDoctorMedicalTest.medicalTest.result}"
+											requiredMessage="#{msg['dashboard.doctor.modal.medicaltest.required.result']}"
+											required="true" />
+										<div class="invalid-feedback d-block">
+											<h:message for="add-medicalTest-result" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<h:commandButton
+									value="#{msg['dashboard.doctor.modal.medicaltest.btn.add']}"
+									class="btn btn-primary"
+									action="#{specialistDoctorMedicalTest.addMedicalTest}" />
+								<h:commandButton
+									value="#{msg['dashboard.doctor.modal.medicaltest.btn.close']}"
+									class="btn btn-secondary"
+									action="#{specialistDoctorMedicalTest.closeModal}"
+									immediate="true" />
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</c:if>
+	</c:if>
+</ui:composition>

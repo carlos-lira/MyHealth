@@ -1,0 +1,56 @@
+.modal {
+	-webkit-perspective: 2000px;
+	perspective: 2000px
+}
+
+.modal>.modal-dialog.aside {
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d
+}
+
+.modal>.modal-dialog.aside.aside-1 {
+	-webkit-transform: calc(-380px);
+	transform: calc(-380px);
+	-webkit-transform: scale(0.8) rotateY(45deg) translateZ(-380px);
+	transform: scale(0.8) rotateY(45deg) translateZ(-380px)
+}
+
+.modal>.modal-dialog.aside.aside-2 {
+	-webkit-transform: calc(-340px);
+	transform: calc(-340px);
+	-webkit-transform: scale(0.8) rotateY(45deg) translateZ(calc(-340px));
+	transform: scale(0.8) rotateY(45deg) translateZ(calc(-340px))
+}
+
+.modal>.modal-dialog.aside.aside-3 {
+	-webkit-transform: calc(-300px);
+	transform: calc(-300px);
+	-webkit-transform: scale(0.8) rotateY(45deg) translateZ(calc(-300px));
+	transform: scale(0.8) rotateY(45deg) translateZ(calc(-300px))
+}
+
+.modal>.modal-dialog.aside.aside-4 {
+	-webkit-transform: calc(-260px);
+	transform: calc(-260px);
+	-webkit-transform: scale(0.8) rotateY(45deg) translateZ(calc(-260px));
+	transform: scale(0.8) rotateY(45deg) translateZ(calc(-260px))
+}
+
+.modal>.modal-dialog.aside.aside-5 {
+	-webkit-transform: calc(-220px);
+	transform: calc(-220px);
+	-webkit-transform: scale(0.8) rotateY(45deg) translateZ(calc(-220px));
+	transform: scale(0.8) rotateY(45deg) translateZ(calc(-220px))
+}
+
+/* Utils */
+.u-image-bg {
+	width: 100%;
+	height: 320px;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	background-size: contain !important;
+}
+.u-modal-open {
+	overflow: hidden
+}

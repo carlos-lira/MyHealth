@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+
+	<ui:define name="content">
+		<!-- Title Page -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['dashboard.title']}" />
+			</h1>
+		</div>
+
+		<!-- Admin dashboard -->
+		<c:if test="#{role.isAdministrator()}">
+			<ui:include src="/templates/dashboards/administrator.xhtml" />
+		</c:if>
+
+		<!-- Patient dashboard -->
+		<c:if test="#{role.isPatient()}">
+			<ui:include src="/templates/dashboards/patient.xhtml" />
+		</c:if>
+
+		<!-- Doctor dashboard -->
+		<c:if test="#{role.isDoctor()}">
+			<ui:include src="/templates/dashboards/doctor.xhtml" />
+		</c:if>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable({
+						"columnDefs" : [ {
+							"orderable" : false,
+							"targets" : 0
+						} ],
+						"order" : [ [ 1, "asc" ] ]
+					});
+
+					// Open modal if has operation
+					$('#crudModal').modal('show');
+				});
+			})(jQuery)
+		</script>
+	</ui:define>
+</ui:composition>

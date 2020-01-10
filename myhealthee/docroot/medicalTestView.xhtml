@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+
+	<ui:define name="content">
+		<!-- Title page -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['medicaltest.title']}" />
+			</h1>
+		</div>
+
+		<!-- Messages -->
+		<p class="mb-4">
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
+		</p>
+
+		<div class="row">
+			<!-- Patient users -->
+			<c:if test="#{role.isPatient()}">
+				<ui:include src="/templates/medicalTests/patient.xhtml" />
+			</c:if>
+
+			<!-- Family doctors users -->
+			<c:if test="#{role.isFamilyDoctor()}">
+				<ui:include src="/templates/medicalTests/familyDoctor.xhtml" />
+			</c:if>
+
+			<!-- Specialist doctor users -->
+			<c:if test="#{role.isSpecialistDoctor()}">
+				<ui:include src="/templates/medicalTests/specialistDoctor.xhtml" />
+			</c:if>
+
+			<!-- Administrators users -->
+			<c:if test="#{role.isAdministrator()}">
+				<ui:include src="/templates/medicalTests/administrator.xhtml" />
+			</c:if>
+		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable({
+						responsive: true,
+						"columnDefs" : [ {
+							"orderable" : false,
+							"targets" : 0
+						} ],
+						"order" : [ [ 1, "asc" ] ]
+					});
+
+					// Open modal if has operation
+					$('#crudModal').modal('show');
+				});
+			})(jQuery)
+		</script>
+
+	</ui:define>
+</ui:composition>

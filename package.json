@@ -21,13 +21,11 @@
   },
   "homepage": "https://gitlab.com/pds_uoc_craft/myhealth#readme",
   "scripts": {
-    "changelog": "conventional-changelog -p . -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "commit": "commit"
+    "changelog": "conventional-changelog -p . -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@commitlint/prompt-cli": "^8.2.0",
     "conventional-changelog-cli": "^2.0.28",
     "husky": "^3.1.0"
   },
@@ -38,7 +36,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run changelog",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }

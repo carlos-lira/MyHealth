@@ -1,8 +1,43 @@
 # MyHealth
 
-> TODO
+> MyHealth application
 
-## Conventional Commits
+- [Deploy](#deploy)
+- [Getting Started](#getting-started)
+- [Conventional Commits](#conventional-commits)
+
+## Deploy
+
+To Deploy and compile the application we provide a scripts ant.
+
+- **Pre requisits**: To have ant, java, jboss and mysql installed, also it will be necessary to have the environment variable JBOSS_HOME. As is explained in the file `Tutorial instalación. Laboratorio PDSv8.0e.pdf`
+
+To clean, build and deploy in the JBOSS_HOME directory execute
+
+```
+ant all
+```
+
+> As fallback mode we provide a pre compilated ear file ready to be deployed in the server. Can be found in `myhealtee/MyHealth.ear`
+
+## Getting Started
+
+> This step is only necessary for the developers.
+
+Nodejs installation
+
+> Is important to install nodejs locally because will control that you write a correct commit messages and allow you to autogenerate the changelog file.
+> See [more](#conventional-commits)
+
+Download nodejs if is not already installed. https://nodejs.org/en/download/
+
+Once node is installed install the node modules (from the root folder directory of myhealth):
+
+```
+npm install
+```
+
+### Conventional Commits
 
 https://www.conventionalcommits.org/en/v1.0.0/
 

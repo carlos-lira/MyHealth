@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<!-- Messages -->
+	<p class="mb-4">
+		<h:messages globalOnly="true" style="text-align: left;"
+			errorStyle="color:red;" infoStyle="color:blue;" />
+	</p>
+
+	<!-- Add visit -->
+	<div class="card shadow mb-4">
+		<a href="#addVisit" class="d-block card-header py-3"
+			data-toggle="collapse" role="button" aria-expanded="true"
+			aria-controls="collapseCardExample">
+			<h6 class="m-0 font-weight-bold text-primary">
+				<h:outputText value="#{msg['dashboard.patient.myvisits']}" />
+			</h6>
+		</a>
+		<div id="addVisit" class="collapse show">
+			<div class="card-body">
+				<div class="table-responsive" style="padding: 0 .75rem;">
+					<h:form>
+						<table class="js-datatable table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 10%;"><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item"
+									value="#{listallvisits.listAllScheduledVisits()}">
+									<tr>
+										<td>
+											<div class="d-flex justify-content-center">
+												<h:commandLink action="#{showvisit.showVisit(item)}"
+													styleClass="btn btn-sm btn-default shadow-sm mx-2"
+													title="Show">
+													<i class="fas fa-eye fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink action="#{updatevisit.visitToUpdate(item)}"
+													styleClass="btn btn-sm btn-info shadow-sm mx-2"
+													title="Update">
+													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink action="#{removevisit.removeVisit(item.id)}"
+													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
+													title="Delete">
+													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
+												</h:commandLink>
+											</div>
+										</td>
+										<td><h:outputText
+												value="#{item.familyDoctor.name} #{item.familyDoctor.surnames}" /></td>
+										<td><h:outputText value="#{item.date}">
+												<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+											</h:outputText></td>
+										<td><h:outputText value="#{item.date}">
+												<f:convertDateTime type="time" timeStyle="short" />
+											</h:outputText></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+
+				<!-- Add visit -->
+				<h:form>
+					<span><h:outputText value="#{msg['date']}" /></span>
+					<br />
+					<h:inputText class="form-control" a:type="date" id="addDateInput"
+						value="#{addvisit.date}" required="true"
+						requiredMessage="#{msg['dashboard.patient.required.date']}">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:inputText>
+					<h:message for="addDateInput" style="color:red" />
+					<br />
+					<span><h:outputText value="#{msg['time']}" /></span>
+					<br />
+					<h:inputText class="form-control" a:type="time" a:step="900"
+						id="addTimeInput" value="#{addvisit.time}" required="true"
+						requiredMessage="#{msg['dashboard.patient.required.time']}">
+						<f:convertDateTime pattern="HH:mm" />
+					</h:inputText>
+					<h:message for="addTimeInput" style="color:red" />
+					<br />
+					<h:commandButton class="btn btn-primary btn-block"
+						value="#{msg['dashboard.patient.btn.requestvisit']}" type="submit"
+						action="#{addvisit.addVisit}" />
+				</h:form>
+			</div>
+		</div>
+	</div>
+</ui:composition>

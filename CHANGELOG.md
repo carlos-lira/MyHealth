@@ -1,8 +1,26 @@
-## 1.0.0 (2019-11-21)
+## 1.0.0 (2019-12-30)
 
+* feat: add all jpa entities relationships ([3723999](https://gitlab.com/pds_uoc_craft/myhealth/commit/3723999))
+* feat: as the proyect compile with java 1.6 add inner atributes ([00aa35a](https://gitlab.com/pds_uoc_craft/myhealth/commit/00aa35a))
+* feat: change views and add a nicier style to the systema dministration ([585d596](https://gitlab.com/pds_uoc_craft/myhealth/commit/585d596))
+* feat: create dashboard skeleton ([ea93d87](https://gitlab.com/pds_uoc_craft/myhealth/commit/ea93d87))
+* feat: create menu factory and add views skeleton ([47722b4](https://gitlab.com/pds_uoc_craft/myhealth/commit/47722b4))
+* feat: improve templates and add a security layer ([e1c56a2](https://gitlab.com/pds_uoc_craft/myhealth/commit/e1c56a2))
+* feat: reimplement managed beans and entities ([4b2eaa0](https://gitlab.com/pds_uoc_craft/myhealth/commit/4b2eaa0))
+* feat: reimplement system administration components ([920d994](https://gitlab.com/pds_uoc_craft/myhealth/commit/920d994))
+* fix: bug in the view forgot password ([46a5615](https://gitlab.com/pds_uoc_craft/myhealth/commit/46a5615))
+* fix: change intellij based project to a eclipse one ([c193b79](https://gitlab.com/pds_uoc_craft/myhealth/commit/c193b79))
+* Actualizado CONTRIBUTING.md ([084ce24](https://gitlab.com/pds_uoc_craft/myhealth/commit/084ce24))
+* Clases JPA iniciales ([9e712ac](https://gitlab.com/pds_uoc_craft/myhealth/commit/9e712ac))
+* EJB de SystemAdministrator ([d49c45f](https://gitlab.com/pds_uoc_craft/myhealth/commit/d49c45f))
+* SystemAdministration View ([8e941dc](https://gitlab.com/pds_uoc_craft/myhealth/commit/8e941dc))
+* Update CONTRIBUTING.md ([cd1a8dd](https://gitlab.com/pds_uoc_craft/myhealth/commit/cd1a8dd))
+* build: create project skeleton ([f734b25](https://gitlab.com/pds_uoc_craft/myhealth/commit/f734b25))
+* build: initial commit ([2ea1dfd](https://gitlab.com/pds_uoc_craft/myhealth/commit/2ea1dfd))
+* docs: edit readme ([609e050](https://gitlab.com/pds_uoc_craft/myhealth/commit/609e050))
 * docs: generate initial changelog ([5d923e4](https://gitlab.com/pds_uoc_craft/myhealth/commit/5d923e4))
 * docs: update changelog ([510147a](https://gitlab.com/pds_uoc_craft/myhealth/commit/510147a))
-* build: initial commit ([2ea1dfd](https://gitlab.com/pds_uoc_craft/myhealth/commit/2ea1dfd))
+* docs: update readme info ([8e18e94](https://gitlab.com/pds_uoc_craft/myhealth/commit/8e18e94))
 
 
 

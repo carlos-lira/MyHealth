@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+
+	<ui:define name="content">
+		<!-- Title page -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['visits.title']}" />
+			</h1>
+		</div>
+		<!-- Table -->
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<div class="table-responsive" style="padding: 0 .75rem;">
+					<h:form>
+						<table class="js-datatable table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['doctor']}" />Id</th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['patient']}" />Id</th>
+									<th><h:outputText value="#{msg['patient']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['doctor']}" />Id</th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['patient']}" />Id</th>
+									<th><h:outputText value="#{msg['patient']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item"
+									value="#{listallvisits.listAllScheduledVisits()}">
+									<tr>
+										<td>
+											<div class="d-flex justify-content-center">
+												<h:commandLink action="#{showvisit.showVisit(item)}"
+													styleClass="btn btn-sm btn-default shadow-sm mx-2"
+													title="#{msg['visits.modal.read.tilte']}">
+													<i class="fas fa-eye fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink action="#{updatevisit.visitToUpdate(item)}"
+													styleClass="btn btn-sm btn-info shadow-sm mx-2"
+													title="#{msg['visits.modal.update.tilte']}">
+													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+												</h:commandLink>
+											</div>
+										</td>
+										<td><h:outputText value="#{item.familyDoctor.id}" /></td>
+										<td><h:outputText
+												value="#{item.familyDoctor.name} #{item.familyDoctor.surnames}" /></td>
+										<td><h:outputText value="#{item.patient.id}" /></td>
+										<td><h:outputText
+												value="#{item.patient.name} #{item.patient.surnames}" /></td>
+										<td><h:outputText value="#{item.date}">
+												<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+											</h:outputText></td>
+										<td><h:outputText value="#{item.date}">
+												<f:convertDateTime type="time" timeStyle="short" />
+											</h:outputText></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.js-datatable').DataTable({
+						responsive : true
+					});
+				});
+			})(jQuery)
+		</script>
+	</ui:define>
+</ui:composition>

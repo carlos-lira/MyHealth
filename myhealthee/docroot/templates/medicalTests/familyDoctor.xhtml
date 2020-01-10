@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+	<div class="col-md-12 mb-4">
+		<div class="card shadow">
+			<div class="card-body">
+				<div class="table-responsive" style="padding: 0 .75rem;">
+					<h:form>
+						<table class="js-datatable table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+									<th><h:outputText value="#{msg['type']}" /></th>
+									<th><h:outputText value="#{msg['result']}" /></th>
+									<th><h:outputText value="#{msg['patient.nif']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+									<th><h:outputText value="#{msg['type']}" /></th>
+									<th><h:outputText value="#{msg['result']}" /></th>
+									<th><h:outputText value="#{msg['patient.nif']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item"
+									value="#{familyDoctorMedicalTest.listMedicalTests}">
+									<tr>
+										<td>
+											<div class="d-flex justify-content-center">
+												<h:commandLink
+													actionListener="#{familyDoctorMedicalTest.openModal(operation.read, item)}"
+													styleClass="btn btn-sm btn-default shadow-sm mx-2"
+													title="#{msg['medicalspecialities.modal.read.tilte']}">
+													<i class="fas fa-eye fa-sm fa-fw"></i>
+												</h:commandLink>
+											</div>
+										</td>
+										<td><h:outputText value="#{item.date}">
+												<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+											</h:outputText></td>
+										<td><h:outputText value="#{item.time}">
+												<f:convertDateTime type="time" timeStyle="short" />
+											</h:outputText></td>
+										<td><h:outputText value="#{item.testType}" /></td>
+										<td><h:outputText value="#{item.result}" /></td>
+										<td><h:outputText value="#{item.patient.nif}" /></td>
+										<td><h:outputText value="#{item.patient.name}" /></td>
+										<td><h:outputText value="#{item.patient.surnames}" /></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<c:if test="#{operation.hasOperation(familyDoctorMedicalTest.mode)}">
+		<div class="modal fade" id="crudModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title">
+								<h:outputText
+									value="#{msg['medicalspecialities.modal.read.tilte']}" />
+							</h5>
+						</div>
+						<div class="modal-body">
+							<div class="form-group row">
+								<div class="col-sm-6 mb-sm-0">
+									<h:inputText class="form-control" a:type="date"
+										a:placeholder="#{msg['date']}"
+										value="#{familyDoctorMedicalTest.medicalTest.date}"
+										disabled="true" readonly="true">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:inputText>
+								</div>
+								<div class="col-sm-6">
+									<h:inputText class="form-control" a:type="time" a:step="900"
+										a:placeholder="#{msg['time']}"
+										value="#{familyDoctorMedicalTest.medicalTest.time}"
+										disabled="true" readonly="true">
+										<f:convertDateTime pattern="HH:mm" />
+									</h:inputText>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<h:inputText class="form-control"
+										a:placeholder="#{msg['medicaltest.modal.placeholder.testType']}"
+										value="#{familyDoctorMedicalTest.medicalTest.testType}"
+										disabled="true" readonly="true" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-12">
+									<h:inputText class="form-control"
+										a:placeholder="#{msg['medicaltest.modal.placeholder.result']}"
+										value="#{familyDoctorMedicalTest.medicalTest.result}"
+										disabled="true" readonly="true" />
+								</div>
+							</div>
+							<!-- Image -->
+							<div class="form-group row">
+								<c:if
+									test="#{familyDoctorMedicalTest.highResImageBase64 != null}">
+									<div class="col-sm-12 mt-4">
+										<div>
+											<h:outputText value="#{msg['image']}" />
+											<span>:</span>
+										</div>
+										<img class="img-fluid"
+											src="#{familyDoctorMedicalTest.highResImageBase64}" />
+										<div>
+											<a href="#{familyDoctorMedicalTest.highResImageBase64}"
+												class="btn btn-success btn-sm" download="highResImage.png">
+												<span><h:outputText value="#{msg['download']}" /></span>
+											</a>
+										</div>
+									</div>
+								</c:if>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary"
+								action="#{familyDoctorMedicalTest.closeModal}" immediate="true" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</c:if>
+
+</ui:composition>

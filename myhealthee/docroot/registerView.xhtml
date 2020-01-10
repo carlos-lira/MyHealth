@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/templates/baseLogin.xhtml">
+
+	<!-- Background image -->
+	<ui:define name="bgimage">
+		<div class="col-lg-6 d-none d-lg-block bg-register-image"></div>
+	</ui:define>
+
+	<!-- Content -->
+	<ui:define name="content">
+		<div class="text-center">
+			<h1 class="h4 text-gray-900 mb-4">
+				<h:outputText value="#{msg['register.title']}" />
+			</h1>
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
+		</div>
+		<ul class="nav nav-tabs">
+			<li class="nav-item" style="font-size: 0.8rem;"><a
+				class="nav-link active" data-toggle="tab" href="#registerPatient"><h:outputText
+						value="#{msg['register.tabs.patient']}" /></a></li>
+			<li class="nav-item" style="font-size: 0.8rem;"><a
+				class="nav-link" data-toggle="tab" href="#registerFamilyDoctor"><h:outputText
+						value="#{msg['register.tabs.doctor']}" /></a></li>
+			<li class="nav-item" style="font-size: 0.8rem;"><a
+				class="nav-link" data-toggle="tab" href="#registerAdministrator"><h:outputText
+						value="#{msg['register.tabs.administrator']}" /></a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="registerPatient">
+				<ui:include src="/templates/register/patient.xhtml" />
+			</div>
+			<div class="tab-pane fade" id="registerFamilyDoctor">
+				<ui:include src="/templates/register/doctor.xhtml" />
+			</div>
+			<div class="tab-pane fade" id="registerAdministrator">
+				<ui:include src="/templates/register/administrator.xhtml" />
+			</div>
+		</div>
+		<hr />
+		<div class="text-center">
+			<h:link value="#{msg['login.forgotPassword']}" class="small"
+				outcome="forgotPasswordView" />
+		</div>
+		<div class="text-center">
+			<h:link value="#{msg['login.login']}" class="small"
+				outcome="loginView" />
+		</div>
+		<script>
+			(function($) {
+				$(function() {
+					$("body > .container > .row > div")
+							.removeClass("col-xl-10").addClass("col-xl-12");
+
+					// Tabs state using session storage.
+					$("ul.nav-tabs > li > a").click(function(e) {
+						e.preventDefault();
+						$(this).tab('show');
+						const id = $(e.target).attr("href").substr(1);
+						sessionStorage.setItem("tab", "#" + id);
+					});
+					// on load of the page: switch to the currently selected tab
+					const hash = sessionStorage.getItem('tab');
+					if (hash) {
+						$('ul.nav-tabs > li > a[href="' + hash + '"]').tab(
+								'show');
+					}
+				});
+			})(jQuery);
+		</script>
+	</ui:define>
+</ui:composition>

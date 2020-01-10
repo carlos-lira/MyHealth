@@ -1,0 +1,13 @@
+<application>
+  <display-name>MyHealth</display-name>
+  <module>
+    <web>
+      <web-uri>MyHealth.war</web-uri>
+      <context-root>/myhealthee</context-root>
+    </web>
+  </module>
+  <module>
+    <ejb>MyHealth.jar</ejb>
+  </module>
+</application>
+

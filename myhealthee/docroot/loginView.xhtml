@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/baseLogin.xhtml">
+
+	<!-- Background image -->
+	<ui:define name="bgimage">
+		<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+	</ui:define>
+
+	<!-- Content -->
+	<ui:define name="content">
+		<div class="text-center">
+			<h1 class="h4 text-gray-900 mb-4">
+				<h:outputText value="#{msg['login.title']}" />
+			</h1>
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
+		</div>
+		<h:form class="user">
+			<div class="form-group">
+				<h:inputText id="login_id" value="#{login.id}"
+					class="form-control form-control-user" required="true"
+					a:placeholder="#{msg['login.placeholder.username']}"
+					requiredMessage="#{msg['login.required.username']}" />
+				<div class="invalid-feedback d-block">
+					<h:message for="login_id" />
+				</div>
+			</div>
+			<div class="form-group">
+				<h:inputSecret id="login_password" value="#{login.password}"
+					class="form-control form-control-user" required="true"
+					a:placeholder="#{msg['login.placeholder.password']}"
+					requiredMessage="#{msg['login.required.password']} " />
+				<div class="invalid-feedback d-block">
+					<h:message for="login_password" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="custom-control custom-checkbox small">
+					<h:selectBooleanCheckbox value="#{login.rememberMe}"
+						class="custom-control-input" id="rememberMe" />
+					<h:outputLabel value="#{msg['login.rememberme']}" class="custom-control-label"
+						for="rememberMe" />
+				</div>
+			</div>
+			<h:commandButton value="#{msg['login.btn.login']}"
+				class="btn btn-primary btn-user btn-block" action="#{login.login}" />
+		</h:form>
+		<hr />
+		<div class="text-center">
+			<h:link value="#{msg['login.forgotPassword']}" class="small"
+				outcome="forgotPasswordView" />
+		</div>
+		<div class="text-center">
+			<h:link value="#{msg['login.createAccount']}" class="small"
+				outcome="registerView" />
+		</div>
+	</ui:define>
+</ui:composition>

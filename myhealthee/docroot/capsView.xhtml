@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/templates/dashboard.xhtml">
+
+	<ui:define name="content">
+		<!-- Title page -->
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['caps.title']}" />
+			</h1>
+			<h:form>
+				<h:commandLink actionListener="#{cap.openModal(operation.create)}"
+					styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+					<i class="fas fa-plus fa-sm text-white-50"></i>
+					<span><h:outputText value="#{msg['caps.add']}" /></span>
+				</h:commandLink>
+			</h:form>
+		</div>
+
+		<!-- Messages -->
+		<p class="mb-4">
+			<h:messages globalOnly="true" style="text-align: left;"
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
+		</p>
+
+		<!-- Table -->
+		<div class="card shadow mb-4">
+			<div class="card-body">
+				<div class="table-responsive" style="padding: 0 .75rem;">
+					<h:form>
+						<table class="js-datatable table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['name']}" /></th>
+									<th><h:outputText value="#{msg['location']}" /></th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['name']}" /></th>
+									<th><h:outputText value="#{msg['location']}" /></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<ui:repeat var="item" value="#{cap.listCaps}">
+									<tr>
+										<td>
+											<div class="d-flex justify-content-center">
+												<h:commandLink
+													actionListener="#{cap.openModal(operation.read, item)}"
+													styleClass="btn btn-sm btn-default shadow-sm mx-2"
+													title="#{msg['caps.modal.read.tilte']}">
+													<i class="fas fa-eye fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink
+													actionListener="#{cap.openModal(operation.update, item)}"
+													styleClass="btn btn-sm btn-info shadow-sm mx-2"
+													title="#{msg['caps.modal.update.tilte']}">
+													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink
+													actionListener="#{cap.openModal(operation.delete, item)}"
+													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
+													title="#{msg['caps.modal.delete.tilte']}">
+													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
+												</h:commandLink>
+												<h:commandLink
+													actionListener="#{cap.openFamilyDoctorByCapModal(item)}"
+													styleClass="btn btn-sm btn-success shadow-sm mx-2"
+													title="#{msg['caps.modal.familydoctors.read.tilte']}">
+													<i class="fas fa-user-md fa-sm fa-fw"></i>
+												</h:commandLink>
+											</div>
+										</td>
+										<td><h:outputText value="#{item.name}" /></td>
+										<td><h:outputText value="#{item.location}" /></td>
+									</tr>
+								</ui:repeat>
+							</tbody>
+						</table>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="crudModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<h:form>
+						<div class="modal-header">
+							<h5 class="modal-title">
+								<c:if test="#{operation.isCreate(cap.mode)}">
+									<h:outputText value="#{msg['caps.modal.create.tilte']}" />
+								</c:if>
+								<c:if test="#{operation.isRead(cap.mode)}">
+									<h:outputText value="#{msg['caps.modal.read.tilte']}" />
+								</c:if>
+								<c:if test="#{operation.isUpdate(cap.mode)}">
+									<h:outputText value="#{msg['caps.modal.update.tilte']}" />
+								</c:if>
+								<c:if test="#{operation.isDelete(cap.mode)}">
+									<h:outputText value="#{msg['caps.modal.delete.tilte']}" />
+								</c:if>
+							</h5>
+						</div>
+						<div class="modal-body">
+							<c:choose>
+								<c:when test="#{operation.isDelete(cap.mode)}">
+									<div class="form-group">
+										<h6 class="font-weight-bold">
+											<h:outputText value="#{msg['modal.delete.message']}" />
+										</h6>
+										<p>
+											<h:outputText value="#{msg['modal.delete.message2']}" />
+										</p>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="form-group">
+										<h:inputText class="form-control"
+											disabled="#{operation.isDisabled(cap.mode)}" id="name"
+											value="#{cap.cap.name}"
+											a:placeholder="#{msg['caps.modal.placeholder.name']}"
+											requiredMessage="#{msg['caps.modal.required.name']}"
+											required="true" />
+										<div class="invalid-feedback d-block">
+											<h:message for="name" />
+										</div>
+									</div>
+									<div class="form-group">
+										<h:inputTextarea class="form-control"
+											disabled="#{operation.isRead(cap.mode)}" id="location"
+											value="#{cap.cap.location}"
+											a:placeholder="#{msg['caps.modal.placeholder.location']}"
+											requiredMessage="#{msg['caps.modal.required.location']}"
+											required="true" />
+										<div class="invalid-feedback d-block">
+											<h:message for="location" />
+										</div>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="modal-footer">
+							<c:if test="#{operation.isCreate(cap.mode)}">
+								<h:commandButton value="#{msg['add']}" class="btn btn-primary"
+									action="#{cap.addCAP}" />
+							</c:if>
+							<c:if test="#{operation.isUpdate(cap.mode)}">
+								<h:commandButton value="#{msg['update']}"
+									class="btn btn-primary" action="#{cap.updateCAP}" />
+							</c:if>
+							<c:if test="#{operation.isDelete(cap.mode)}">
+								<h:commandButton value="#{msg['delete']}" class="btn btn-danger"
+									action="#{cap.deleteCAP}" />
+							</c:if>
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary" action="#{cap.closeModal}"
+								immediate="true" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal family doctors by cap -->
+		<div class="modal fade" id="familyDoctorsByCapModal" tabindex="-1"
+			data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-lg" role="document">
+				<h:form>
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">
+								<h:outputText value="#{msg['caps.modal.familydoctors.title']}" />
+							</h5>
+						</div>
+						<div class="modal-body">
+							<table class="datatable table table-bordered">
+								<thead>
+									<tr>
+										<th><h:outputText value="#{msg['doctor.name']}" /></th>
+										<th><h:outputText value="#{msg['numusers']}" /></th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th><h:outputText value="#{msg['doctor.name']}" /></th>
+										<th><h:outputText value="#{msg['numusers']}" /></th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<ui:repeat var="item" value="#{cap.familyDoctorsByCap}">
+										<tr>
+											<td><h:outputText value="#{item.name}" /></td>
+											<td><h:outputText value="#{item.patients.size()}" /></td>
+										</tr>
+									</ui:repeat>
+								</tbody>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary" action="#{cap.closeModal}"
+								immediate="true" />
+						</div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+
+		<!-- Js functionality -->
+		<script>
+			(function($) {
+				$(function() {
+					$('.datatable').DataTable({
+						responsive: true
+					});
+					$('.js-datatable').DataTable({
+						responsive: true,
+						"columnDefs": [
+							{ "orderable": false, "targets": 0 }
+						],
+						"order": [[ 1, "asc" ]]
+					});
+					
+					// Open modal if has operation
+					if (#{operation.hasOperation(cap.mode)}) {
+						$('#crudModal').modal('show');
+					}
+					
+					// Open family doctors modal by cap
+					if (#{cap.isFamilyDoctorsByCapModal()}) {
+						$('#familyDoctorsByCapModal').modal('show');
+					}
+				});
+			})(jQuery)
+		</script>
+	</ui:define>
+</ui:composition>
