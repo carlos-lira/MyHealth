@@ -20,6 +20,7 @@ import entity.imp.MedicalSpeciality;
 import entity.imp.PrimaryHealthCareCenter;
 import security.Cypher;
 import security.HashAlgorithm;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.QueryNames;
 
@@ -78,13 +79,18 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public boolean addUser(User user) {
 		try {
-			String rawPassword = user.getPassword();
-			user.setPassword(Cypher.createHashedPassword(algorithm, rawPassword));
-			em.persist(user);
-			em.flush();
-			return true;
+			if (user != null) {
+				String rawPassword = user.getPassword();
+				user.setPassword(Cypher.createHashedPassword(algorithm, rawPassword));
+				em.persist(user);
+				em.flush();
+				return true;
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.010000"));
+			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 		return false;
 	}
@@ -104,9 +110,12 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				em.merge(user);
 				em.flush();
 				return true;
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.010000"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 		return false;
 	}
@@ -120,9 +129,12 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				em.remove(user);
 				em.flush();
 				return true;
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.010000"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 		return false;
 	}
@@ -160,10 +172,11 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				em.persist(cap);
 				em.flush();
 			} else {
-				Messages.addErrorGlobalMessage("The primary healthcare center already exists");
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000700"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -176,9 +189,12 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				cap.setLocation(location);
 				em.merge(cap);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000007"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -191,9 +207,12 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				cap.removeAllFamilyDoctors();
 				em.remove(cap);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("systemAdministration.error.000007"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -241,10 +260,11 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				em.persist(ms);
 				em.flush();
 			} else {
-				Messages.addErrorGlobalMessage("The medical specialty already exists");
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000800"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -257,9 +277,12 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				ms.setDescription(description);
 				em.merge(ms);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000008"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -272,9 +295,12 @@ public class SystemAdministrationFacade implements SystemAdministrationFacadeRem
 				ms.removeAllSpecialistDoctors();
 				em.remove(ms);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000008"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 }

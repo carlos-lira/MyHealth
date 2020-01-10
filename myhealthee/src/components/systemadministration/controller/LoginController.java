@@ -9,6 +9,7 @@ import javax.inject.Named;
 import components.systemadministration.dao.SystemAdministrationFacadeRemote;
 import configuration.ApplicationInitializer;
 import entity.User;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 
@@ -44,7 +45,7 @@ public class LoginController implements Serializable {
 			}
 			return "homeView";
 		}
-		Messages.addErrorGlobalMessage("The username, email or password are not corrects");
+		Messages.addErrorGlobalMessage(I18n.translate("systemAdministration.error.000001"));
 		return null;
 	}
 
@@ -53,7 +54,7 @@ public class LoginController implements Serializable {
 	 */
 	public String logout() {
 		SessionUtils.getSession().invalidate();
-		Messages.addInfoGlobalMessage("You are now logged out.");
+		Messages.addInfoGlobalMessage(I18n.translate("systemAdministration.info.000001"));
 		return "loginView";
 	}
 
@@ -62,7 +63,7 @@ public class LoginController implements Serializable {
 	 */
 	public String resetPassword() {
 		if (ApplicationInitializer.SMTP_HOST == null || ApplicationInitializer.SMTP_HOST.equals("")) {
-			Messages.addWarnGlobalMessage("Unable to send emails, smtp service not available.");
+			Messages.addWarnGlobalMessage(I18n.translate("systemAdministration.warn.000001"));
 			return null;
 		}
 		// Try to send the email

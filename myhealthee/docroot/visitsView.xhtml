@@ -10,7 +10,9 @@
 	<ui:define name="content">
 		<!-- Title page -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Visits</h1>
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['visits.title']}" />
+			</h1>
 		</div>
 		<!-- Table -->
 		<div class="card shadow mb-4">
@@ -20,24 +22,30 @@
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operaciones</th>
-									<th style="width: 10%;">DoctorId</th>
-									<th>Doctor</th>
-									<th style="width: 10%;">PacienteId</th>
-									<th>Paciente</th>
-									<th>Dia</th>
-									<th>Hora</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['doctor']}" />Id</th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['patient']}" />Id</th>
+									<th><h:outputText value="#{msg['patient']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th style="width: 10%;">Operaciones</th>
-									<th style="width: 10%;">DoctorId</th>
-									<th>Doctor</th>
-									<th style="width: 10%;">PacienteId</th>
-									<th>Paciente</th>
-									<th>Dia</th>
-									<th>Hora</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['doctor']}" />Id</th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['patient']}" />Id</th>
+									<th><h:outputText value="#{msg['patient']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -48,12 +56,12 @@
 											<div class="d-flex justify-content-center">
 												<h:commandLink action="#{showvisit.showVisit(item)}"
 													styleClass="btn btn-sm btn-default shadow-sm mx-2"
-													title="Show">
+													title="#{msg['visits.modal.read.tilte']}">
 													<i class="fas fa-eye fa-sm fa-fw"></i>
 												</h:commandLink>
 												<h:commandLink action="#{updatevisit.visitToUpdate(item)}"
 													styleClass="btn btn-sm btn-info shadow-sm mx-2"
-													title="Update">
+													title="#{msg['visits.modal.update.tilte']}">
 													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
 												</h:commandLink>
 											</div>
@@ -83,7 +91,9 @@
 		<script>
 			(function($) {
 				$(function() {
-					$('.js-datatable').DataTable();
+					$('.js-datatable').DataTable({
+						responsive : true
+					});
 				});
 			})(jQuery)
 		</script>

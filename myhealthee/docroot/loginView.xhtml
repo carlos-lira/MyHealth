@@ -18,14 +18,15 @@
 				<h:outputText value="#{msg['login.title']}" />
 			</h1>
 			<h:messages globalOnly="true" style="text-align: left;"
-				errorStyle="color:red;" infoStyle="color:blue;" />
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
 		</div>
 		<h:form class="user">
 			<div class="form-group">
 				<h:inputText id="login_id" value="#{login.id}"
 					class="form-control form-control-user" required="true"
-					a:placeholder="Enter a Username or an Email Address..."
-					requiredMessage="An Email or username is required." />
+					a:placeholder="#{msg['login.placeholder.username']}"
+					requiredMessage="#{msg['login.required.username']}" />
 				<div class="invalid-feedback d-block">
 					<h:message for="login_id" />
 				</div>
@@ -33,8 +34,8 @@
 			<div class="form-group">
 				<h:inputSecret id="login_password" value="#{login.password}"
 					class="form-control form-control-user" required="true"
-					a:placeholder="Password"
-					requiredMessage="The password field is required." />
+					a:placeholder="#{msg['login.placeholder.password']}"
+					requiredMessage="#{msg['login.required.password']} " />
 				<div class="invalid-feedback d-block">
 					<h:message for="login_password" />
 				</div>
@@ -43,20 +44,20 @@
 				<div class="custom-control custom-checkbox small">
 					<h:selectBooleanCheckbox value="#{login.rememberMe}"
 						class="custom-control-input" id="rememberMe" />
-					<h:outputLabel value="Remember Me" class="custom-control-label"
+					<h:outputLabel value="#{msg['login.rememberme']}" class="custom-control-label"
 						for="rememberMe" />
 				</div>
 			</div>
-			<h:commandButton value="Login"
+			<h:commandButton value="#{msg['login.btn.login']}"
 				class="btn btn-primary btn-user btn-block" action="#{login.login}" />
 		</h:form>
 		<hr />
 		<div class="text-center">
-			<h:link value="Forgot Password?" class="small"
+			<h:link value="#{msg['login.forgotPassword']}" class="small"
 				outcome="forgotPasswordView" />
 		</div>
 		<div class="text-center">
-			<h:link value="Create an Account!" class="small"
+			<h:link value="#{msg['login.createAccount']}" class="small"
 				outcome="registerView" />
 		</div>
 	</ui:define>

@@ -18,5 +18,5 @@ public final class SessionKeys {
 	public static final String USER = "user";
 	public static final String LANGUAGE = "language";
 	public static final String COUNTRY = "country";
-	
+
 }

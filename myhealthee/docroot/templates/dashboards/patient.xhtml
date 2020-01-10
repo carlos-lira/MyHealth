@@ -17,7 +17,9 @@
 		<a href="#addVisit" class="d-block card-header py-3"
 			data-toggle="collapse" role="button" aria-expanded="true"
 			aria-controls="collapseCardExample">
-			<h6 class="m-0 font-weight-bold text-primary">Mis Visitas</h6>
+			<h6 class="m-0 font-weight-bold text-primary">
+				<h:outputText value="#{msg['dashboard.patient.myvisits']}" />
+			</h6>
 		</a>
 		<div id="addVisit" class="collapse show">
 			<div class="card-body">
@@ -26,18 +28,18 @@
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operaciones</th>
-									<th>Doctor</th>
-									<th>Dia</th>
-									<th>Hora</th>
+									<th style="width: 10%;"><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th style="width: 10%;">Operaciones</th>
-									<th>Doctor</th>
-									<th>Dia</th>
-									<th>Hora</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['doctor']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -77,29 +79,29 @@
 						</table>
 					</h:form>
 				</div>
-				
+
 				<!-- Add visit -->
 				<h:form>
-					<span>Fecha</span>
+					<span><h:outputText value="#{msg['date']}" /></span>
 					<br />
 					<h:inputText class="form-control" a:type="date" id="addDateInput"
 						value="#{addvisit.date}" required="true"
-						requiredMessage="Por favor introduzca una fecha.">
+						requiredMessage="#{msg['dashboard.patient.required.date']}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:inputText>
 					<h:message for="addDateInput" style="color:red" />
 					<br />
-					<span>Hora</span>
+					<span><h:outputText value="#{msg['time']}" /></span>
 					<br />
 					<h:inputText class="form-control" a:type="time" a:step="900"
 						id="addTimeInput" value="#{addvisit.time}" required="true"
-						requiredMessage="Por favor introduzca una hora.">
+						requiredMessage="#{msg['dashboard.patient.required.time']}">
 						<f:convertDateTime pattern="HH:mm" />
 					</h:inputText>
 					<h:message for="addTimeInput" style="color:red" />
 					<br />
 					<h:commandButton class="btn btn-primary btn-block"
-						value="Solicitar visita" type="submit"
+						value="#{msg['dashboard.patient.btn.requestvisit']}" type="submit"
 						action="#{addvisit.addVisit}" />
 				</h:form>
 			</div>

@@ -10,13 +10,16 @@
 	<ui:define name="content">
 		<!-- Title Page -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Actualizar datos personales</h1>
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['profile.title']}" />
+			</h1>
 		</div>
 
 		<!-- Messages -->
 		<p class="mb-4">
 			<h:messages globalOnly="true" style="text-align: left;"
-				errorStyle="color:red;" infoStyle="color:blue;" />
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
 		</p>
 
 		<div class="card shadow mb-4">
@@ -29,7 +32,7 @@
 								<h:inputText class="form-control" disabled="true"
 									id="register_administrator-username" a:placeholder="Username"
 									value="#{administratorProfile.administrator.username}"
-									requiredMessage="The username field is required."
+									requiredMessage="#{msg['profile.required.username']}"
 									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_administrator-username" />
@@ -39,7 +42,8 @@
 								<h:inputText class="form-control"
 									id="register_administrator-email" a:placeholder="Email"
 									value="#{administratorProfile.administrator.email}"
-									requiredMessage="The email field is required." required="true" />
+									requiredMessage="#{msg['profile.required.email']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_administrator-email" />
 								</div>
@@ -50,18 +54,18 @@
 								<h:inputSecret class="form-control"
 									id="register_administrator-password" a:placeholder="Password"
 									value="#{administratorProfile.administrator.password}"
-									requiredMessage="The password field is required." />
+									requiredMessage="#{msg['profile.required.password']}" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_administrator-password" />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<h:inputSecret class="form-control"
-									a:placeholder="Repeat Password"
+									a:placeholder="#{msg['profile.placeholder.rpassword']}"
 									value="#{administratorProfile.administrator.repeatPassword}" />
 							</div>
 						</div>
-						<h:commandButton value="Update" class="btn btn-primary"
+						<h:commandButton value="#{msg['update']}" class="btn btn-primary"
 							action="#{administratorProfile.updateProfile}" />
 					</h:form>
 				</c:if>
@@ -72,16 +76,20 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputText class="form-control" id="register_patient-nif"
-									a:placeholder="Nif" value="#{patientProfile.patient.nif}"
-									requiredMessage="The nif field is required." required="true" />
+									value="#{patientProfile.patient.nif}"
+									a:placeholder="#{msg['profile.placeholder.nif']}"
+									requiredMessage="#{msg['profile.required.nif']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_patient-nif" />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<h:inputText class="form-control" id="register_patient-name"
-									a:placeholder="Name" value="#{patientProfile.patient.name}"
-									requiredMessage="The name field is required." required="true" />
+									value="#{patientProfile.patient.name}"
+									a:placeholder="#{msg['profile.placeholder.name']}"
+									requiredMessage="#{msg['profile.required.name']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_patient-name" />
 								</div>
@@ -90,9 +98,9 @@
 						<div class="form-group row">
 							<div class="col-sm-12">
 								<h:inputText class="form-control" id="register_patient-surnames"
-									a:placeholder="Surnames"
 									value="#{patientProfile.patient.surnames}"
-									requiredMessage="The surnames field is required."
+									a:placeholder="#{msg['profile.placeholder.surnames']}"
+									requiredMessage="#{msg['profile.required.surnames']}"
 									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_patient-surnames" />
@@ -102,9 +110,10 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputText class="form-control" disabled="true"
-									id="register_patient-username" a:placeholder="Username"
+									id="register_patient-username"
 									value="#{patientProfile.patient.username}"
-									requiredMessage="The username field is required."
+									a:placeholder="#{msg['profile.placeholder.username']}"
+									requiredMessage="#{msg['profile.required.username']}"
 									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_patient-username" />
@@ -112,8 +121,10 @@
 							</div>
 							<div class="col-sm-6">
 								<h:inputText class="form-control" id="register_patient-email"
-									a:placeholder="Email" value="#{patientProfile.patient.email}"
-									requiredMessage="The email field is required." required="true" />
+									value="#{patientProfile.patient.email}"
+									a:placeholder="#{msg['profile.placeholder.email']}"
+									requiredMessage="#{msg['profile.required.email']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_patient-email" />
 								</div>
@@ -122,42 +133,46 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputSecret class="form-control"
-									id="register_patient-password" a:placeholder="Password"
+									id="register_patient-password"
 									value="#{patientProfile.patient.password}"
-									requiredMessage="The password field is required." />
+									a:placeholder="#{msg['profile.placeholder.password']}"
+									requiredMessage="#{msg['profile.required.password']}" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_patient-password" />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<h:inputSecret class="form-control"
-									a:placeholder="Repeat Password"
+									a:placeholder="#{msg['profile.placeholder.rpassword']}"
 									value="#{patientProfile.patient.repeatPassword}" />
 							</div>
 						</div>
-						<h:commandButton value="Update" class="btn btn-primary"
+						<h:commandButton value="#{msg['update']}" class="btn btn-primary"
 							action="#{patientProfile.updateProfile}" />
 
 						<!-- Change family doctor -->
 						<div class="mt-5">
-							<h5 class="mb-3">Change Family doctor</h5>
+							<h5 class="mb-3">
+								<h:outputText
+									value="#{msg['profile.patient.change.familydoctor']}" />
+							</h5>
 							<table class="js-datatable table table-bordered">
 								<thead>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>Surnames</th>
-										<th>Cap name</th>
-										<th>Cap location</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['surnames']}" /></th>
+										<th><h:outputText value="#{msg['cap.name']}" /></th>
+										<th><h:outputText value="#{msg['cap.location']}" /></th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>Surnames</th>
-										<th>Cap name</th>
-										<th>Cap location</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['surnames']}" /></th>
+										<th><h:outputText value="#{msg['cap.name']}" /></th>
+										<th><h:outputText value="#{msg['cap.location']}" /></th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -170,12 +185,13 @@
 														actionListener="#{patientProfile.changeFamilyDoctorProfile(item)}"
 														rendered="#{patientProfile.patient.familyDoctor.username != item.username}"
 														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
-														title="Select doctor">
+														title="#{msg['profile.patient.select.familydoctor']}">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
 													<h:panelGroup
 														rendered="#{patientProfile.patient.familyDoctor.username == item.username}">
-														<span class="badge badge-info">Actual</span>
+														<span class="badge badge-info"><h:outputText
+																value="#{msg['actual']}" /></span>
 													</h:panelGroup>
 												</div>
 											</td>
@@ -199,16 +215,20 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputText class="form-control" id="register_doctor-nif"
-									a:placeholder="Nif" value="#{familyDoctorProfile.doctor.nif}"
-									requiredMessage="The nif field is required." required="true" />
+									value="#{familyDoctorProfile.doctor.nif}"
+									a:placeholder="#{msg['profile.placeholder.nif']}"
+									requiredMessage="#{msg['profile.required.nif']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-nif" />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<h:inputText class="form-control" id="register_doctor-name"
-									a:placeholder="Name" value="#{familyDoctorProfile.doctor.name}"
-									requiredMessage="The name field is required." required="true" />
+									value="#{familyDoctorProfile.doctor.name}"
+									a:placeholder="#{msg['profile.placeholder.name']}"
+									requiredMessage="#{msg['profile.required.name']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-name" />
 								</div>
@@ -217,8 +237,8 @@
 						<div class="form-group row">
 							<div class="col-sm-12">
 								<h:inputText class="form-control" id="register_doctor-surnames"
-									a:placeholder="Surnames"
 									value="#{familyDoctorProfile.doctor.surnames}"
+									a:placeholder="#{msg['profile.placeholder.surnames']}"
 									requiredMessage="The surnames field is required."
 									required="true" />
 								<div class="invalid-feedback d-block">
@@ -229,9 +249,10 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputText class="form-control" disabled="true"
-									id="register_doctor-username" a:placeholder="Username"
+									id="register_doctor-username"
 									value="#{familyDoctorProfile.doctor.username}"
-									requiredMessage="The username field is required."
+									a:placeholder="#{msg['profile.placeholder.username']}"
+									requiredMessage="#{msg['profile.required.username']}"
 									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-username" />
@@ -239,9 +260,10 @@
 							</div>
 							<div class="col-sm-6">
 								<h:inputText class="form-control" id="register_doctor-email"
-									a:placeholder="Email"
 									value="#{familyDoctorProfile.doctor.email}"
-									requiredMessage="The email field is required." required="true" />
+									a:placeholder="#{msg['profile.placeholder.email']}"
+									requiredMessage="#{msg['profile.required.email']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-email" />
 								</div>
@@ -250,38 +272,41 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputSecret class="form-control"
-									id="register_doctor-password" a:placeholder="Password"
+									id="register_doctor-password"
 									value="#{familyDoctorProfile.doctor.password}"
-									requiredMessage="The password field is required." />
+									a:placeholder="#{msg['profile.placeholder.password']}"
+									requiredMessage="#{msg['profile.required.password']}" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-password" />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<h:inputSecret class="form-control"
-									a:placeholder="Repeat Password"
+									a:placeholder="#{msg['profile.placeholder.rpassword']}"
 									value="#{familyDoctorProfile.doctor.repeatPassword}" />
 							</div>
 						</div>
-						<h:commandButton value="Update" class="btn btn-primary"
+						<h:commandButton value="#{msg['update']}" class="btn btn-primary"
 							action="#{familyDoctorProfile.updateProfile}" />
 
 						<!-- Change cap -->
 						<div class="mt-5">
-							<h5 class="mb-3">Change CAP</h5>
+							<h5 class="mb-3">
+								<h:outputText value="#{msg['profile.familydoctor.change.cap']}" />
+							</h5>
 							<table class="js-datatable table table-bordered">
 								<thead>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>Location</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['location']}" /></th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>Location</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['location']}" /></th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -293,12 +318,13 @@
 														actionListener="#{familyDoctorProfile.changeCapProfile(item)}"
 														rendered="#{familyDoctorProfile.doctor.primaryHealthcareCenter.name != item.name}"
 														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
-														title="Select cap">
+														title="#{msg['profile.familydoctor.select.cap']}">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
 													<h:panelGroup
 														rendered="#{familyDoctorProfile.doctor.primaryHealthcareCenter.name == item.name}">
-														<span class="badge badge-info">Actual</span>
+														<span class="badge badge-info"><h:outputText
+																value="#{msg['actual']}" /></span>
 													</h:panelGroup>
 												</div>
 											</td>
@@ -318,18 +344,20 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputText class="form-control" id="register_doctor-nif"
-									a:placeholder="Nif"
 									value="#{specialistDoctorProfile.doctor.nif}"
-									requiredMessage="The nif field is required." required="true" />
+									a:placeholder="#{msg['profile.placeholder.nif']}"
+									requiredMessage="#{msg['profile.required.nif']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-nif" />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<h:inputText class="form-control" id="register_doctor-name"
-									a:placeholder="Name"
 									value="#{specialistDoctorProfile.doctor.name}"
-									requiredMessage="The name field is required." required="true" />
+									a:placeholder="#{msg['profile.placeholder.name']}"
+									requiredMessage="#{msg['profile.required.name']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-name" />
 								</div>
@@ -338,9 +366,9 @@
 						<div class="form-group row">
 							<div class="col-sm-12">
 								<h:inputText class="form-control" id="register_doctor-surnames"
-									a:placeholder="Surnames"
 									value="#{specialistDoctorProfile.doctor.surnames}"
-									requiredMessage="The surnames field is required."
+									a:placeholder="#{msg['profile.placeholder.surnames']}"
+									requiredMessage="#{msg['profile.required.surnames']}"
 									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-surnames" />
@@ -350,9 +378,10 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputText class="form-control" disabled="true"
-									id="register_doctor-username" a:placeholder="Username"
+									id="register_doctor-username"
 									value="#{specialistDoctorProfile.doctor.username}"
-									requiredMessage="The username field is required."
+									a:placeholder="#{msg['profile.placeholder.username']}"
+									requiredMessage="#{msg['profile.required.username']}"
 									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-username" />
@@ -360,9 +389,10 @@
 							</div>
 							<div class="col-sm-6">
 								<h:inputText class="form-control" id="register_doctor-email"
-									a:placeholder="Email"
 									value="#{specialistDoctorProfile.doctor.email}"
-									requiredMessage="The email field is required." required="true" />
+									a:placeholder="#{msg['profile.placeholder.email']}"
+									requiredMessage="#{msg['profile.required.email']}"
+									required="true" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-email" />
 								</div>
@@ -371,38 +401,42 @@
 						<div class="form-group row">
 							<div class="col-sm-6 mb-sm-0">
 								<h:inputSecret class="form-control"
-									id="register_doctor-password" a:placeholder="Password"
+									id="register_doctor-password"
 									value="#{specialistDoctorProfile.doctor.password}"
-									requiredMessage="The password field is required." />
+									a:placeholder="#{msg['profile.placeholder.password']}"
+									requiredMessage="#{msg['profile.required.password']}" />
 								<div class="invalid-feedback d-block">
 									<h:message for="register_doctor-password" />
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<h:inputSecret class="form-control"
-									a:placeholder="Repeat Password"
+									a:placeholder="#{msg['profile.placeholder.rpassword']}"
 									value="#{specialistDoctorProfile.doctor.repeatPassword}" />
 							</div>
 						</div>
-						<h:commandButton value="Update" class="btn btn-primary"
+						<h:commandButton value="#{msg['update']}" class="btn btn-primary"
 							action="#{specialistDoctorProfile.updateProfile}" />
 
 						<!-- Change medical specialty -->
 						<div class="mt-5">
-							<h5 class="mb-3">Change Medical specialty</h5>
+							<h5 class="mb-3">
+								<h:outputText
+									value="#{msg['profile.specialistdoctor.change.medicalspecialty']}" />
+							</h5>
 							<table class="js-datatable table table-bordered">
 								<thead>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>description</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['description']}" /></th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
 										<th></th>
-										<th>Name</th>
-										<th>description</th>
+										<th><h:outputText value="#{msg['name']}" /></th>
+										<th><h:outputText value="#{msg['description']}" /></th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -415,12 +449,13 @@
 														actionListener="#{specialistDoctorProfile.changeMedicalSpecialtyProfile(item)}"
 														rendered="#{!(specialistDoctorProfile.doctor.medicalSpeciality.equals(item))}"
 														styleClass="btn btn-sm btn-primary shadow-sm mx-2"
-														title="Select doctor">
+														title="#{msg['profile.specialistdoctor.select.medicalspecialty']}">
 														<i class="fas fa-mouse-pointer" />
 													</h:commandLink>
 													<h:panelGroup
 														rendered="#{(specialistDoctorProfile.doctor.medicalSpeciality.equals(item))}">
-														<span class="badge badge-info">Actual</span>
+														<span class="badge badge-info"><h:outputText
+																value="#{msg['actual']}" /></span>
 													</h:panelGroup>
 												</div>
 											</td>
@@ -442,6 +477,7 @@
 			(function($) {
 				$(function() {
 					$('.js-datatable').DataTable({
+						responsive: true,
 						"columnDefs" : [ {
 							"orderable" : false,
 							"targets" : 0

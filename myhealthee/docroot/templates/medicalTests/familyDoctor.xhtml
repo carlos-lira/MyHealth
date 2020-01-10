@@ -14,26 +14,27 @@
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operations</th>
-									<th>Date</th>
-									<th>Time</th>
-									<th>Type</th>
-									<th>Result</th>
-									<th>Patient nif</th>
-									<th>Patient name</th>
-									<th>Patient surnames</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+									<th><h:outputText value="#{msg['type']}" /></th>
+									<th><h:outputText value="#{msg['result']}" /></th>
+									<th><h:outputText value="#{msg['patient.nif']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Operations</th>
-									<th>Date</th>
-									<th>Time</th>
-									<th>Type</th>
-									<th>Result</th>
-									<th>Patient nif</th>
-									<th>Patient name</th>
-									<th>Patient surnames</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+									<th><h:outputText value="#{msg['type']}" /></th>
+									<th><h:outputText value="#{msg['result']}" /></th>
+									<th><h:outputText value="#{msg['patient.nif']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -45,7 +46,7 @@
 												<h:commandLink
 													actionListener="#{familyDoctorMedicalTest.openModal(operation.read, item)}"
 													styleClass="btn btn-sm btn-default shadow-sm mx-2"
-													title="Show">
+													title="#{msg['medicalspecialities.modal.read.tilte']}">
 													<i class="fas fa-eye fa-sm fa-fw"></i>
 												</h:commandLink>
 											</div>
@@ -80,14 +81,15 @@
 					<h:form>
 						<div class="modal-header">
 							<h5 class="modal-title">
-								<h:outputText value="Show Medical Test" />
+								<h:outputText
+									value="#{msg['medicalspecialities.modal.read.tilte']}" />
 							</h5>
 						</div>
 						<div class="modal-body">
 							<div class="form-group row">
 								<div class="col-sm-6 mb-sm-0">
 									<h:inputText class="form-control" a:type="date"
-										a:placeholder="Date"
+										a:placeholder="#{msg['date']}"
 										value="#{familyDoctorMedicalTest.medicalTest.date}"
 										disabled="true" readonly="true">
 										<f:convertDateTime pattern="yyyy-MM-dd" />
@@ -95,7 +97,7 @@
 								</div>
 								<div class="col-sm-6">
 									<h:inputText class="form-control" a:type="time" a:step="900"
-										a:placeholder="Time"
+										a:placeholder="#{msg['time']}"
 										value="#{familyDoctorMedicalTest.medicalTest.time}"
 										disabled="true" readonly="true">
 										<f:convertDateTime pattern="HH:mm" />
@@ -104,14 +106,16 @@
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<h:inputText class="form-control" a:placeholder="Test type"
+									<h:inputText class="form-control"
+										a:placeholder="#{msg['medicaltest.modal.placeholder.testType']}"
 										value="#{familyDoctorMedicalTest.medicalTest.testType}"
 										disabled="true" readonly="true" />
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12">
-									<h:inputText class="form-control" a:placeholder="Result"
+									<h:inputText class="form-control"
+										a:placeholder="#{msg['medicaltest.modal.placeholder.result']}"
 										value="#{familyDoctorMedicalTest.medicalTest.result}"
 										disabled="true" readonly="true" />
 								</div>
@@ -119,25 +123,27 @@
 							<!-- Image -->
 							<div class="form-group row">
 								<c:if
-									test="#{images.convertImageAsBase64(familyDoctorMedicalTest.medicalTest.highResImage) != null}">
+									test="#{familyDoctorMedicalTest.highResImageBase64 != null}">
 									<div class="col-sm-12 mt-4">
-										<div>Image:</div>
-										<img class="img-fluid"
-											src="#{images.convertImageAsBase64(familyDoctorMedicalTest.medicalTest.highResImage)}" />
 										<div>
-											<a
-												href="#{images.convertImageAsBase64(familyDoctorMedicalTest.medicalTest.highResImage)}"
+											<h:outputText value="#{msg['image']}" />
+											<span>:</span>
+										</div>
+										<img class="img-fluid"
+											src="#{familyDoctorMedicalTest.highResImageBase64}" />
+										<div>
+											<a href="#{familyDoctorMedicalTest.highResImageBase64}"
 												class="btn btn-success btn-sm" download="highResImage.png">
-												<span>Download</span>
+												<span><h:outputText value="#{msg['download']}" /></span>
 											</a>
 										</div>
-
 									</div>
 								</c:if>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary"
 								action="#{familyDoctorMedicalTest.closeModal}" immediate="true" />
 						</div>
 					</h:form>

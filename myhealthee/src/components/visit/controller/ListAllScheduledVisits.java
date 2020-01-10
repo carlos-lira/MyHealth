@@ -17,10 +17,15 @@ import entity.imp.Patient;
 import entity.imp.Visit;
 import utils.SessionUtils;
 
+/**
+ * List all visit managed bean.
+ * 
+ * @author clira
+ * @author adlo
+ */
 @Named("listallvisits")
 @SessionScoped
 public class ListAllScheduledVisits implements Serializable {
-
 	private static final long serialVersionUID = 2086597743467313039L;
 
 	@EJB
@@ -30,22 +35,24 @@ public class ListAllScheduledVisits implements Serializable {
 	private Date date;
 	private List<Visit> visits = new ArrayList<Visit>();
 
+	// ACTIONS
 	public List<Visit> listAllScheduledVisits() {
 		try {
 			User u = SessionUtils.getUser();
-			if (u.getClass() == Administrator.class)
-				this.visits = ejb.listAllScheduledVisits();
-			else if (u.getClass() == Patient.class)
-				this.visits = ejb.listAllScheduledVisits((Patient) u);
-			else if (u.getClass() == FamilyDoctor.class)
-				this.visits = ejb.listAllScheduledVisits((FamilyDoctor) u, date);
-
+			if (u instanceof Administrator) {
+				this.visits = (List<Visit>) ejb.listAllScheduledVisits();
+			} else if (u instanceof Patient) {
+				this.visits = (List<Visit>) ejb.listAllScheduledVisits((Patient) u);
+			} else if (u instanceof FamilyDoctor) {
+				this.visits = (List<Visit>) ejb.listAllScheduledVisits((FamilyDoctor) u, date);
+			}
 			return visits;
 		} catch (Exception e) {
 			return null;
 		}
 	}
 
+	// Getters & Setters
 	public long getId() {
 		return id;
 	}

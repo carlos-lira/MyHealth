@@ -10,13 +10,16 @@
 	<ui:define name="content">
 		<!-- Title page -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">Questions</h1>
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['questions.title']}" />
+			</h1>
 		</div>
 
 		<!-- Messages -->
 		<p class="mb-4">
 			<h:messages globalOnly="true" style="text-align: left;"
-				errorStyle="color:red;" infoStyle="color:blue;" />
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
 		</p>
 
 		<div class="row">
@@ -40,7 +43,9 @@
 		<script>
 			(function($) {
 				$(function() {
-					$('.js-datatable').DataTable();
+					$('.js-datatable').DataTable({
+						responsive : true
+					});
 
 					// Open modal if has operation
 					$('#crudModal').modal('show');

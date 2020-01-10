@@ -11,7 +11,9 @@
 		<div class="card shadow">
 			<a href="#administratorCard" class="d-block card-header py-3"
 				data-toggle="collapse">
-				<h6 class="m-0 font-weight-bold text-primary">Administrators</h6>
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText value="#{msg['users.administrators']}" />
+				</h6>
 			</a>
 			<div id="administratorCard" class="collapse show">
 				<div class="card-body">
@@ -20,21 +22,23 @@
 							actionListener="#{administratorProfile.openModal(operation.create)}"
 							styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4">
 							<i class="fas fa-plus fa-sm text-white-50"></i>
-							<span>Add Administrator</span>
+							<span><h:outputText
+									value="#{msg['users.administrators.add']}" /></span>
 						</h:commandLink>
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operations</th>
-									<th>Username</th>
-									<th>Email</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['username']}" /></th>
+									<th><h:outputText value="#{msg['email']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Operations</th>
-									<th>Username</th>
-									<th>Email</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['username']}" /></th>
+									<th><h:outputText value="#{msg['email']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -47,19 +51,19 @@
 													<h:commandLink
 														actionListener="#{administratorProfile.openModal(operation.read, item)}"
 														styleClass="btn btn-sm btn-default shadow-sm mx-2"
-														title="Show">
+														title="#{msg['users.administrators.modal.read.tilte']}">
 														<i class="fas fa-eye fa-sm fa-fw"></i>
 													</h:commandLink>
 													<h:commandLink
 														actionListener="#{administratorProfile.openModal(operation.update, item)}"
 														styleClass="btn btn-sm btn-info shadow-sm mx-2"
-														title="Update">
+														title="#{msg['users.administrators.modal.update.tilte']}">
 														<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
 													</h:commandLink>
 													<h:commandLink
 														actionListener="#{administratorProfile.openModal(operation.delete, item)}"
 														styleClass="btn btn-sm btn-danger shadow-sm mx-2"
-														title="Delete">
+														title="#{msg['users.administrators.modal.delete.tilte']}">
 														<i class="fas fa-trash-alt fa-sm fa-fw"></i>
 													</h:commandLink>
 												</div>
@@ -87,16 +91,20 @@
 						<div class="modal-header">
 							<h5 class="modal-title">
 								<c:if test="#{operation.isCreate(administratorProfile.mode)}">
-									<h:outputText value="Add Administrator" />
+									<h:outputText
+										value="#{msg['users.administrators.modal.create.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isRead(administratorProfile.mode)}">
-									<h:outputText value="Show Administrator" />
+									<h:outputText
+										value="#{msg['users.administrators.modal.read.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isUpdate(administratorProfile.mode)}">
-									<h:outputText value="Update Administrator" />
+									<h:outputText
+										value="#{msg['users.administrators.modal.update.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isDelete(administratorProfile.mode)}">
-									<h:outputText value="Delete Administrator" />
+									<h:outputText
+										value="#{msg['users.administrators.modal.delete.tilte']}" />
 								</c:if>
 							</h5>
 						</div>
@@ -106,8 +114,12 @@
 							<c:choose>
 								<c:when test="#{operation.isDelete(administratorProfile.mode)}">
 									<div class="form-group">
-										<h6 class="font-weight-bold">Are you sure?</h6>
-										<p>You won't be able to revert this!</p>
+										<h6 class="font-weight-bold">
+											<h:outputText value="#{msg['modal.delete.message']}" />
+										</h6>
+										<p>
+											<h:outputText value="#{msg['modal.delete.message2']}" />
+										</p>
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -116,9 +128,9 @@
 											<h:inputText class="form-control"
 												disabled="#{operation.isDisabled(administratorProfile.mode)}"
 												id="register_administrator-username"
-												a:placeholder="Username"
 												value="#{administratorProfile.administrator.username}"
-												requiredMessage="The username field is required."
+												a:placeholder="#{msg['profile.placeholder.username']}"
+												requiredMessage="#{msg['profile.required.username']}"
 												required="true" />
 											<div class="invalid-feedback d-block">
 												<h:message for="register_administrator-username" />
@@ -127,9 +139,10 @@
 										<div class="col-sm-6">
 											<h:inputText class="form-control"
 												disabled="#{operation.isRead(administratorProfile.mode)}"
-												id="register_administrator-email" a:placeholder="Email"
+												id="register_administrator-email"
 												value="#{administratorProfile.administrator.email}"
-												requiredMessage="The email field is required."
+												a:placeholder="#{msg['profile.placeholder.email']}"
+												requiredMessage="#{msg['profile.required.email']}"
 												required="true" />
 											<div class="invalid-feedback d-block">
 												<h:message for="register_administrator-email" />
@@ -142,16 +155,16 @@
 											<div class="col-sm-6 mb-sm-0">
 												<h:inputSecret class="form-control"
 													id="register_administrator-password"
-													a:placeholder="Password"
 													value="#{administratorProfile.administrator.password}"
-													requiredMessage="The password field is required." />
+													a:placeholder="#{msg['profile.placeholder.password']}"
+													requiredMessage="#{msg['profile.required.password']}" />
 												<div class="invalid-feedback d-block">
 													<h:message for="register_administrator-password" />
 												</div>
 											</div>
 											<div class="col-sm-6">
 												<h:inputSecret class="form-control"
-													a:placeholder="Repeat Password"
+													a:placeholder="#{msg['profile.placeholder.rpassword']}"
 													value="#{administratorProfile.administrator.repeatPassword}" />
 											</div>
 										</div>
@@ -161,18 +174,18 @@
 						</div>
 						<div class="modal-footer">
 							<c:if test="#{operation.isCreate(administratorProfile.mode)}">
-								<h:commandButton value="Add" class="btn btn-primary"
+								<h:commandButton value="#{msg['add']}" class="btn btn-primary"
 									action="#{administratorProfile.addAdministrator}" />
 							</c:if>
 							<c:if test="#{operation.isUpdate(administratorProfile.mode)}">
-								<h:commandButton value="Update" class="btn btn-primary"
+								<h:commandButton value="#{msg['update']}" class="btn btn-primary"
 									action="#{administratorProfile.updateAdministrator}" />
 							</c:if>
 							<c:if test="#{operation.isDelete(administratorProfile.mode)}">
-								<h:commandButton value="Delete" class="btn btn-danger"
+								<h:commandButton value="#{msg['delete']}" class="btn btn-danger"
 									action="#{administratorProfile.deleteAdministrator}" />
 							</c:if>
-							<h:commandButton value="Close" class="btn btn-secondary"
+							<h:commandButton value="#{msg['close']}" class="btn btn-secondary"
 								action="#{administratorProfile.closeModal}" immediate="true" />
 						</div>
 					</h:form>

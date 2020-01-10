@@ -26,6 +26,8 @@ import entity.imp.Patient;
 import entity.imp.Question;
 import entity.imp.Response;
 import entity.imp.SpecialistDoctor;
+import services.i18n.I18n;
+import utils.Messages;
 import utils.QueryNames;
 
 /**
@@ -110,9 +112,12 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 				patient.addQuestion(question);
 				em.persist(patient);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000003"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -128,9 +133,12 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 				q.setStatus(QuestionStatus.ANSWERED);
 				em.merge(q);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000004"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -143,9 +151,12 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 				question.getPatient().removeQuestion(question);
 				em.remove(question);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000004"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -214,9 +225,12 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 				patient.addMedicalTest(medicalTest);
 				em.merge(patient);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000003"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -230,9 +244,12 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 				medicalTest.getSpecialistDoctor().removeMedicalTest(medicalTest);
 				em.remove(medicalTest);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000006"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -245,9 +262,12 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 				medicalTest.setHighResImage(image);
 				em.merge(medicalTest);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000006"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -260,9 +280,12 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 				medicalTest.setHighResImage(null);
 				em.merge(medicalTest);
 				em.flush();
+			} else {
+				Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000006"));
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 	}
 
@@ -287,6 +310,7 @@ public class MedicalTestFacade implements MedicalTestFacadeRemote {
 			}
 		} catch (PersistenceException e) {
 			logger.error(e.getMessage());
+			Messages.addErrorGlobalMessage(I18n.translate("gobal.error.000001"));
 		}
 		return null;
 	}

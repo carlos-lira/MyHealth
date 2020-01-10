@@ -13,6 +13,7 @@ import components.systemadministration.dao.SystemAdministrationFacadeRemote;
 import entity.imp.MedicalSpeciality;
 import entity.imp.SpecialistDoctor;
 import services.crud.Operation;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 import utils.StringUtils;
@@ -86,12 +87,12 @@ public class SpecialistDoctorProfileController implements Serializable {
 		String password = doctor.getPassword();
 		String repeatPassword = doctor.getRepeatPassword();
 		if (!StringUtils.isSameString(password, repeatPassword)) {
-			Messages.addWarnGlobalMessage("The passwords need to be equals");
+			Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 			this.clear();
 			return null;
 		}
 		if (!ejbSystemAdministration.addUser(doctor)) {
-			Messages.addErrorGlobalMessage("Error adding the specialist doctor");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000061"));
 		}
 		this.clear();
 		this.listAllSpecialistDoctors();
@@ -103,13 +104,13 @@ public class SpecialistDoctorProfileController implements Serializable {
 		if (password != null && !password.equals("")) {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
-				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 				this.clear();
 				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
-			Messages.addErrorGlobalMessage("Error updating the specialist doctor");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000062"));
 		}
 		this.clear();
 		this.listAllSpecialistDoctors();
@@ -118,7 +119,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 
 	public String deleteSpecialistDoctor() {
 		if (!ejbSystemAdministration.removeUser(this.doctor.getUsername())) {
-			Messages.addErrorGlobalMessage("Error deleting the specialist doctor");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000063"));
 		}
 		this.clear();
 		this.listAllSpecialistDoctors();
@@ -130,12 +131,12 @@ public class SpecialistDoctorProfileController implements Serializable {
 		if (password != null && !password.equals("")) {
 			String repeatPassword = doctor.getRepeatPassword();
 			if (!StringUtils.isSameString(password, repeatPassword)) {
-				Messages.addWarnGlobalMessage("The passwords need to be equals");
+				Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 				return null;
 			}
 		}
 		if (!ejbSystemAdministration.updateUser(doctor)) {
-			Messages.addErrorGlobalMessage("Error updating the specialist doctor");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000062"));
 		}
 		return null;
 	}
@@ -143,7 +144,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 	public String changeMedicalSpecialty(MedicalSpeciality medicalSpecialty) {
 		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty.getId());
 		if (updatedUser == null) {
-			Messages.addErrorGlobalMessage("Error changing the family doctor");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000064"));
 		}
 		this.clear();
 		this.listAllSpecialistDoctors();
@@ -153,7 +154,7 @@ public class SpecialistDoctorProfileController implements Serializable {
 	public String changeMedicalSpecialtyProfile(MedicalSpeciality medicalSpecialty) {
 		SpecialistDoctor updatedUser = ejb.changeMedicalSpecialty(doctor.getUsername(), medicalSpecialty.getId());
 		if (updatedUser == null) {
-			Messages.addErrorGlobalMessage("Error changing the medical specialty");
+			Messages.addWarnGlobalMessage(I18n.translate("profile.error.000064"));
 		} else {
 			SessionUtils.addUser(updatedUser);
 			doctor = updatedUser;

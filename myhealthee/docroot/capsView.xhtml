@@ -10,12 +10,14 @@
 	<ui:define name="content">
 		<!-- Title page -->
 		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-			<h1 class="h3 mb-0 text-gray-800">CAPs</h1>
+			<h1 class="h3 mb-0 text-gray-800">
+				<h:outputText value="#{msg['caps.title']}" />
+			</h1>
 			<h:form>
 				<h:commandLink actionListener="#{cap.openModal(operation.create)}"
 					styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 					<i class="fas fa-plus fa-sm text-white-50"></i>
-					<span>Add cap</span>
+					<span><h:outputText value="#{msg['caps.add']}" /></span>
 				</h:commandLink>
 			</h:form>
 		</div>
@@ -23,7 +25,8 @@
 		<!-- Messages -->
 		<p class="mb-4">
 			<h:messages globalOnly="true" style="text-align: left;"
-				errorStyle="color:red;" infoStyle="color:blue;" />
+				errorStyle="color:red;" infoStyle="color:blue;"
+				warnStyle="color: #ffc107;" />
 		</p>
 
 		<!-- Table -->
@@ -34,16 +37,17 @@
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operations</th>
-									<th>Name</th>
-									<th>Location</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['name']}" /></th>
+									<th><h:outputText value="#{msg['location']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Operations</th>
-									<th>Name</th>
-									<th>Location</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['name']}" /></th>
+									<th><h:outputText value="#{msg['location']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -54,25 +58,25 @@
 												<h:commandLink
 													actionListener="#{cap.openModal(operation.read, item)}"
 													styleClass="btn btn-sm btn-default shadow-sm mx-2"
-													title="Show">
+													title="#{msg['caps.modal.read.tilte']}">
 													<i class="fas fa-eye fa-sm fa-fw"></i>
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{cap.openModal(operation.update, item)}"
 													styleClass="btn btn-sm btn-info shadow-sm mx-2"
-													title="Update">
+													title="#{msg['caps.modal.update.tilte']}">
 													<i class="fas fa-pencil-alt fa-sm fa-fw"></i>
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{cap.openModal(operation.delete, item)}"
 													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
-													title="Delete">
+													title="#{msg['caps.modal.delete.tilte']}">
 													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
 												</h:commandLink>
 												<h:commandLink
-													actionListener="#{cap.openFamilyDoctorModal(item)}"
+													actionListener="#{cap.openFamilyDoctorByCapModal(item)}"
 													styleClass="btn btn-sm btn-success shadow-sm mx-2"
-													title="Show family doctors in this cap">
+													title="#{msg['caps.modal.familydoctors.read.tilte']}">
 													<i class="fas fa-user-md fa-sm fa-fw"></i>
 												</h:commandLink>
 											</div>
@@ -97,16 +101,16 @@
 						<div class="modal-header">
 							<h5 class="modal-title">
 								<c:if test="#{operation.isCreate(cap.mode)}">
-									<h:outputText value="Create Cap" />
+									<h:outputText value="#{msg['caps.modal.create.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isRead(cap.mode)}">
-									<h:outputText value="Show Cap" />
+									<h:outputText value="#{msg['caps.modal.read.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isUpdate(cap.mode)}">
-									<h:outputText value="Update Cap" />
+									<h:outputText value="#{msg['caps.modal.update.tilte']}" />
 								</c:if>
 								<c:if test="#{operation.isDelete(cap.mode)}">
-									<h:outputText value="Delete Cap" />
+									<h:outputText value="#{msg['caps.modal.delete.tilte']}" />
 								</c:if>
 							</h5>
 						</div>
@@ -114,16 +118,22 @@
 							<c:choose>
 								<c:when test="#{operation.isDelete(cap.mode)}">
 									<div class="form-group">
-										<h6 class="font-weight-bold">Are you sure?</h6>
-										<p>You won't be able to revert this!</p>
+										<h6 class="font-weight-bold">
+											<h:outputText value="#{msg['modal.delete.message']}" />
+										</h6>
+										<p>
+											<h:outputText value="#{msg['modal.delete.message2']}" />
+										</p>
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="form-group">
 										<h:inputText class="form-control"
 											disabled="#{operation.isDisabled(cap.mode)}" id="name"
-											a:placeholder="Name" value="#{cap.cap.name}"
-											requiredMessage="A name is required." required="true" />
+											value="#{cap.cap.name}"
+											a:placeholder="#{msg['caps.modal.placeholder.name']}"
+											requiredMessage="#{msg['caps.modal.required.name']}"
+											required="true" />
 										<div class="invalid-feedback d-block">
 											<h:message for="name" />
 										</div>
@@ -131,8 +141,10 @@
 									<div class="form-group">
 										<h:inputTextarea class="form-control"
 											disabled="#{operation.isRead(cap.mode)}" id="location"
-											a:placeholder="Location" value="#{cap.cap.location}"
-											requiredMessage="A location is required." required="true" />
+											value="#{cap.cap.location}"
+											a:placeholder="#{msg['caps.modal.placeholder.location']}"
+											requiredMessage="#{msg['caps.modal.required.location']}"
+											required="true" />
 										<div class="invalid-feedback d-block">
 											<h:message for="location" />
 										</div>
@@ -142,19 +154,20 @@
 						</div>
 						<div class="modal-footer">
 							<c:if test="#{operation.isCreate(cap.mode)}">
-								<h:commandButton value="Add" class="btn btn-primary"
+								<h:commandButton value="#{msg['add']}" class="btn btn-primary"
 									action="#{cap.addCAP}" />
 							</c:if>
 							<c:if test="#{operation.isUpdate(cap.mode)}">
-								<h:commandButton value="Update" class="btn btn-primary"
-									action="#{cap.updateCAP}" />
+								<h:commandButton value="#{msg['update']}"
+									class="btn btn-primary" action="#{cap.updateCAP}" />
 							</c:if>
 							<c:if test="#{operation.isDelete(cap.mode)}">
-								<h:commandButton value="Delete" class="btn btn-danger"
+								<h:commandButton value="#{msg['delete']}" class="btn btn-danger"
 									action="#{cap.deleteCAP}" />
 							</c:if>
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{cap.closeModal}" immediate="true" />
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary" action="#{cap.closeModal}"
+								immediate="true" />
 						</div>
 					</h:form>
 				</div>
@@ -168,20 +181,22 @@
 				<h:form>
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Family doctors by cap</h5>
+							<h5 class="modal-title">
+								<h:outputText value="#{msg['caps.modal.familydoctors.title']}" />
+							</h5>
 						</div>
 						<div class="modal-body">
 							<table class="datatable table table-bordered">
 								<thead>
 									<tr>
-										<th>Doctor Name</th>
-										<th>Number of users</th>
+										<th><h:outputText value="#{msg['doctor.name']}" /></th>
+										<th><h:outputText value="#{msg['numusers']}" /></th>
 									</tr>
 								</thead>
 								<tfoot>
 									<tr>
-										<th>Doctor Name</th>
-										<th>Number of users</th>
+										<th><h:outputText value="#{msg['doctor.name']}" /></th>
+										<th><h:outputText value="#{msg['numusers']}" /></th>
 									</tr>
 								</tfoot>
 								<tbody>
@@ -195,8 +210,9 @@
 							</table>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{cap.closeModal}" immediate="true" />
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary" action="#{cap.closeModal}"
+								immediate="true" />
 						</div>
 					</div>
 				</h:form>
@@ -207,8 +223,11 @@
 		<script>
 			(function($) {
 				$(function() {
-					$('.datatable').DataTable();
+					$('.datatable').DataTable({
+						responsive: true
+					});
 					$('.js-datatable').DataTable({
+						responsive: true,
 						"columnDefs": [
 							{ "orderable": false, "targets": 0 }
 						],

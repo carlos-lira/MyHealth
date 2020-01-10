@@ -14,6 +14,7 @@ import entity.imp.Administrator;
 import entity.imp.FamilyDoctor;
 import entity.imp.Patient;
 import entity.imp.SpecialistDoctor;
+import services.i18n.I18n;
 import utils.Messages;
 
 /**
@@ -46,7 +47,7 @@ public class RegisterController implements Serializable {
 	 * Register patient Action.
 	 */
 	public String registerPatient() {
-		return this.registerUser(patient, "Patient register sucessfully");
+		return this.registerUser(patient, I18n.translate("systemAdministration.info.000002"));
 	}
 
 	/**
@@ -55,7 +56,7 @@ public class RegisterController implements Serializable {
 	public String registerFamilyDoctor() {
 		FamilyDoctor familyDoctor = new FamilyDoctor();
 		familyDoctor.copy(doctor);
-		return this.registerUser(familyDoctor, "Family Doctor register sucessfully");
+		return this.registerUser(familyDoctor, I18n.translate("systemAdministration.info.000003"));
 	}
 
 	/**
@@ -64,14 +65,14 @@ public class RegisterController implements Serializable {
 	public String registerSpecialistDoctor() {
 		SpecialistDoctor specialistDoctor = new SpecialistDoctor();
 		specialistDoctor.copy(doctor);
-		return this.registerUser(specialistDoctor, "Specialist Doctor register sucessfully");
+		return this.registerUser(specialistDoctor, I18n.translate("systemAdministration.info.000004"));
 	}
 
 	/**
 	 * Register Administrator Action.
 	 */
 	public String registerAdministrator() {
-		return this.registerUser(administrator, "Administrator register sucessfully");
+		return this.registerUser(administrator, I18n.translate("systemAdministration.info.000005"));
 	}
 
 	// PRIVATE METHODS
@@ -84,7 +85,7 @@ public class RegisterController implements Serializable {
 	private String registerUser(User u, String sucessfulMessage) {
 		// Check if the password are the same
 		if (!isSamePassword(u)) {
-			Messages.addWarnGlobalMessage("The passwords need to be equals");
+			Messages.addWarnGlobalMessage(I18n.translate("gobal.error.100000"));
 			return null;
 		}
 		// Try to add the user.
@@ -92,7 +93,6 @@ public class RegisterController implements Serializable {
 			Messages.addInfoMessage(sucessfulMessage);
 			return "loginView";
 		}
-		Messages.addErrorGlobalMessage("The passwords need to be equals");
 		return null;
 	}
 

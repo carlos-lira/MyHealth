@@ -81,6 +81,7 @@ public class LanguageBean implements Serializable {
 			if (l.getLanguage().equals(language) && l.getCountry().equals(country)) {
 				Locale newLocale = new Locale(language, country);
 				SessionUtils.getContext().getViewRoot().setLocale(newLocale);
+				this.locale = newLocale;
 				break;
 			}
 		}

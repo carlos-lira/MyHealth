@@ -13,6 +13,7 @@ import entity.enums.QuestionStatus;
 import entity.imp.Patient;
 import entity.imp.Question;
 import services.crud.Operation;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 
@@ -48,7 +49,7 @@ public class PatientQuestionController implements Serializable {
 	// MODAL ACTIONS
 	public String openModal(Operation operation) {
 		if (patient.getFamilyDoctor() == null) {
-			Messages.addErrorGlobalMessage("To ask a question you need to have a family doctor associated.");
+			Messages.addErrorGlobalMessage(I18n.translate("medicalTest.error.000001"));
 			return null;
 		}
 		this.mode = operation;

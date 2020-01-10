@@ -31,6 +31,7 @@ public class FamilyDoctorMedicalTestController implements Serializable {
 	private Operation mode;
 	private FamilyDoctor doctor;
 	private MedicalTest medicalTest;
+	private String highResImageBase64;
 	private List<MedicalTest> listMedicalTests;
 
 	@PostConstruct
@@ -43,6 +44,7 @@ public class FamilyDoctorMedicalTestController implements Serializable {
 	public String openModal(Operation operation, MedicalTest medicalTest) {
 		this.mode = operation;
 		this.medicalTest = medicalTest;
+		this.loadHighResImageBase64();
 		return null;
 	}
 
@@ -61,6 +63,10 @@ public class FamilyDoctorMedicalTestController implements Serializable {
 		this.listMedicalTests = (List<MedicalTest>) ejb
 				.listAllMedicalTestsPatientByFamilyDoctor(this.doctor.getUsername());
 	}
+	
+	private void loadHighResImageBase64() {
+		this.highResImageBase64 = ejb.loadHighResImageBase64(this.medicalTest.getId());
+	}
 
 	// Getters & Setters
 	public Operation getMode() {
@@ -69,6 +75,10 @@ public class FamilyDoctorMedicalTestController implements Serializable {
 
 	public MedicalTest getMedicalTest() {
 		return medicalTest;
+	}
+	
+	public String getHighResImageBase64() {
+		return highResImageBase64;
 	}
 
 	public List<MedicalTest> getListMedicalTests() {

@@ -20,6 +20,7 @@ import entity.imp.MedicalTest;
 import entity.imp.Patient;
 import entity.imp.SpecialistDoctor;
 import services.crud.Operation;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 
@@ -101,7 +102,7 @@ public class SpecialistDoctorMedicalTestController implements Serializable {
 			}
 			medicalTest.setHighResImage(buffer.toByteArray());
 		} catch (IOException e) {
-			Messages.addErrorGlobalMessage("The image was imposible to upload, please try again");
+			Messages.addErrorGlobalMessage(I18n.translate("medicalTest.error.000002"));
 			return null;
 		} finally {
 			if (is != null)

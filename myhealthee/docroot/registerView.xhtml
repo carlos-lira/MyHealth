@@ -13,18 +13,23 @@
 	<!-- Content -->
 	<ui:define name="content">
 		<div class="text-center">
-			<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+			<h1 class="h4 text-gray-900 mb-4">
+				<h:outputText value="#{msg['register.title']}" />
+			</h1>
 			<h:messages globalOnly="true" style="text-align: left;"
 				errorStyle="color:red;" infoStyle="color:blue;"
-				warnStyle="color: orange;" />
+				warnStyle="color: #ffc107;" />
 		</div>
 		<ul class="nav nav-tabs">
 			<li class="nav-item" style="font-size: 0.8rem;"><a
-				class="nav-link active" data-toggle="tab" href="#registerPatient">Patient</a></li>
+				class="nav-link active" data-toggle="tab" href="#registerPatient"><h:outputText
+						value="#{msg['register.tabs.patient']}" /></a></li>
 			<li class="nav-item" style="font-size: 0.8rem;"><a
-				class="nav-link" data-toggle="tab" href="#registerFamilyDoctor">Doctor</a></li>
+				class="nav-link" data-toggle="tab" href="#registerFamilyDoctor"><h:outputText
+						value="#{msg['register.tabs.doctor']}" /></a></li>
 			<li class="nav-item" style="font-size: 0.8rem;"><a
-				class="nav-link" data-toggle="tab" href="#registerAdministrator">Administrator</a></li>
+				class="nav-link" data-toggle="tab" href="#registerAdministrator"><h:outputText
+						value="#{msg['register.tabs.administrator']}" /></a></li>
 		</ul>
 		<div class="tab-content">
 			<div class="tab-pane active" id="registerPatient">
@@ -39,18 +44,19 @@
 		</div>
 		<hr />
 		<div class="text-center">
-			<h:link value="Forgot Password?" class="small"
+			<h:link value="#{msg['login.forgotPassword']}" class="small"
 				outcome="forgotPasswordView" />
 		</div>
 		<div class="text-center">
-			<h:link value="Already have an account? Login!" class="small"
+			<h:link value="#{msg['login.login']}" class="small"
 				outcome="loginView" />
 		</div>
 		<script>
 			(function($) {
 				$(function() {
-					$("body > .container > .row > div").removeClass("col-xl-10").addClass("col-xl-12");
-					
+					$("body > .container > .row > div")
+							.removeClass("col-xl-10").addClass("col-xl-12");
+
 					// Tabs state using session storage.
 					$("ul.nav-tabs > li > a").click(function(e) {
 						e.preventDefault();
@@ -61,7 +67,8 @@
 					// on load of the page: switch to the currently selected tab
 					const hash = sessionStorage.getItem('tab');
 					if (hash) {
-						$('ul.nav-tabs > li > a[href="' + hash + '"]').tab('show');
+						$('ul.nav-tabs > li > a[href="' + hash + '"]').tab(
+								'show');
 					}
 				});
 			})(jQuery);

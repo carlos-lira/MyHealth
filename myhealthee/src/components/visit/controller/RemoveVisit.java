@@ -8,21 +8,23 @@ import javax.inject.Named;
 
 import components.visit.dao.VisitFacadeRemote;
 
+/**
+ * Remove visit managed bean.
+ * 
+ * @author clira
+ * @author adlo
+ */
 @Named("removevisit")
 @RequestScoped
 public class RemoveVisit implements Serializable {
-
 	private static final long serialVersionUID = 7898448825101388023L;
 
 	@EJB
 	private VisitFacadeRemote ejb;
 
-	public void removeVisit(long visitId) throws Exception {
-		try {
-			ejb.removeVisit(visitId);
-		} catch (Exception e) {
-			// System.out.println("Error");
-		}
+	// ACTIONS
+	public void removeVisit(long visitId) {
+		ejb.removeVisit(visitId);
 	}
 
 }

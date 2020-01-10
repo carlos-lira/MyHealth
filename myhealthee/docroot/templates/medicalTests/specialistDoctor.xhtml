@@ -14,26 +14,27 @@
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operations</th>
-									<th>Date</th>
-									<th>Time</th>
-									<th>Type</th>
-									<th>Result</th>
-									<th>Patient nif</th>
-									<th>Patient name</th>
-									<th>Patient surnames</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+									<th><h:outputText value="#{msg['type']}" /></th>
+									<th><h:outputText value="#{msg['result']}" /></th>
+									<th><h:outputText value="#{msg['patient.nif']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Operations</th>
-									<th>Date</th>
-									<th>Time</th>
-									<th>Type</th>
-									<th>Result</th>
-									<th>Patient nif</th>
-									<th>Patient name</th>
-									<th>Patient surnames</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['date']}" /></th>
+									<th><h:outputText value="#{msg['time']}" /></th>
+									<th><h:outputText value="#{msg['type']}" /></th>
+									<th><h:outputText value="#{msg['result']}" /></th>
+									<th><h:outputText value="#{msg['patient.nif']}" /></th>
+									<th><h:outputText value="#{msg['patient.name']}" /></th>
+									<th><h:outputText value="#{msg['patient.surnames']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -45,20 +46,20 @@
 												<h:commandLink
 													actionListener="#{specialistDoctorMedicalTest.openModal(operation.read, item)}"
 													styleClass="btn btn-sm btn-default shadow-sm mx-2"
-													title="Show">
+													title="#{msg['medicaltest.modal.read.tilte']}">
 													<i class="fas fa-eye fa-sm fa-fw"></i>
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{specialistDoctorMedicalTest.openModal(operation.delete, item)}"
 													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
-													title="Delete">
+													title="#{msg['medicaltest.modal.delete.tilte']}">
 													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
 												</h:commandLink>
 												<h:commandLink
 													actionListener="#{specialistDoctorMedicalTest.openModal(operation.update, item)}"
 													rendered="#{item.testType == 'MAGNETIC_RESONANCE_IMAGING'}"
 													styleClass="btn btn-sm btn-success shadow-sm mx-2"
-													title="Update image">
+													title="#{msg['medicaltest.modal.update.tilte']}">
 													<i class="fas fa-image fa-sm fa-fw"></i>
 												</h:commandLink>
 											</div>
@@ -96,15 +97,16 @@
 							<h5 class="modal-title">
 								<c:if
 									test="#{operation.isRead(specialistDoctorMedicalTest.mode)}">
-									<h:outputText value="Show Medical Test" />
+									<h:outputText value="#{msg['medicaltest.modal.read.tilte']}" />
 								</c:if>
 								<c:if
 									test="#{operation.isUpdate(specialistDoctorMedicalTest.mode)}">
-									<h:outputText value="Update image Medical Test" />
+									<h:outputText
+										value="#{msg['medicaltest.modal.update.image.tilte']}" />
 								</c:if>
 								<c:if
 									test="#{operation.isDelete(specialistDoctorMedicalTest.mode)}">
-									<h:outputText value="Delete Medical Test" />
+									<h:outputText value="#{msg['medicaltest.modal.delete.tilte']}" />
 								</c:if>
 							</h5>
 						</div>
@@ -113,15 +115,19 @@
 								<c:when
 									test="#{operation.isDelete(specialistDoctorMedicalTest.mode)}">
 									<div class="form-group">
-										<h6 class="font-weight-bold">Are you sure?</h6>
-										<p>You won't be able to revert this!</p>
+										<h6 class="font-weight-bold">
+											<h:outputText value="#{msg['modal.delete.message']}" />
+										</h6>
+										<p>
+											<h:outputText value="#{msg['modal.delete.message2']}" />
+										</p>
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="form-group row">
 										<div class="col-sm-6 mb-sm-0">
 											<h:inputText class="form-control" a:type="date"
-												a:placeholder="Date"
+												a:placeholder="#{msg['date']}"
 												value="#{specialistDoctorMedicalTest.medicalTest.date}"
 												disabled="true" readonly="true">
 												<f:convertDateTime pattern="yyyy-MM-dd" />
@@ -129,7 +135,7 @@
 										</div>
 										<div class="col-sm-6">
 											<h:inputText class="form-control" a:type="time" a:step="900"
-												a:placeholder="Time"
+												a:placeholder="#{msg['time']}"
 												value="#{specialistDoctorMedicalTest.medicalTest.time}"
 												disabled="true" readonly="true">
 												<f:convertDateTime pattern="HH:mm" />
@@ -138,14 +144,16 @@
 									</div>
 									<div class="form-group row">
 										<div class="col-sm-12">
-											<h:inputText class="form-control" a:placeholder="Test type"
+											<h:inputText class="form-control"
+												a:placeholder="#{msg['medicaltest.modal.placeholder.testType']}"
 												value="#{specialistDoctorMedicalTest.medicalTest.testType}"
 												disabled="true" readonly="true" />
 										</div>
 									</div>
 									<div class="form-group row">
 										<div class="col-sm-12">
-											<h:inputText class="form-control" a:placeholder="Result"
+											<h:inputText class="form-control"
+												a:placeholder="#{msg['medicaltest.modal.placeholder.result']}"
 												value="#{specialistDoctorMedicalTest.medicalTest.result}"
 												disabled="true" readonly="true" />
 										</div>
@@ -157,7 +165,7 @@
 											<div class="col-sm-12">
 												<h:inputFile class="form-control"
 													id="add-medicalTest-highResImage"
-													a:placeholder="High res image"
+													a:placeholder="#{msg['hiResImage']}"
 													value="#{specialistDoctorMedicalTest.highResImage}" />
 												<div class="invalid-feedback d-block">
 													<h:message for="add-medicalTest-highResImage" />
@@ -167,22 +175,25 @@
 										<c:if
 											test="#{specialistDoctorMedicalTest.highResImageBase64 != null}">
 											<div class="col-sm-12 mt-4">
-												<div>Image:</div>
+												<div>
+													<h:outputText value="#{msg['image']}" />
+													<span>:</span>
+												</div>
 												<img class="img-fluid"
 													src="#{specialistDoctorMedicalTest.highResImageBase64}" />
 												<div>
 													<a href="#{specialistDoctorMedicalTest.highResImageBase64}"
 														class="btn btn-success btn-sm" download="highResImage.png">
-														<span>Download</span>
+														<span><h:outputText value="#{msg['download']}" /></span>
 													</a>
 													<c:if
 														test="#{operation.isUpdate(specialistDoctorMedicalTest.mode)}">
-														<h:commandButton value="Remove Image"
+														<h:commandButton
+															value="#{msg['medicaltest.modal.remove.image']}"
 															class="btn btn-danger btn-sm ml-2"
 															action="#{specialistDoctorMedicalTest.removeImage}" />
 													</c:if>
 												</div>
-
 											</div>
 										</c:if>
 									</div>
@@ -192,15 +203,17 @@
 						<div class="modal-footer">
 							<c:if
 								test="#{operation.isUpdate(specialistDoctorMedicalTest.mode)}">
-								<h:commandButton value="Update" class="btn btn-primary"
+								<h:commandButton value="#{msg['update']}"
+									class="btn btn-primary"
 									action="#{specialistDoctorMedicalTest.updateImage}" />
 							</c:if>
 							<c:if
 								test="#{operation.isDelete(specialistDoctorMedicalTest.mode)}">
-								<h:commandButton value="Delete" class="btn btn-danger"
+								<h:commandButton value="#{msg['delete']}" class="btn btn-danger"
 									action="#{specialistDoctorMedicalTest.deleteMedicalTest}" />
 							</c:if>
-							<h:commandButton value="Close" class="btn btn-secondary"
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary"
 								action="#{specialistDoctorMedicalTest.closeModal}"
 								immediate="true" />
 						</div>

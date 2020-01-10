@@ -15,20 +15,21 @@
 						<table class="js-datatable table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 10%;">Operations</th>
-									<th>Status</th>
-									<th>Title</th>
-									<th>Message</th>
-									<th>Answer</th>
+									<th style="width: 10%;"><h:outputText
+											value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['status']}" /></th>
+									<th><h:outputText value="#{msg['title']}" /></th>
+									<th><h:outputText value="#{msg['message']}" /></th>
+									<th><h:outputText value="#{msg['answer']}" /></th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Operations</th>
-									<th>Status</th>
-									<th>Title</th>
-									<th>Message</th>
-									<th>Answer</th>
+									<th><h:outputText value="#{msg['operations']}" /></th>
+									<th><h:outputText value="#{msg['status']}" /></th>
+									<th><h:outputText value="#{msg['title']}" /></th>
+									<th><h:outputText value="#{msg['message']}" /></th>
+									<th><h:outputText value="#{msg['answer']}" /></th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -41,7 +42,7 @@
 													actionListener="#{administratorQuestion.openModal(operation.delete, item)}"
 													rendered="#{item.response != null}"
 													styleClass="btn btn-sm btn-danger shadow-sm mx-2"
-													title="Delete">
+													title="#{msg['questions.modal.delete.tilte']}">
 													<i class="fas fa-trash-alt fa-sm fa-fw"></i>
 												</h:commandLink>
 											</div>
@@ -70,19 +71,24 @@
 					<h:form>
 						<div class="modal-header">
 							<h5 class="modal-title">
-								<h:outputText value="Delete Cap" />
+								<h:outputText value="#{msg['questions.modal.delete.tilte']}" />
 							</h5>
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<h6 class="font-weight-bold">Are you sure?</h6>
-								<p>You won't be able to revert this!</p>
+								<h6 class="font-weight-bold">
+									<h:outputText value="#{msg['modal.delete.message']}" />
+								</h6>
+								<p>
+									<h:outputText value="#{msg['modal.delete.message2']}" />
+								</p>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Delete" class="btn btn-danger"
+							<h:commandButton value="#{msg['delete']}" class="btn btn-danger"
 								action="#{administratorQuestion.deleteQuestion}" />
-							<h:commandButton value="Close" class="btn btn-secondary"
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary"
 								action="#{administratorQuestion.closeModal}" immediate="true" />
 						</div>
 					</h:form>

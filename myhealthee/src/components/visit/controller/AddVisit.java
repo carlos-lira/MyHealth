@@ -15,13 +15,19 @@ import javax.inject.Named;
 import components.visit.dao.VisitFacadeRemote;
 import entity.imp.FamilyDoctor;
 import entity.imp.Patient;
+import services.i18n.I18n;
 import utils.Messages;
 import utils.SessionUtils;
 
+/**
+ * Add visit managed bean.
+ * 
+ * @author clira
+ * @author adlo
+ */
 @Named("addvisit")
 @RequestScoped
 public class AddVisit implements Serializable {
-
 	private static final long serialVersionUID = 7142264007283605670L;
 
 	@EJB
@@ -42,8 +48,7 @@ public class AddVisit implements Serializable {
 			Date d = concatDateTime();
 
 			if (visitPriorToCurrentTime(d)) {
-				Messages.addErrorGlobalMessage(
-						"La visita que desea reservar ya ha pasado. Por favor introduzca una fecha posterior.");
+				Messages.addErrorGlobalMessage(I18n.translate("visit.error.000001"));
 				return null;
 			} else {
 				if (ejb.visitAvailable(doctor, concatDateTime())) {
@@ -54,16 +59,13 @@ public class AddVisit implements Serializable {
 					Date nextAppointment = ejb.nextAvailableAppointment(doctor, d);
 					String dateToPrint = SDF_DATE.format(nextAppointment);
 					String hourToPrint = SDF_TIME.format(nextAppointment);
-					Messages.addInfoGlobalMessage(
-							"El doctor " + doctor.getSurnames() + " no tiene visita disponible a esa hora.");
-					Messages.addInfoGlobalMessage(
-							"La siguiente hora disponible es a las " + hourToPrint + " el dia " + dateToPrint);
+					Messages.addInfoGlobalMessage(I18n.translate("visit.info.000001", doctor.getSurnames()));
+					Messages.addInfoGlobalMessage(I18n.translate("visit.info.000002",hourToPrint,dateToPrint));
 					return null;
 				}
 			}
 		} catch (Exception e) {
-			Messages.addErrorGlobalMessage(
-					"No tiene un medico de cabecera asignado. Por favor, seleccione su médico de cabecera desde su perfil.");
+			Messages.addErrorGlobalMessage(I18n.translate("visit.error.000002"));
 			return null;
 		}
 	}

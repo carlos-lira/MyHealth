@@ -13,7 +13,7 @@
 				actionListener="#{patientQuestion.openModal(operation.create)}"
 				styleClass="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4">
 				<i class="fas fa-comment-dots fa-sm text-white-50" />
-				<span>Ask question</span>
+				<span><h:outputText value="#{msg['questions.ask']}" /></span>
 			</h:commandLink>
 		</h:form>
 	</div>
@@ -23,21 +23,23 @@
 		<div class="card shadow">
 			<a href="#pendingQuestions" class="d-block card-header py-3"
 				data-toggle="collapse">
-				<h6 class="m-0 font-weight-bold text-primary">Pending questions</h6>
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText value="#{msg['questions.pending']}" />
+				</h6>
 			</a>
 			<div id="pendingQuestions" class="collapse show">
 				<div class="card-body">
 					<table class="js-datatable table table-bordered">
 						<thead>
 							<tr>
-								<th>Title</th>
-								<th>Message</th>
+								<th><h:outputText value="#{msg['title']}" /></th>
+								<th><h:outputText value="#{msg['message']}" /></th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>Title</th>
-								<th>Message</th>
+								<th><h:outputText value="#{msg['title']}" /></th>
+								<th><h:outputText value="#{msg['message']}" /></th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -60,24 +62,25 @@
 		<div class="card shadow">
 			<a href="#answeredQuestions" class="d-block card-header py-3"
 				data-toggle="collapse">
-				<h6 class="m-0 font-weight-bold text-primary">Answered
-					questions</h6>
+				<h6 class="m-0 font-weight-bold text-primary">
+					<h:outputText value="#{msg['questions.answered']}" />
+				</h6>
 			</a>
 			<div id="answeredQuestions" class="collapse show">
 				<div class="card-body">
 					<table class="js-datatable table table-bordered">
 						<thead>
 							<tr>
-								<th>Title</th>
-								<th>Message</th>
-								<th>Answer</th>
+								<th><h:outputText value="#{msg['title']}" /></th>
+								<th><h:outputText value="#{msg['message']}" /></th>
+								<th><h:outputText value="#{msg['answer']}" /></th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>Title</th>
-								<th>Message</th>
-								<th>Answer</th>
+								<th><h:outputText value="#{msg['title']}" /></th>
+								<th><h:outputText value="#{msg['message']}" /></th>
+								<th><h:outputText value="#{msg['answer']}" /></th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -104,24 +107,27 @@
 				<div class="modal-content">
 					<h:form>
 						<div class="modal-header">
-							<h5 class="modal-title">Ask question</h5>
+							<h5 class="modal-title">
+								<h:outputText value="#{msg['questions.modal.create.tilte']}" />
+							</h5>
 						</div>
 						<div class="modal-body">
 							<div class="form-group row">
 								<div class="col-sm-12 mb-4">
 									<h:inputText class="form-control" id="add_question-title"
-										a:placeholder="Title"
 										value="#{patientQuestion.question.title}"
-										requiredMessage="The title field is required." required="true" />
+										a:placeholder="#{msg['questions.placeholder.title']}"
+										requiredMessage="#{msg['questions.required.title']}"
+										required="true" />
 									<div class="invalid-feedback d-block">
 										<h:message for="add_question-title" />
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<h:inputTextarea class="form-control" id="add_question-message"
-										a:placeholder="Message"
 										value="#{patientQuestion.question.message}"
-										requiredMessage="The message field is required."
+										a:placeholder="#{msg['questions.placeholder.message']}"
+										requiredMessage="#{msg['questions.required.message']}"
 										required="true" />
 									<div class="invalid-feedback d-block">
 										<h:message for="add_question-message" />
@@ -130,10 +136,11 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<h:commandButton value="Ask" class="btn btn-primary"
-								action="#{patientQuestion.askQuestion}" />
-							<h:commandButton value="Close" class="btn btn-secondary"
-								action="#{patientQuestion.closeModal}" immediate="true" />
+							<h:commandButton value="#{msg['questions.ask']}"
+								class="btn btn-primary" action="#{patientQuestion.askQuestion}" />
+							<h:commandButton value="#{msg['close']}"
+								class="btn btn-secondary" action="#{patientQuestion.closeModal}"
+								immediate="true" />
 						</div>
 					</h:form>
 				</div>
