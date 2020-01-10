@@ -9,34 +9,35 @@
 	<ui:define name="content">
 		<h:form>
 			<h:outputText value="#{msg['doctor']}" />
-			<span>:</span>
+			<span>: </span>
 			<h:outputText
 				value="#{showvisit.visit.familyDoctor.name} #{showvisit.visit.familyDoctor.surnames}" />
 			<br />
 			<h:outputText value="#{msg['patient']}" />
-			<span>:</span>
+			<span>: </span>
 			<h:outputText
 				value="#{showvisit.visit.patient.name} #{showvisit.visit.patient.surnames}" />
 			<br />
 			<h:outputText value="#{msg['date']}" />
-			<span>:</span>
+			<span>: </span>
 			<h:outputText value="#{showvisit.visit.date}">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:outputText>
 			<br />
 			<h:outputText value="#{msg['time']}" />
-			<span>:</span>
+			<span>: </span>
 			<h:outputText value="#{showvisit.visit.date}">
 				<f:convertDateTime type="time" timeStyle="short" />
 			</h:outputText>
 			<br />
 			<h:outputText value="#{msg['observations']}" />
-			<span>:</span>
+			<span>: </span>
 			<h:outputText value="#{showvisit.visit.observations}" />
 			<br />
 			<h:outputText value="#{msg['result']}" />
-			<span>:</span>
+			<span>: </span>
 			<h:outputText value="#{showvisit.visit.result}" />
+			<br />
 			<br />
 			<h:commandButton value="#{msg['back']}" type="submit"
 				action="#{showvisit.backToVisits}" />
